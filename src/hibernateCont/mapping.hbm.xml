@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="hibernateCont.SonderwuenscheAussenanlagen" table="sonderwuensche_aussenanlagen" schema="hmwdh">
+        <id name="id" column="id" type="int">
+             <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_aussenanlagen" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="hibernateCont.Haustyp" table="haustyp" schema="hmwdh">
+        <id name="id" column="id">
+            <generator class="increment" />
+        </id>
+        <property name="dachgeschoss" column="dachgeschoss"/>
+        <set name="kunden" inverse="true" cascade="all">
+            <key column="id" not-null="true" />
+            <one-to-many class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="hibernateCont.Kunde" table="kunde" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="vorname" column="vorname" type="string"/>
+        <property name="nachname" column="nachname" type="string"/>
+        <property name="telefonNummer" column="telefonNummer" type="string"/>
+        <property name="email" column="email" type="string"/>
+        <property name="deleted" column="deleted" type="byte"/>
+        <many-to-one name="haustyp" class="hibernateCont.Haustyp" column="haustyp_id" not-null="true" />
+        <set name="sonderwuenscheAussenanlagen" table="kunde_sonderwuensche_aussenanlagen" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheAussenanlagen" />
+        </set>
+    </class>
+
+</hibernate-mapping>
