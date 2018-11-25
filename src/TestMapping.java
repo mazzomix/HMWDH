@@ -1,16 +1,12 @@
-import hibernateCont.Haustyp;
-import hibernateCont.HibernateUtil;
-import hibernateCont.Kunde;
-import hibernateCont.SonderwuenscheAussenanlagen;
+import HibernateCont.HibernateUtil;
+import HibernateCont.Kunde;
+import HibernateCont.SonderwuenscheAussenanlagen;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class TestMapping {
 
-        public static void main(String[] args) {
+        /*public static void main(String[] args) {
 
             SessionFactory factory = null;
             try {
@@ -48,5 +44,5 @@ public class TestMapping {
                 session.close();
                 factory.close();
             }
-    }
+    }*/
 }

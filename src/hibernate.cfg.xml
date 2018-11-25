@@ -14,7 +14,7 @@
         <!-- DB schema will be updated if needed -->
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping resource="hibernateCont/mapping.hbm.xml"/>
+        <mapping resource="HibernateCont/mapping.hbm.xml"/>
 
     </session-factory>
 </hibernate-configuration>

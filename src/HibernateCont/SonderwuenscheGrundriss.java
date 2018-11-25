@@ -1,4 +1,4 @@
-package hibernateCont;
+package HibernateCont;
 
 import java.util.HashSet;
 import java.util.Set;

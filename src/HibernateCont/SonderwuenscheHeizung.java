@@ -1,19 +1,19 @@
-package hibernateCont;
+package HibernateCont;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class SonderwuenscheFensterAussentueren {
+public class SonderwuenscheHeizung {
     private Integer id;
     private String wunsch;
     private Double preis;
 
     private Set<Kunde> kunden = new HashSet<>();
 
-    public SonderwuenscheFensterAussentueren() {
+    public SonderwuenscheHeizung() {
     }
 
-    public SonderwuenscheFensterAussentueren(String wunsch, Double preis) {
+    public SonderwuenscheHeizung(String wunsch, Double preis) {
         this.wunsch = wunsch;
         this.preis = preis;
     }
