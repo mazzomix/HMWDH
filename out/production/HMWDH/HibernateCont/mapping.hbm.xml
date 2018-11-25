@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="HibernateCont.SonderwuenscheAussenanlagen" table="sonderwuensche_aussenanlagen" schema="hmwdh">
+        <id name="id" column="id" type="int">
+             <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_aussenanlagen" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.SonderwuenscheFensterAussentueren" table="sonderwuensche_fenster_aussentueren" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_aussenanlagen" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.SonderwuenscheFliesen" table="sonderwuensche_fliesen" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_fliesen" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.SonderwuenscheGrundriss" table="sonderwuensche_grundriss" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_grundriss" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.SonderwuenscheHeizung" table="sonderwuensche_heizung" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_heizung" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.SonderwuenscheInnentueren" table="sonderwuensche_innentueren" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_innentueren" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.SonderwuenscheParkett" table="sonderwuensche_parkett" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_parkett" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.SonderwuenscheSanitaerinstallation" table="sonderwuensche_sanitaerinstallation" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_sanitaerinstallation" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.Haustyp" table="haustyp" schema="hmwdh">
+        <id name="id" column="id">
+            <generator class="increment" />
+        </id>
+        <property name="dachgeschoss" column="dachgeschoss"/>
+        <set name="kunden" inverse="true" cascade="all">
+            <key column="id" not-null="true" />
+            <one-to-many class="HibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="HibernateCont.Kunde" table="kunde" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="vorname" column="vorname" type="string"/>
+        <property name="nachname" column="nachname" type="string"/>
+        <property name="telefonNummer" column="telefonNummer" type="string"/>
+        <property name="email" column="email" type="string"/>
+        <property name="deleted" column="deleted" type="byte"/>
+        <many-to-one name="haustyp" class="HibernateCont.Haustyp" column="haustyp_id" not-null="true" />
+        <set name="sonderwuenscheAussenanlagen" table="kunde_sonderwuensche_aussenanlagen" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheAussenanlagen" />
+        </set>
+        <set name="sonderwuenscheFensterAussentueren" table="kunde_sonderwuensche_fenster_aussentueren" cascade="save-update">
+            <key column="kunden_id"/>
+            <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheFensterAussentueren" />
+        </set>
+        <set name="sonderwuenscheFliesen" table="kunde_sonderwuensche_fliesen" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheFliesen" />
+        </set>
+        <set name="sonderwuenscheGrundriss" table="kunde_sonderwuensche_grundriss" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheGrundriss" />
+        </set>
+        <set name="sonderwuenscheHeizung" table="kunde_sonderwuensche_heizung" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheHeizung" />
+        </set>
+        <set name="sonderwuenscheInnentueren" table="kunde_sonderwuensche_innentueren" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheInnentueren" />
+        </set>
+        <set name="sonderwuenscheParkett" table="kunde_sonderwuensche_parkett" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheParkett" />
+        </set>
+        <set name="sonderwuenscheSanitaerinstallation" table="kunde_sonderwuensche_sanitaerinstallation" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheSanitaerinstallation" />
+        </set>
+    </class>
+
+</hibernate-mapping>

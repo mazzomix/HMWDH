@@ -4,6 +4,11 @@ import Business.Kunde.Kunde;
 import Business.Kunde.KundeModel;
 import Gui.Grundriss.GrundrissControl;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class KundeControl {
 
     // das View-Objekt des Grundfensters
@@ -12,6 +17,9 @@ public class KundeControl {
     private KundeModel kundeModel;
     // das GrundrissControl-Objekt zum Kunden
     private GrundrissControl grundrissControl;
+    private Connection cn;
+    private Statement st;
+    private ResultSet rs;
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Grundfenster und
@@ -35,7 +43,10 @@ public class KundeControl {
 
     public void speichereKunden(Kunde kunde){
         try{
-            kundeModel.speichereKunden(kunde);
+            //cn = DriverManager.getConnection( "jdbc:mysql://localhost", "root", "hmwdh1234" );
+            //kundeModel.speichereKunden(kunde);
+            //st = cn.createStatement();
+            st.executeQuery( "SELECT * FROM kunde");
         }
         catch(Exception exc){
             exc.printStackTrace();
