@@ -1,7 +1,5 @@
 package Gui.Basis;
 
-import Business.Kunde.KundeModel;
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -20,13 +18,10 @@ public abstract class BasisView extends JFrame {
     private JMenuBar mnBar 			 = new JMenuBar();
     //-------Ende Attribute der grafischen Oberflaeche-------
 
-    private KundeModel kundeModel;
-
     /**
      * erzeugt ein BasisView-Objekt
      */
-    public BasisView (KundeModel kundeModel){
-        this.kundeModel = kundeModel;
+    public BasisView (){
         this.setSize(550,400);
         this.setLayout(null);
         this.setLocation(400, 200);

@@ -2,8 +2,6 @@ package Gui.Grundriss;
 
 import Gui.Basis.BasisView;
 import javax.swing.*;
-import Business.Kunde.KundeModel;
-
 
 /**
  * Klasse, welche das Fenster mit den Sonderwuenschen zu
@@ -28,10 +26,8 @@ public class GrundrissView extends BasisView{
      * erzeugt ein GrundrissView-Objekt, belegt das zugehoerige Model und Control
      * mit den vorgegebenen Objekten und initialisiert die Steuerelemente der Maske
      * @param grundrissControl GrundrissControl, enthaelt das zugehoerige Control
-     * @param grundrissModel GrundrissModel, enthaelt das zugehoerige Model
      */
-    public GrundrissView (GrundrissControl grundrissControl, KundeModel kundeModel){
-        super(kundeModel);
+    public GrundrissView (GrundrissControl grundrissControl){
         this.grundrissControl = grundrissControl;
         this.setTitle("Sonderwünsche zu Grundriss-Varianten");
         this.initKomponenten();

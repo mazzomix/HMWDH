@@ -1,5 +1,4 @@
 package Gui.Grundriss;
-import Business.Kunde.KundeModel;
 /**
  * Klasse, welche das Fenster mit den Sonderwuenschen zu den Grundriss-Varianten
  * kontrolliert.
@@ -13,8 +12,8 @@ public final class GrundrissControl {
      * erzeugt ein das View-Objekt und Model-Objekt zum Grundriss-Fenster und
      * oeffnet das View.
      */
-    public GrundrissControl(KundeModel kundeModel){
-        this.grundrissView = new GrundrissView(this, kundeModel);
+    public GrundrissControl(){
+        this.grundrissView = new GrundrissView(this);
     }
 
     /**

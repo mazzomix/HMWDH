@@ -1,15 +1,17 @@
 package Gui.Kunde;
 
-import Business.Kunde.Kunde;
-import Business.Kunde.KundeModel;
 import Gui.Grundriss.GrundrissControl;
+import HibernateCont.Haustyp;
+import HibernateCont.HibernateUtil;
+import HibernateCont.Kunde;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import javax.swing.JOptionPane;
 public class KundeControl {
 
     // das View-Objekt des Grundfensters
     private KundeView kundeView;
-    // das Model-Objekt des Grundfensters
-    private KundeModel kundeModel;
     // das GrundrissControl-Objekt zum Kunden
     private GrundrissControl grundrissControl;
 
@@ -18,8 +20,7 @@ public class KundeControl {
      * oeffnet das View.
      */
     public KundeControl() {
-        this.kundeModel = KundeModel.getInstance();
-        this.kundeView = new KundeView(this, kundeModel);
+        this.kundeView = new KundeView(this);
     }
 
     /*
@@ -28,19 +29,40 @@ public class KundeControl {
      */
     public void oeffneGrundrissControl(){
         if (this.grundrissControl == null){
-            this.grundrissControl = new GrundrissControl(kundeModel);
+            this.grundrissControl = new GrundrissControl();
         }
         this.grundrissControl.oeffneGrundrissView();
     }
 
     public void speichereKunden(Kunde kunde){
-        try{
-            kundeModel.speichereKunden(kunde);
+        SessionFactory factory = null;
+        // Erzeuge SessionFactory
+        try {
+            factory = HibernateUtil.createSessionFactory();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(Exception exc){
-            exc.printStackTrace();
-            JOptionPane.showMessageDialog(this.kundeView,
-                    "DB-Fehler: Der Kunde konnte nicht gespeichert werden.");
+
+        // Wenn das Erzeugen der factory geklappt hat speichere Daten
+        if (factory != null) {
+            // Session erstellen und Transaction beginnen
+            Session session = factory.openSession();
+            session.beginTransaction();
+
+            // TODO: Haustyp wird hier aus der DB geladen. Ist Plannummer = Haustyp?
+            // Haustyp mit id 2 wird aus Datenbank geladen, danach wird jeweils Kunde und Haustyp gesetzt
+            Haustyp haustyp = session.load(Haustyp.class, 2);
+            kunde.setHaustyp(haustyp);
+            haustyp.addKunde(kunde);
+
+            // Speichere die änderungen
+            session.save(kunde);
+            session.save(haustyp);
+
+            // Änderungen in die Datenbank schreiben
+            session.getTransaction().commit();
+            session.close();
+            factory.close();
         }
     }
 

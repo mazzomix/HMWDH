@@ -1,20 +1,14 @@
 package Gui.Kunde;
 
-import Business.Kunde.Kunde;
-import Business.Kunde.KundeModel;
-
+import HibernateCont.Haustyp;
+import HibernateCont.Kunde;
 import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
 
 public class KundeView extends JFrame {
 
     // das Control-Objekt des Grundfensters
     private KundeControl kundeControl;
-
-    // das Model-Objekt des Grundfensters
-    private KundeModel kundeModel;
 
     public static final long serialVersionUID = 1L;
 
@@ -39,13 +33,10 @@ public class KundeView extends JFrame {
      * erzeugt ein KundeView-Objekt, belegt das zugehoerige Model und Control
      * mit den vorgegebenen Objekten und initialisiert die Steuerelemente der Maske
      * @param kundeControl KundeControl, enthaelt das zugehoerige Control
-     * @param kundeModel KundeModel, enthaelt das zugehoerige Model
      */
-    public KundeView (KundeControl kundeControl,
-                      KundeModel kundeModel){
+    public KundeView (KundeControl kundeControl){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.kundeControl = kundeControl;
-        this.kundeModel = kundeModel;
         this.setTitle("Verwaltung der Sonderwunschlisten");
         this.setSize(550,400);
         this.setLayout(null);
@@ -114,9 +105,10 @@ public class KundeView extends JFrame {
     }
 
     private void legeKundenAn(){
-        Kunde kunde = null;
         // Objekt kunde fuellen
-        kundeControl.speichereKunden(kunde);
+        Kunde kunde = new Kunde();
+        kunde.setVorname(this.txtVorname.getText());
+        this.kundeControl.speichereKunden(kunde);
     }
 
     private void aendereKunden(){
