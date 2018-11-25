@@ -27,13 +27,13 @@ DROP TABLE IF EXISTS `kunde_sonderwuensche_fenster_aussentueren`;
 CREATE TABLE `kunde_sonderwuensche_fenster_aussentueren` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kunden_id` int(11) DEFAULT NULL,
-  `sonderwünsche_id` int(11) DEFAULT NULL,
+  `sonderwuensche_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `kunde_sonderwünsche_fenster_außentüren_id_uindex` (`id`),
   KEY `sonderwünsche_fenster_außentüren_id_fk` (`sonderwünsche_id`),
   KEY `kunde_kundenNummer_fk` (`kunden_id`),
   CONSTRAINT `kunde_kundenNummer_fk` FOREIGN KEY (`kunden_id`) REFERENCES `kunde` (`id`),
-  CONSTRAINT `sonderwünsche_fenster_außentüren_id_fk` FOREIGN KEY (`sonderwünsche_id`) REFERENCES `sonderwuensche_fenster_aussentueren` (`id`)
+  CONSTRAINT `sonderwünsche_fenster_außentüren_id_fk` FOREIGN KEY (`sonderwuensche_id`) REFERENCES `sonderwuensche_fenster_aussentueren` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

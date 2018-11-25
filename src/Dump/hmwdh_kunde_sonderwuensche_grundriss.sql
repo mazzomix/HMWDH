@@ -27,13 +27,13 @@ DROP TABLE IF EXISTS `kunde_sonderwuensche_grundriss`;
 CREATE TABLE `kunde_sonderwuensche_grundriss` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kundenNummer_id` int(11) NOT NULL,
-  `sonderwünsche_id` int(11) NOT NULL,
+  `sonderwuensche_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `kunde_sonderwünsche_id_uindex` (`id`),
   KEY `kunde_sonderwünsche_sonderwünsche_id_fk` (`sonderwünsche_id`),
   KEY `kunde_sonderwünsche_grundriss_kunde_kundenNummer_fk` (`kundenNummer_id`),
   CONSTRAINT `kunde_sonderwünsche_grundriss_kunde_kundenNummer_fk` FOREIGN KEY (`kundenNummer_id`) REFERENCES `kunde` (`id`),
-  CONSTRAINT `kunde_sonderwünsche_sonderwünsche_id_fk` FOREIGN KEY (`sonderwünsche_id`) REFERENCES `sonderwuensche_grundriss` (`id`)
+  CONSTRAINT `kunde_sonderwünsche_sonderwünsche_id_fk` FOREIGN KEY (`sonderwuensche_id`) REFERENCES `sonderwuensche_grundriss` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

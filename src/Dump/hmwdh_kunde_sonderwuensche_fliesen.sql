@@ -26,14 +26,14 @@ DROP TABLE IF EXISTS `kunde_sonderwuensche_fliesen`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `kunde_sonderwuensche_fliesen` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sonderwünsche_id` int(11) DEFAULT NULL,
+  `sonderwuensche_id` int(11) DEFAULT NULL,
   `kunde_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `kunde_sonderwünsche_fliesen_id_uindex` (`id`),
   KEY `sonderwünsche_fliesen_id_fk` (`sonderwünsche_id`),
   KEY `fliesen_kunde_kundenNummer_fk` (`kunde_id`),
   CONSTRAINT `fliesen_kunde_kundenNummer_fk` FOREIGN KEY (`kunde_id`) REFERENCES `kunde` (`id`),
-  CONSTRAINT `sonderwünsche_fliesen_id_fk` FOREIGN KEY (`sonderwünsche_id`) REFERENCES `sonderwuensche_fliesen` (`id`)
+  CONSTRAINT `sonderwünsche_fliesen_id_fk` FOREIGN KEY (`sonderwuensche_id`) REFERENCES `sonderwuensche_fliesen` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

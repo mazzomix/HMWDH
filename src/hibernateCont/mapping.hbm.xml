@@ -15,6 +15,90 @@
         </set>
     </class>
 
+    <class name="hibernateCont.SonderwuenscheFensterAussentueren" table="sonderwuensche_fenster_aussentueren" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_aussenanlagen" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="hibernateCont.SonderwuenscheFliesen" table="sonderwuensche_fliesen" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_fliesen" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="hibernateCont.SonderwuenscheGrundriss" table="sonderwuensche_grundriss" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_grundriss" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="hibernateCont.SonderwuenscheHeizung" table="sonderwuensche_heizung" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_heizung" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="hibernateCont.SonderwuenscheInnentueren" table="sonderwuensche_innentueren" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_innentueren" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="hibernateCont.SonderwuenscheParkett" table="sonderwuensche_parkett" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_parkett" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
+    <class name="hibernateCont.SonderwuenscheSanitaerinstallation" table="sonderwuensche_sanitaerinstallation" schema="hmwdh">
+        <id name="id" column="id" type="int">
+            <generator class="increment" />
+        </id>
+        <property name="wunsch" column="wunsch" type="string"/>
+        <property name="preis" column="preis" type="double"/>
+        <set name="kunden" table="kunde_sonderwuensche_sanitaerinstallation" inverse="true">
+            <key column="sonderwuensche_id" />
+            <many-to-many column="kunde_id" class="hibernateCont.Kunde" />
+        </set>
+    </class>
+
     <class name="hibernateCont.Haustyp" table="haustyp" schema="hmwdh">
         <id name="id" column="id">
             <generator class="increment" />
@@ -39,6 +123,34 @@
         <set name="sonderwuenscheAussenanlagen" table="kunde_sonderwuensche_aussenanlagen" cascade="save-update">
             <key column="kunde_id"/>
             <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheAussenanlagen" />
+        </set>
+        <set name="sonderwuenscheFensterAussentueren" table="kunde_sonderwuensche_fenster_aussentueren" cascade="save-update">
+            <key column="kunden_id"/>
+            <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheFensterAussentueren" />
+        </set>
+        <set name="sonderwuenscheFliesen" table="kunde_sonderwuensche_fliesen" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheFliesen" />
+        </set>
+        <set name="sonderwuenscheGrundriss" table="kunde_sonderwuensche_grundriss" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheGrundriss" />
+        </set>
+        <set name="sonderwuenscheHeizung" table="kunde_sonderwuensche_heizung" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheHeizung" />
+        </set>
+        <set name="sonderwuenscheInnentueren" table="kunde_sonderwuensche_innentueren" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheInnentueren" />
+        </set>
+        <set name="sonderwuenscheParkett" table="kunde_sonderwuensche_parkett" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheParkett" />
+        </set>
+        <set name="sonderwuenscheSanitaerinstallation" table="kunde_sonderwuensche_sanitaerinstallation" cascade="save-update">
+            <key column="kunde_id"/>
+            <many-to-many column="sonderwuensche_id" class="hibernateCont.SonderwuenscheSanitaerinstallation" />
         </set>
     </class>
 

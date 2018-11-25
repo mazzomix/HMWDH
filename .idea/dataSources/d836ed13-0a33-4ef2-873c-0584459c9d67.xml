@@ -1282,7 +1282,7 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="325" parent="280" name="sonderwünsche_id">
+    <column id="325" parent="280" name="sonderwuensche_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -1297,7 +1297,7 @@
       <Type>btree</Type>
     </index>
     <index id="328" parent="280" name="sonderwünsche_fenster_außentüren_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="329" parent="280" name="PRIMARY">
@@ -1316,7 +1316,7 @@
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="332" parent="280" name="sonderwünsche_fenster_außentüren_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <RefSchemaName>hmwdh</RefSchemaName>
       <RefTableName>sonderwuensche_fenster_aussentueren</RefTableName>
       <RefColNames>id</RefColNames>
@@ -1328,7 +1328,7 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="334" parent="281" name="sonderwünsche_id">
+    <column id="334" parent="281" name="sonderwuensche_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -1344,7 +1344,7 @@
       <Type>btree</Type>
     </index>
     <index id="337" parent="281" name="sonderwünsche_fliesen_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <Type>btree</Type>
     </index>
     <index id="338" parent="281" name="fliesen_kunde_kundenNummer_fk">
@@ -1361,7 +1361,7 @@
       <UnderlyingIndexName>kunde_sonderwünsche_fliesen_id_uindex</UnderlyingIndexName>
     </key>
     <foreign-key id="341" parent="281" name="sonderwünsche_fliesen_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <RefSchemaName>hmwdh</RefSchemaName>
       <RefTableName>sonderwuensche_fliesen</RefTableName>
       <RefColNames>id</RefColNames>
@@ -1379,13 +1379,13 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="344" parent="282" name="kundenNummer_id">
+    <column id="344" parent="282" name="kunde_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="345" parent="282" name="sonderwünsche_id">
+    <column id="345" parent="282" name="sonderwuensche_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
@@ -1397,11 +1397,11 @@
       <Type>btree</Type>
     </index>
     <index id="347" parent="282" name="kunde_sonderwünsche_grundriss_kunde_kundenNummer_fk">
-      <ColNames>kundenNummer_id</ColNames>
+      <ColNames>kunde_id</ColNames>
       <Type>btree</Type>
     </index>
     <index id="348" parent="282" name="kunde_sonderwünsche_sonderwünsche_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="349" parent="282" name="PRIMARY">
@@ -1414,13 +1414,13 @@
       <UnderlyingIndexName>kunde_sonderwünsche_id_uindex</UnderlyingIndexName>
     </key>
     <foreign-key id="351" parent="282" name="kunde_sonderwünsche_grundriss_kunde_kundenNummer_fk">
-      <ColNames>kundenNummer_id</ColNames>
+      <ColNames>kunde_id</ColNames>
       <RefSchemaName>hmwdh</RefSchemaName>
       <RefTableName>kunde</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="352" parent="282" name="kunde_sonderwünsche_sonderwünsche_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <RefSchemaName>hmwdh</RefSchemaName>
       <RefTableName>sonderwuensche_grundriss</RefTableName>
       <RefColNames>id</RefColNames>
@@ -1437,7 +1437,7 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="355" parent="283" name="sonderwünsche_id">
+    <column id="355" parent="283" name="sonderwuensche_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -1452,7 +1452,7 @@
       <Type>btree</Type>
     </index>
     <index id="358" parent="283" name="kunde_sonderwünsche_heizung_sonderwünsche_heizung_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="359" parent="283" name="PRIMARY">
@@ -1471,7 +1471,7 @@
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="362" parent="283" name="kunde_sonderwünsche_heizung_sonderwünsche_heizung_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <RefSchemaName>hmwdh</RefSchemaName>
       <RefTableName>sonderwuensche_heizung</RefTableName>
       <RefColNames>id</RefColNames>
@@ -1488,7 +1488,7 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="365" parent="284" name="sonderwünsche_id">
+    <column id="365" parent="284" name="sonderwuensche_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -1503,7 +1503,7 @@
       <Type>btree</Type>
     </index>
     <index id="368" parent="284" name="kunde_sonderwünsche_innentüren_sonderwünsche_innentüren_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="369" parent="284" name="PRIMARY">
@@ -1522,7 +1522,7 @@
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="372" parent="284" name="kunde_sonderwünsche_innentüren_sonderwünsche_innentüren_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <RefSchemaName>hmwdh</RefSchemaName>
       <RefTableName>sonderwuensche_innentueren</RefTableName>
       <RefColNames>id</RefColNames>
@@ -1534,7 +1534,7 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="374" parent="285" name="sonderwünsche_id">
+    <column id="374" parent="285" name="sonderwuensche_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -1550,7 +1550,7 @@
       <Type>btree</Type>
     </index>
     <index id="377" parent="285" name="sonderwünsche_parkett_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <Type>btree</Type>
     </index>
     <index id="378" parent="285" name="parkett_kunde_kundenNummer_fk">
@@ -1567,7 +1567,7 @@
       <UnderlyingIndexName>kunde_sonderwünsche_parkett_id_uindex</UnderlyingIndexName>
     </key>
     <foreign-key id="381" parent="285" name="sonderwünsche_parkett_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <RefSchemaName>hmwdh</RefSchemaName>
       <RefTableName>sonderwuensche_parkett</RefTableName>
       <RefColNames>id</RefColNames>
@@ -1585,7 +1585,7 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="384" parent="286" name="sonderwünsche_id">
+    <column id="384" parent="286" name="sonderwuensche_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
@@ -1601,7 +1601,7 @@
       <Type>btree</Type>
     </index>
     <index id="387" parent="286" name="sonderwünsche_sanitärinstallation_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <Type>btree</Type>
     </index>
     <index id="388" parent="286" name="sanitärinstallation_kunde_kundenNummer_fk">
@@ -1618,7 +1618,7 @@
       <UnderlyingIndexName>kunde_sonderwünsche_sanitärinstallation_id_uindex</UnderlyingIndexName>
     </key>
     <foreign-key id="391" parent="286" name="sonderwünsche_sanitärinstallation_id_fk">
-      <ColNames>sonderwünsche_id</ColNames>
+      <ColNames>sonderwuensche_id</ColNames>
       <RefSchemaName>hmwdh</RefSchemaName>
       <RefTableName>sonderwuensche_sanitaerinstallation</RefTableName>
       <RefColNames>id</RefColNames>

@@ -27,13 +27,13 @@ DROP TABLE IF EXISTS `kunde_sonderwuensche_heizung`;
 CREATE TABLE `kunde_sonderwuensche_heizung` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `kunde_id` int(11) DEFAULT NULL,
-  `sonderwünsche_id` int(11) DEFAULT NULL,
+  `sonderwuensche_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `kunde_sonderwünsche_heizung_id_uindex` (`id`),
   KEY `kunde_sonderwünsche_heizung_kunde_kundenNummer_fk` (`kunde_id`),
   KEY `kunde_sonderwünsche_heizung_sonderwünsche_heizung_id_fk` (`sonderwünsche_id`),
   CONSTRAINT `kunde_sonderwünsche_heizung_kunde_kundenNummer_fk` FOREIGN KEY (`kunde_id`) REFERENCES `kunde` (`id`),
-  CONSTRAINT `kunde_sonderwünsche_heizung_sonderwünsche_heizung_id_fk` FOREIGN KEY (`sonderwünsche_id`) REFERENCES `sonderwuensche_heizung` (`id`)
+  CONSTRAINT `kunde_sonderwünsche_heizung_sonderwünsche_heizung_id_fk` FOREIGN KEY (`sonderwuensche_id`) REFERENCES `sonderwuensche_heizung` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
