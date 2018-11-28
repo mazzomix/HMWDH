@@ -38,7 +38,7 @@ public abstract class BasisView extends JFrame {
         pnlSonderwunsch.setBackground(new Color(255, 255, 102));
         pnlSonderwunsch.add(lblSonderwunsch);
         lblSonderwunsch.setFont(new Font("Arial", Font.BOLD, 24));
-        lblSonderwunsch.setBounds(10,10,300,40);
+        lblSonderwunsch.setBounds(10,10,500,40);
         // Buttons
         this.add(btnBerechnen);
         btnBerechnen.setBounds(210, 300, 150, 25);

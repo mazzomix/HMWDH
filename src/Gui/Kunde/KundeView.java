@@ -27,6 +27,7 @@ public class KundeView extends JFrame {
     private JMenuBar mnBar 			  = new JMenuBar();
     private JMenu mnSonderwuensche    = new JMenu("Sonderwünsche");
     private JMenuItem mnItmGrundriss  = new JMenuItem("Grundrissvarianten");
+    private JMenuItem mnItmFensterAussentueren  = new JMenuItem("Fenster und Aussentueren");
     //-------Ende Attribute der grafischen Oberflaeche-------
 
     /**
@@ -76,6 +77,7 @@ public class KundeView extends JFrame {
         this.setJMenuBar(mnBar);
         mnBar.add(mnSonderwuensche);
         mnSonderwuensche.add(mnItmGrundriss);
+        mnSonderwuensche.add(mnItmFensterAussentueren);
     }
 
     /* initialisiert die Listener zu den Steuerelementen auf de Maske */
@@ -95,6 +97,9 @@ public class KundeView extends JFrame {
         });
         mnItmGrundriss.addActionListener(aEvent-> {
             kundeControl.oeffneGrundrissControl();
+        });
+        mnItmFensterAussentueren.addActionListener(aEvent-> {
+            kundeControl.oeffneFensterAussentuerenControl();
         });
     }
 

@@ -1,6 +1,7 @@
 package Gui.Kunde;
 
 import Gui.Grundriss.GrundrissControl;
+import Gui.FensterAussentueren.FensterAussentuerenControl;
 import HibernateCont.Haustyp;
 import HibernateCont.HibernateUtil;
 import HibernateCont.Kunde;
@@ -14,6 +15,7 @@ public class KundeControl {
     private KundeView kundeView;
     // das GrundrissControl-Objekt zum Kunden
     private GrundrissControl grundrissControl;
+    private FensterAussentuerenControl fensterAussentuerenControl;
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Grundfenster und
@@ -32,6 +34,12 @@ public class KundeControl {
             this.grundrissControl = new GrundrissControl();
         }
         this.grundrissControl.oeffneGrundrissView();
+    }
+    public void oeffneFensterAussentuerenControl(){
+        if (this.fensterAussentuerenControl == null){
+            this.fensterAussentuerenControl = new FensterAussentuerenControl();
+        }
+        this.fensterAussentuerenControl.oeffneFensterAussentuerenView();
     }
 
     public void speichereKunden(Kunde kunde){
