@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `hmwdh` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-USE `hmwdh`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: hmwdh
@@ -43,7 +41,6 @@ CREATE TABLE `kunde_sonderwuensche_aussenanlagen` (
 
 LOCK TABLES `kunde_sonderwuensche_aussenanlagen` WRITE;
 /*!40000 ALTER TABLE `kunde_sonderwuensche_aussenanlagen` DISABLE KEYS */;
-INSERT INTO `kunde_sonderwuensche_aussenanlagen` VALUES (1,2,1),(2,1,1);
 /*!40000 ALTER TABLE `kunde_sonderwuensche_aussenanlagen` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-16 10:53:11
+-- Dump completed on 2018-11-30  0:06:41

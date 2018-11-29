@@ -6,13 +6,8 @@ import java.util.Set;
 public class Haustyp {
     private Integer id;
     private Byte dachgeschoss;
-    private Set<Kunde> kunden = new HashSet<>();
 
     public Haustyp() {
-    }
-
-    public void addKunde(Kunde kunde) {
-        this.kunden.add(kunde);
     }
 
     public Integer getId() {
@@ -30,8 +25,4 @@ public class Haustyp {
     public void setDachgeschoss(Byte dachgeschoss) {
         this.dachgeschoss = dachgeschoss;
     }
-
-    public Set<Kunde> getKunden() { return kunden; }
-
-    public void setKunden(Set<Kunde> kunden) { this.kunden = kunden; }
 }

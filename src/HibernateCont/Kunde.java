@@ -10,7 +10,7 @@ public class Kunde {
     private String telefonNummer;
     private String email;
     private Byte deleted;
-    private Haustyp haustyp;
+    private Hausnummer hausnummer;
     private Set<SonderwuenscheAussenanlagen> sonderwuenscheAussenanlagen = new HashSet<>();
     private Set<SonderwuenscheFensterAussentueren> sonderwuenscheFensterAussentueren = new HashSet<>();
     private Set<SonderwuenscheFliesen> sonderwuenscheFliesen = new HashSet<>();
@@ -84,9 +84,13 @@ public class Kunde {
         this.deleted = deleted;
     }
 
-    public Haustyp getHaustyp() { return haustyp; }
+    public Hausnummer getHausnummer() {
+        return hausnummer;
+    }
 
-    public void setHaustyp(Haustyp haustyp) { this.haustyp = haustyp; }
+    public void setHausnummer(Hausnummer hausnummer) {
+        this.hausnummer = hausnummer;
+    }
 
     public Set<SonderwuenscheAussenanlagen> getSonderwuenscheAussenanlagen() {
         return sonderwuenscheAussenanlagen;

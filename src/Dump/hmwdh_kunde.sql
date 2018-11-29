@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `hmwdh` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-USE `hmwdh`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: hmwdh
@@ -31,13 +29,11 @@ CREATE TABLE `kunde` (
   `telefonNummer` varchar(40) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `deleted` tinyint(1) DEFAULT '0',
-  `haustyp_id` int(11) NOT NULL,
+  `hausnummer_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `kunde_kundenNummer_uindex` (`id`),
-  KEY `kunde_haustyp_id_fk` (`haustyp_id`),
-  CONSTRAINT `FKh6j5ihrlru9pwx680u9fghyf8` FOREIGN KEY (`id`) REFERENCES `haustyp` (`id`),
-  CONSTRAINT `kunde_haustyp_id_fk` FOREIGN KEY (`haustyp_id`) REFERENCES `haustyp` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `kunde_hausnummer_id_uindex` (`hausnummer_id`),
+  CONSTRAINT `FKv1p2mydfplmj63wq8pscxl6a` FOREIGN KEY (`hausnummer_id`) REFERENCES `hausnummer` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +42,7 @@ CREATE TABLE `kunde` (
 
 LOCK TABLES `kunde` WRITE;
 /*!40000 ALTER TABLE `kunde` DISABLE KEYS */;
-INSERT INTO `kunde` VALUES (1,'Penner','Pu','drdrg','rdgdrg@arcor.de',0,2);
+INSERT INTO `kunde` VALUES (1,'test',NULL,NULL,NULL,0,2),(2,'wupp',NULL,NULL,NULL,0,3),(3,'sef',NULL,NULL,NULL,0,5),(4,'sfse',NULL,NULL,NULL,0,7),(7,'sef',NULL,NULL,NULL,0,19),(8,'awdawd',NULL,NULL,NULL,0,4);
 /*!40000 ALTER TABLE `kunde` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-16 10:53:11
+-- Dump completed on 2018-11-30  0:06:41

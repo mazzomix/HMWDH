@@ -57,37 +57,4 @@ public class KundeControl {
         }
         this.innentuerenControl.oeffneInnentuerenView();
     }
-
-    public void speichereKunden(Kunde kunde){
-        SessionFactory factory = null;
-        // Erzeuge SessionFactory
-        try {
-            factory = HibernateUtil.createSessionFactory();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Wenn das Erzeugen der factory geklappt hat speichere Daten
-        if (factory != null) {
-            // Session erstellen und Transaction beginnen
-            Session session = factory.openSession();
-            session.beginTransaction();
-
-            // TODO: Haustyp wird hier aus der DB geladen. Ist Plannummer = Haustyp?
-            // Haustyp mit id 2 wird aus Datenbank geladen, danach wird jeweils Kunde und Haustyp gesetzt
-            Haustyp haustyp = session.load(Haustyp.class, 2);
-            kunde.setHaustyp(haustyp);
-            haustyp.addKunde(kunde);
-
-            // Speichere die änderungen
-            session.save(kunde);
-            session.save(haustyp);
-
-            // Änderungen in die Datenbank schreiben
-            session.getTransaction().commit();
-            session.close();
-            factory.close();
-        }
-    }
-
 }

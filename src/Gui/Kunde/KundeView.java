@@ -1,5 +1,6 @@
 package Gui.Kunde;
 
+import Gui.Basis.BasisDatabaseMethods;
 import HibernateCont.Haustyp;
 import HibernateCont.Kunde;
 import java.awt.*;
@@ -117,13 +118,17 @@ public class KundeView extends JFrame {
     }
 
     private void leseKunden(){
+        Kunde kunde = null;
+        BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
+        kunde = db.holeKunde(1);
     }
 
     private void legeKundenAn(){
         // Objekt kunde fuellen
         Kunde kunde = new Kunde();
         kunde.setVorname(this.txtVorname.getText());
-        this.kundeControl.speichereKunden(kunde);
+        BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
+        db.speichereKunden(kunde, this.cmbBxNummerHaus.getSelectedIndex());
     }
 
     private void aendereKunden(){

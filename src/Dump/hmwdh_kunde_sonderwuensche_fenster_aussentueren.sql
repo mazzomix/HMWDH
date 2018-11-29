@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `hmwdh` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-USE `hmwdh`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: hmwdh
@@ -30,7 +28,7 @@ CREATE TABLE `kunde_sonderwuensche_fenster_aussentueren` (
   `sonderwuensche_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `kunde_sonderwünsche_fenster_außentüren_id_uindex` (`id`),
-  KEY `sonderwünsche_fenster_außentüren_id_fk` (`sonderwünsche_id`),
+  KEY `sonderwünsche_fenster_außentüren_id_fk` (`sonderwuensche_id`),
   KEY `kunde_kundenNummer_fk` (`kunden_id`),
   CONSTRAINT `kunde_kundenNummer_fk` FOREIGN KEY (`kunden_id`) REFERENCES `kunde` (`id`),
   CONSTRAINT `sonderwünsche_fenster_außentüren_id_fk` FOREIGN KEY (`sonderwuensche_id`) REFERENCES `sonderwuensche_fenster_aussentueren` (`id`)
@@ -55,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-16 10:53:09
+-- Dump completed on 2018-11-30  0:06:39

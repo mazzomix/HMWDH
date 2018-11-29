@@ -16,27 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `haustyp`
+-- Table structure for table `hausnummer`
 --
 
-DROP TABLE IF EXISTS `haustyp`;
+DROP TABLE IF EXISTS `hausnummer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `haustyp` (
+CREATE TABLE `hausnummer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dachgeschoss` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `hausnummer` int(11) DEFAULT NULL,
+  `haustyp_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKn6pdpakj4uao0223c4t5pmymg` (`haustyp_id`),
+  CONSTRAINT `FKn6pdpakj4uao0223c4t5pmymg` FOREIGN KEY (`haustyp_id`) REFERENCES `haustyp` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `haustyp`
+-- Dumping data for table `hausnummer`
 --
 
-LOCK TABLES `haustyp` WRITE;
-/*!40000 ALTER TABLE `haustyp` DISABLE KEYS */;
-INSERT INTO `haustyp` VALUES (1,0),(2,1);
-/*!40000 ALTER TABLE `haustyp` ENABLE KEYS */;
+LOCK TABLES `hausnummer` WRITE;
+/*!40000 ALTER TABLE `hausnummer` DISABLE KEYS */;
+INSERT INTO `hausnummer` VALUES (1,1,1),(2,2,2),(3,3,2),(4,4,2),(5,5,2),(6,6,1),(7,7,1),(8,8,2),(9,9,2),(10,10,2),(11,11,2),(12,12,2),(13,13,2),(14,14,1),(15,15,1),(16,16,2),(17,17,2),(18,18,2),(19,19,2),(20,20,2),(21,21,2),(22,22,2),(23,23,2),(24,24,1);
+/*!40000 ALTER TABLE `hausnummer` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-30  0:06:39
+-- Dump completed on 2018-11-30  0:06:41

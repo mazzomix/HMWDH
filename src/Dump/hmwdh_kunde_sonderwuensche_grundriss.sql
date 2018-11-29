@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `hmwdh` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-USE `hmwdh`;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: hmwdh
@@ -26,13 +24,13 @@ DROP TABLE IF EXISTS `kunde_sonderwuensche_grundriss`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `kunde_sonderwuensche_grundriss` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `kundenNummer_id` int(11) NOT NULL,
+  `kunde_id` int(11) NOT NULL,
   `sonderwuensche_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `kunde_sonderwünsche_id_uindex` (`id`),
-  KEY `kunde_sonderwünsche_sonderwünsche_id_fk` (`sonderwünsche_id`),
-  KEY `kunde_sonderwünsche_grundriss_kunde_kundenNummer_fk` (`kundenNummer_id`),
-  CONSTRAINT `kunde_sonderwünsche_grundriss_kunde_kundenNummer_fk` FOREIGN KEY (`kundenNummer_id`) REFERENCES `kunde` (`id`),
+  KEY `kunde_sonderwünsche_sonderwünsche_id_fk` (`sonderwuensche_id`),
+  KEY `kunde_sonderwünsche_grundriss_kunde_kundenNummer_fk` (`kunde_id`),
+  CONSTRAINT `kunde_sonderwünsche_grundriss_kunde_kundenNummer_fk` FOREIGN KEY (`kunde_id`) REFERENCES `kunde` (`id`),
   CONSTRAINT `kunde_sonderwünsche_sonderwünsche_id_fk` FOREIGN KEY (`sonderwuensche_id`) REFERENCES `sonderwuensche_grundriss` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -55,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-16 10:53:11
+-- Dump completed on 2018-11-30  0:06:41
