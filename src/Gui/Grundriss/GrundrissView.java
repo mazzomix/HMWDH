@@ -134,7 +134,7 @@ public class GrundrissView extends BasisView{
         super.getPnlSonderwunsch().add(lblGesamtpreis);
     	lblGesamtpreis.setBounds(10, 225, 350, 25);
     	super.getPnlSonderwunsch().add(txtGesamtpreis);
-    	txtGesamtpreis.setBounds(350, 225, 80, 25);
+    	txtGesamtpreis.setBounds(350, 225, 150, 25);
     	txtGesamtpreis.setEditable(false);
     }
     
