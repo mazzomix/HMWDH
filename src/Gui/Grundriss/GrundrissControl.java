@@ -8,6 +8,9 @@ public final class GrundrissControl {
     // das View-Objekt des Grundriss-Fensters
     private GrundrissView grundrissView;
     private GrundrissModel grundrissModel;
+    //vorrübergehend :
+    private int hausnummer = 5;
+
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Grundriss-Fenster und
@@ -28,18 +31,18 @@ public final class GrundrissControl {
     public void leseGrundrissSonderwuensche(){
     }
 
+  
     public boolean pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw){
-        return true;
-    }
-    
-    public boolean pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw){
-		grundrissModel.checkAuswahl(ausgewaehlteSw);
+		this.grundrissModel.checkAuswahl(ausgewaehlteSw, hausnummer);
 		return this.grundrissModel.getAuswahl();
 	}
 	
-	public void zeigePreisSonderwuensche(int[] auswahl) {
-		grundrissModel.gesamtpreisBerechnen(auswahl);
+    public void zeigePreisSonderwuensche(int[] auswahl) {
+		this.grundrissModel.gesamtpreisBerechnen(auswahl);
 		this.grundrissView.getTxtGesamtpreis().setText(""+grundrissModel.getPreis());
-		grundrissModel.resetPreis();
+		this.grundrissModel.resetPreis();
+	}
+    public void zeigeFehlerSonderwunsch () {
+		this.grundrissView.getTxtGesamtpreis().setText("Fehlerhafte Konstellation");
 	}
 }
