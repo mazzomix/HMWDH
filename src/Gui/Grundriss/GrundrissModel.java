@@ -1,4 +1,4 @@
-package gui.grundriss;
+package Gui.Grundriss;
 
 
 public class GrundrissModel  {
