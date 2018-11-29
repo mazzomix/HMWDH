@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-
+import Gui.Basis.BasisView;
 /**
  * Klasse, welche das Fenster mit den Sonderwuenschen zu
  * den Grundrissvarianten bereitstellt.
