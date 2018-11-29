@@ -7,6 +7,7 @@ public final class GrundrissControl {
 
     // das View-Objekt des Grundriss-Fensters
     private GrundrissView grundrissView;
+    private GrundrissModel grundrissModel;
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Grundriss-Fenster und
@@ -14,6 +15,7 @@ public final class GrundrissControl {
      */
     public GrundrissControl(){
         this.grundrissView = new GrundrissView(this);
+        this.grundrissModel = new GrundrissModel();
     }
 
     /**
@@ -29,4 +31,15 @@ public final class GrundrissControl {
     public boolean pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw){
         return true;
     }
+    
+    public boolean pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw){
+		grundrissModel.checkAuswahl(ausgewaehlteSw);
+		return this.grundrissModel.getAuswahl();
+	}
+	
+	public void zeigePreisSonderwuensche(int[] auswahl) {
+		grundrissModel.gesamtpreisBerechnen(auswahl);
+		this.grundrissView.getTxtGesamtpreis().setText(""+grundrissModel.getPreis());
+		grundrissModel.resetPreis();
+	}
 }
