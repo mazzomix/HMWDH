@@ -44,5 +44,6 @@ public final class GrundrissControl {
 	}
     public void zeigeFehlerSonderwunsch () {
 		this.grundrissView.getTxtGesamtpreis().setText("Fehlerhafte Konstellation");
+	        this.grundrissModel.resetAuswahl();
 	}
 }
