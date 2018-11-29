@@ -2,6 +2,7 @@ package Gui.Kunde;
 
 import Gui.Grundriss.GrundrissControl;
 import Gui.FensterAussentueren.FensterAussentuerenControl;
+import Gui.Sanitärinstallation.SanitärinstallationControl;
 import HibernateCont.Haustyp;
 import HibernateCont.HibernateUtil;
 import HibernateCont.Kunde;
@@ -16,6 +17,7 @@ public class KundeControl {
     // das GrundrissControl-Objekt zum Kunden
     private GrundrissControl grundrissControl;
     private FensterAussentuerenControl fensterAussentuerenControl;
+    private SanitärinstallationControl sanitärinstallationControl;
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Grundfenster und
@@ -35,11 +37,17 @@ public class KundeControl {
         }
         this.grundrissControl.oeffneGrundrissView();
     }
-    public void oeffneFensterAussentuerenControl(){
-        if (this.fensterAussentuerenControl == null){
+    public void oeffneFensterAussentuerenControl() {
+        if (this.fensterAussentuerenControl == null) {
             this.fensterAussentuerenControl = new FensterAussentuerenControl();
         }
         this.fensterAussentuerenControl.oeffneFensterAussentuerenView();
+    }
+    public void oeffneSanitärinstallationControl(){
+        if(this.sanitärinstallationControl == null){
+            this.sanitärinstallationControl = new SanitärinstallationControl();
+        }
+        this.sanitärinstallationControl.oeffneSanitärinstallationView();
     }
 
     public void speichereKunden(Kunde kunde){
