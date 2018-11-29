@@ -45,4 +45,8 @@ public class GrundrissModel  {
 	public void resetPreis() {
 		_preis = 0;
 	}
+	
+	public void resetAuswahl(){
+		_auswahl = true ;
+	}
 }
