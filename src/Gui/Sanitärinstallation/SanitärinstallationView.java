@@ -11,22 +11,24 @@ public class SanitärinstallationView extends  BasisView {
     private JLabel lblOGGrößeresWaschbecken = new JLabel("Größeres Waschbecken im OG");
     private JTextField txtPreisOGGrößeresWaschbecken = new JTextField("160");
     private JLabel lblOGGrößeresWaschbeckenEuro = new JLabel("Euro");
-    private JCheckBox chckBxOGGrößeresWaschbecken = new JCheckBox();
+    public JCheckBox chckBxOGGrößeresWaschbecken = new JCheckBox();
 
     private JLabel lblDGGrößeresWaschbecken = new JLabel("Größeres Waschbecken im DG");
     private JTextField txtPreisDGGrößeresWaschbecken = new JTextField("160");
     private JLabel lblDGGrößeresWaschbeckenEuro = new JLabel("Euro");
-    private JCheckBox chckBxDGGrößeresWaschbecken = new JCheckBox();
+    public JCheckBox chckBxDGGrößeresWaschbecken = new JCheckBox();
 
     private JLabel lblOGBodentiefeDusche = new JLabel("Bodentiefe Dusche im OG");
     private JTextField txtPreisOGBodentiefeDusche = new JTextField("560");
     private JLabel lblOGBodentiefeDuscheEuro = new JLabel("Euro");
-    private JCheckBox chckBxOGBodentiefeDusche = new JCheckBox();
+    public JCheckBox chckBxOGBodentiefeDusche = new JCheckBox();
 
     private JLabel lblDGBodentiefeDusche = new JLabel("Bodentiefe Dusche im DG");
     private JTextField txtPreisDGBodentiefeDusche = new JTextField("560");
     private JLabel lblDGBodentiefeDuscheEuro = new JLabel("Euro");
-    private JCheckBox chckBxDGBodentiefeDusche = new JCheckBox();
+    public JCheckBox chckBxDGBodentiefeDusche = new JCheckBox();
+
+    private JLabel txtGesamtpreis = new JLabel("Gesamtpreis");
 
 
 
@@ -81,11 +83,19 @@ public class SanitärinstallationView extends  BasisView {
         lblDGBodentiefeDuscheEuro.setBounds(440, 125, 50, 25);
         super.getPnlSonderwunsch().add(chckBxDGBodentiefeDusche);
         chckBxDGBodentiefeDusche.setBounds(470, 125, 25, 25);
+
+        super.getPnlSonderwunsch().add(txtGesamtpreis);
+        txtGesamtpreis.setBounds(200, 200, 200, 25);
+
+
     }
 
     private void leseSanitärinstallationSonderwuensche(){this.sanitärinstallationControl.leseSanitärinstallationSonderwuensche();}
 
-    protected  void berechneUndZeigePreisSonderwuensche(){}
+    protected  void berechneUndZeigePreisSonderwuensche(){
+        double preis = sanitärinstallationControl.berechnePreis();
+        txtGesamtpreis.setText("Gesamtpreis: " + Double.toString(preis) + " €");
+    }
 
     protected  void speichereSonderwuensche(){}
 }
