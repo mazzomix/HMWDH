@@ -223,9 +223,11 @@ public class GrundrissView extends BasisView{
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann der Preis berechnet.
         if(grundrissControl.pruefeKonstellationSonderwuensche(auswahl)) {
-  			grundrissControl.zeigePreisSonderwuensche(auswahl);
+            grundrissControl.zeigePreisSonderwuensche(auswahl);
   			
-  		}
+  	}else {
+  	    grundrissControl.zeigeFehlerSonderwunsch();
+  	}
     }
 
     /* speichert die ausgesuchten Sonderwuensche in der Datenbank ab */
