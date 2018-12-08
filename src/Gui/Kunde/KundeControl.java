@@ -1,5 +1,6 @@
 package Gui.Kunde;
 
+import Gui.Aussenanlage.AussenanlageControl;
 import Gui.Grundriss.GrundrissControl;
 import Gui.FensterAussentueren.FensterAussentuerenControl;
 import Gui.Innentueren.InnentuerenControl;
@@ -20,6 +21,7 @@ public class KundeControl {
     private FensterAussentuerenControl fensterAussentuerenControl;
     private SanitärinstallationControl sanitärinstallationControl;
     private InnentuerenControl innentuerenControl;
+    private AussenanlageControl aussenanlageControl;
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Grundfenster und
@@ -56,5 +58,11 @@ public class KundeControl {
             this.innentuerenControl = new InnentuerenControl();
         }
         this.innentuerenControl.oeffneInnentuerenView();
+    }
+    public void oeffneAussenanlageControl() {
+        if (this.aussenanlageControl == null) {
+            this.aussenanlageControl = new AussenanlageControl();
+        }
+        this.aussenanlageControl.oeffneAussenanlageView();
     }
 }

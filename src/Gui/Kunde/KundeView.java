@@ -31,6 +31,7 @@ public class KundeView extends JFrame {
     private JMenuItem mnItmFensterAussentueren  = new JMenuItem("Fenster und Aussentueren");
     private JMenuItem mnItmSanitärinstallation = new JMenuItem("Sanitärinstallation");
     private JMenuItem mnItmInnentueren = new JMenuItem("Innentüren");
+    private JMenuItem mnItmAussenanlage = new JMenuItem("Außenanlage");
     //-------Ende Attribute der grafischen Oberflaeche-------
 
     /**
@@ -83,6 +84,7 @@ public class KundeView extends JFrame {
         mnSonderwuensche.add(mnItmFensterAussentueren);
         mnSonderwuensche.add(mnItmSanitärinstallation);
         mnSonderwuensche.add(mnItmInnentueren);
+        mnSonderwuensche.add(mnItmAussenanlage);
     }
 
     /* initialisiert die Listener zu den Steuerelementen auf de Maske */
@@ -111,6 +113,9 @@ public class KundeView extends JFrame {
         });
         mnItmInnentueren.addActionListener(aEvent-> {
             kundeControl.oeffneInnentuerenControl();
+        });
+        mnItmAussenanlage.addActionListener(aEvent-> {
+            kundeControl.oeffneAussenanlageControl();
         });
     }
 
