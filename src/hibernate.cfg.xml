@@ -10,7 +10,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">Quamquamsom1</property>
+        <property name="hibernate.connection.password"></property>
         <!-- DB schema will be updated if needed -->
         <property name="hbm2ddl.auto">update</property>
 
