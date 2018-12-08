@@ -3,12 +3,17 @@ package Gui.FensterAussentueren;
 import javax.swing.*;
 import Gui.Basis.BasisView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class FensterAussentuerenView extends BasisView {
 
     public static final long serialVersionUID = 1L;
 
     // das Control-Objekt des FensterAussentueren-Fensters
     private FensterAussentuerenControl fensterAussentuerenControl;
+
+    private int[] auswahl = new int[9];
 
     //---Anfang Attribute der grafischen Oberflaeche---
     private JLabel lblSchiebeTuerEgTerrasse = new JLabel("Schiebetüren im EG zur Terrasse:");
@@ -56,6 +61,9 @@ public class FensterAussentuerenView extends BasisView {
     private JLabel lblElektRollaedenDgEuro = new JLabel("Euro");
     private JCheckBox chckBxElektRollaedenDg = new JCheckBox();
 
+    private JLabel lblGesamtpreis = new JLabel("Gesamtpreis: ");
+    private JTextField txtGesamtpreis = new JTextField();
+
     //-------Ende Attribute der grafischen Oberflaeche-------
 
     /**
@@ -69,6 +77,7 @@ public class FensterAussentuerenView extends BasisView {
         this.setTitle("Sonderwünsche zu FensterAussentueren-Varianten");
         this.initKomponenten();
         this.leseFensterAussentuerenSonderwuensche();
+        this.iniListener();
     }
 
 
@@ -166,6 +175,124 @@ public class FensterAussentuerenView extends BasisView {
         lblElektRollaedenDgEuro.setBounds(440, 250, 50, 25);
         super.getPnlSonderwunsch().add(chckBxElektRollaedenDg);
         chckBxElektRollaedenDg.setBounds(470, 250, 25, 25);
+
+        super.getPnlSonderwunsch().add(lblGesamtpreis);
+        lblGesamtpreis.setBounds(10, 275, 350, 25);
+        super.getPnlSonderwunsch().add(txtGesamtpreis);
+        txtGesamtpreis.setBounds(350, 275, 150, 25);
+        txtGesamtpreis.setEditable(false);
+    }
+
+    protected void iniListener() {
+        super.initListener();
+        chckBxSchiebeTuerEgTerrasse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[0] = Integer.parseInt(txtPreisSchiebeTuerEgTerrasse.getText());
+                }else {
+                    auswahl[0] = 0;
+                }
+
+            }
+        });
+        chckBxSchiebeTuerDgTerrasse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[1] = Integer.parseInt(txtPreisSchiebeTuerDgTerrasse.getText());
+                }else {
+                    auswahl[1] = 0;
+                }
+
+            }
+        });
+        chckBxGrEinbruchschutzHaustuer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[2] = Integer.parseInt(txtPreisEinbruchschutzHaustuer.getText());
+                }else {
+                    auswahl[2] = 0;
+                }
+
+            }
+        });
+        chckBxVorbeitetungElektRollaedenEg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[3] = Integer.parseInt(txtPreisVorbeitetungElektRollaedenEg.getText());
+                }else {
+                    auswahl[3] = 0;
+                }
+
+            }
+        });
+        chckBxVorbeitetungElektRollaedenOg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[4] = Integer.parseInt(txtPreisVorbeitetungElektRollaedenOg.getText());
+                }else {
+                    auswahl[4] = 0;
+                }
+
+            }
+        });
+        chckBxVorbeitetungElektRollaedenDg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[5] = Integer.parseInt(txtPreisVorbeitetungElektRollaedenDg.getText());
+                }else {
+                    auswahl[5] = 0;
+                }
+
+            }
+        });
+        chckBxElektRollaedenEg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[6] = Integer.parseInt(txtPreisElektRollaedenEg.getText());
+                }else {
+                    auswahl[6] = 0;
+                }
+
+            }
+        });
+        chckBxElektRollaedenOg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[7] = Integer.parseInt(txtPreisElektRollaedenOg.getText());
+                }else {
+                    auswahl[7] = 0;
+                }
+
+            }
+        });
+        chckBxElektRollaedenDg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[8] = Integer.parseInt(txtPreisElektRollaedenDg.getText());
+                }else {
+                    auswahl[8] = 0;
+                }
+
+            }
+        });
     }
 
     private void leseFensterAussentuerenSonderwuensche() {
@@ -176,12 +303,17 @@ public class FensterAussentuerenView extends BasisView {
     protected void berechneUndZeigePreisSonderwuensche() {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann der Preis berechnet.
+        fensterAussentuerenControl.zeigePreisSonderwuensche(auswahl);
     }
 
     /* speichert die ausgesuchten Sonderwuensche in der Datenbank ab */
     protected void speichereSonderwuensche() {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
+    }
+    protected JTextField getTxtGesamtpreis() {
+        return this.txtGesamtpreis;
+
     }
 
 

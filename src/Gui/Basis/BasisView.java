@@ -33,7 +33,7 @@ public abstract class BasisView extends JFrame {
     protected void initKomponenten(){
         // pnlSonderwunsch wird erzeugt.
         this.add(pnlSonderwunsch);
-        pnlSonderwunsch.setBounds(10, 10, 510, 270);
+        pnlSonderwunsch.setBounds(10, 10, 510, 310);
         pnlSonderwunsch.setLayout(null);
         pnlSonderwunsch.setBackground(new Color(255, 255, 102));
         pnlSonderwunsch.add(lblSonderwunsch);
@@ -41,9 +41,9 @@ public abstract class BasisView extends JFrame {
         lblSonderwunsch.setBounds(10,10,500,40);
         // Buttons
         this.add(btnBerechnen);
-        btnBerechnen.setBounds(210, 300, 150, 25);
+        btnBerechnen.setBounds(210, 330, 150, 25);
         this.add(btnSpeichern);
-        btnSpeichern.setBounds(370, 300, 150, 25);
+        btnSpeichern.setBounds(370, 330, 150, 25);
         // MenuBar und Menu
         this.setJMenuBar(mnBar);
     }
