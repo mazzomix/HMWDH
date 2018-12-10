@@ -67,3 +67,5 @@ fabric.properties
 
 # Java Output folder
 out
+src/hibernate.cfg.xml
+src/hibernate.cfg.xml
