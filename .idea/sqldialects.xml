@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_hausnummer.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_haustyp.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde_sonderwuensche_aussenanlagen.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde_sonderwuensche_fenster_aussentueren.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde_sonderwuensche_fliesen.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde_sonderwuensche_grundriss.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde_sonderwuensche_heizung.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde_sonderwuensche_innentueren.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde_sonderwuensche_parkett.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_kunde_sonderwuensche_sanitaerinstallation.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_sonderwuensche_aussenanlagen.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_sonderwuensche_fenster_aussentueren.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_sonderwuensche_fliesen.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_sonderwuensche_grundriss.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_sonderwuensche_heizung.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_sonderwuensche_innentueren.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_sonderwuensche_parkett.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/Dump/hmwdh_sonderwuensche_sanitaerinstallation.sql" dialect="MySQL" />
+  </component>
+</project>
