@@ -1,7 +1,5 @@
 package HibernateCont;
 
-import java.util.Objects;
-
 public class Hausnummer {
     private Integer id;
     private Integer hausnummer;
