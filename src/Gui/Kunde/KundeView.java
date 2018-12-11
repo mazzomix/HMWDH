@@ -1,9 +1,10 @@
 package Gui.Kunde;
 
 import Gui.Basis.BasisDatabaseMethods;
-import HibernateCont.Haustyp;
 import HibernateCont.Kunde;
+
 import java.awt.*;
+import javax.persistence.PersistenceException;
 import javax.swing.*;
 
 public class KundeView extends JFrame {
@@ -19,9 +20,20 @@ public class KundeView extends JFrame {
     private JLabel lblNummerHaus      = new JLabel("Plannummer des Hauses");
     private JComboBox<Integer>
             cmbBxNummerHaus               = new JComboBox<Integer>(
-            new Integer[]{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24});
+            new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24});
     private JLabel lblVorname         = new JLabel("Vorname");
     private JTextField txtVorname     = new JTextField();
+    private JLabel lblNachname         = new JLabel("Nachname");
+    private JTextField txtNachname     = new JTextField();
+    private JLabel lblKundennummer         = new JLabel("Kundennummer");
+    private JLabel lblTextKundennummer         = new JLabel("");
+    private JLabel lblTelefon         = new JLabel("Telefon");
+    private JTextField txtTelefon     = new JTextField();
+    private JLabel lblEmail         = new JLabel("Email");
+    private JTextField txtEmail     = new JTextField();
+    private JLabel lblDachgeschoss         = new JLabel("Dachgeschoss");
+    private JLabel lblTxtDachgeschoss         = new JLabel("");
+    private JLabel lblError         = new JLabel("");
     private JButton btnAnlegen	 	  = new JButton("Anlegen");
     private JButton btnAendern 	      = new JButton("Ändern");
     private JButton btnLoeschen 	  = new JButton("Löschen");
@@ -43,11 +55,11 @@ public class KundeView extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.kundeControl = kundeControl;
         this.setTitle("Verwaltung der Sonderwunschlisten");
-        this.setSize(550,400);
+        this.setSize(550,500);
         this.setLayout(null);
         this.initKomponenten();
         this.initListener();
-        this.setLocation(400, 200);
+        this.setLocation(400, 300);
         this.setVisible(true);
     }
 
@@ -56,7 +68,7 @@ public class KundeView extends JFrame {
     private void initKomponenten(){
         // pnlKunde wird erzeugt.
         this.add(pnlKunde);
-        pnlKunde.setBounds(10, 10, 510, 270);
+        pnlKunde.setBounds(10, 10, 510, 370);
         pnlKunde.setLayout(null);
         pnlKunde.add(lblKunde);
         lblKunde.setFont(new Font("Arial", Font.BOLD, 24));
@@ -70,13 +82,35 @@ public class KundeView extends JFrame {
         lblVorname.setBounds(10, 80, 150, 20);
         pnlKunde.add(txtVorname);
         txtVorname.setBounds(170, 80, 130, 20);
+        pnlKunde.add(lblNachname);
+        lblNachname.setBounds(10, 110, 150, 20);
+        pnlKunde.add(txtNachname);
+        txtNachname.setBounds(170, 110, 130, 20);
+        pnlKunde.add(lblKundennummer);
+        lblKundennummer.setBounds(10, 140, 150, 20);
+        pnlKunde.add(lblTextKundennummer);
+        lblTextKundennummer.setBounds(170, 140, 130, 20);
+        pnlKunde.add(lblTelefon);
+        lblTelefon.setBounds(10, 170, 150, 20);
+        pnlKunde.add(txtTelefon);
+        txtTelefon.setBounds(170, 170, 130, 20);
+        pnlKunde.add(lblEmail);
+        lblEmail.setBounds(10, 200, 150, 20);
+        pnlKunde.add(txtEmail);
+        txtEmail.setBounds(170, 200, 130, 20);
+        pnlKunde.add(lblDachgeschoss);
+        lblDachgeschoss.setBounds(10, 230, 130, 20);
+        pnlKunde.add(lblTxtDachgeschoss);
+        lblTxtDachgeschoss.setBounds(170, 230, 130, 20);
+        pnlKunde.add(lblError);
+        lblError.setBounds(10, 260, 400, 40);
         // Buttons
         this.add(btnAnlegen);
-        btnAnlegen.setBounds(50, 300, 150, 25);
+        btnAnlegen.setBounds(50, 400, 150, 25);
         this.add(btnAendern);
-        btnAendern.setBounds(210, 300, 150, 25);
+        btnAendern.setBounds(210, 400, 150, 25);
         this.add(btnLoeschen);
-        btnLoeschen.setBounds(370, 300, 150, 25);
+        btnLoeschen.setBounds(370, 400, 150, 25);
         // MenuBar und Menu
         this.setJMenuBar(mnBar);
         mnBar.add(mnSonderwuensche);
@@ -120,20 +154,48 @@ public class KundeView extends JFrame {
     }
 
     private void holeInfoDachgeschoss(){
+        BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
+        boolean dg = db.hasDachgeschoss((Integer) this.cmbBxNummerHaus.getSelectedItem());
+
+        if(dg) {
+            this.lblTxtDachgeschoss.setText("Ja");
+        } else {
+            this.lblTxtDachgeschoss.setText("Nein");
+        }
     }
 
     private void leseKunden(){
         Kunde kunde = null;
         BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
-        kunde = db.holeKunde(1);
+        try{
+            kunde = db.holeKunde((Integer)this.cmbBxNummerHaus.getSelectedItem());
+            this.txtVorname.setText(kunde.getVorname());
+            this.txtNachname.setText(kunde.getNachname());
+            this.txtEmail.setText(kunde.getEmail());
+            this.txtTelefon.setText(kunde.getTelefonNummer());
+            this.lblTextKundennummer.setText(String.valueOf(kunde.getId()));
+        } catch (IndexOutOfBoundsException e) {
+            this.lblError.setText("<html>Für diese Hausnummer existiert kein Kunde</html>");
+        }
+
     }
 
     private void legeKundenAn(){
         // Objekt kunde fuellen
         Kunde kunde = new Kunde();
         kunde.setVorname(this.txtVorname.getText());
+        kunde.setNachname(this.txtNachname.getText());
+        kunde.setEmail(this.txtEmail.getText());
+        kunde.setTelefonNummer(this.txtTelefon.getText());
+        kunde.setDeleted((byte)0);
         BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
-        db.speichereKunden(kunde, this.cmbBxNummerHaus.getSelectedIndex());
+        try{
+            int kundennummer = db.speichereKunden(kunde, (Integer)this.cmbBxNummerHaus.getSelectedItem());
+            this.lblTextKundennummer.setText(String.valueOf(kundennummer));
+        } catch (PersistenceException p) {
+            this.lblError.setText("<html>ConstraintViolationException: Möglicherweise ist diese Hausnummer bereits an einen Kunden vergeben</html>");
+        }
+
     }
 
     private void aendereKunden(){
