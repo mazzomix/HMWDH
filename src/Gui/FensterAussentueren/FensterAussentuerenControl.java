@@ -1,8 +1,5 @@
 package Gui.FensterAussentueren;
 
-import Gui.Grundriss.GrundrissModel;
-import Gui.Grundriss.GrundrissView;
-
 public class FensterAussentuerenControl {
 
     // das View-Objekt des FensterAussentueren-Fensters
