@@ -4,6 +4,7 @@ import Gui.Aussenanlage.AussenanlageControl;
 import Gui.Grundriss.GrundrissControl;
 import Gui.FensterAussentueren.FensterAussentuerenControl;
 import Gui.Innentueren.InnentuerenControl;
+import Gui.Parkett.ParkettControl;
 import Gui.Sanitärinstallation.SanitärinstallationControl;
 import HibernateCont.Haustyp;
 import HibernateCont.HibernateUtil;
@@ -22,6 +23,7 @@ public class KundeControl {
     private SanitärinstallationControl sanitärinstallationControl;
     private InnentuerenControl innentuerenControl;
     private AussenanlageControl aussenanlageControl;
+    private ParkettControl parkettControl;
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Grundfenster und
@@ -64,5 +66,12 @@ public class KundeControl {
             this.aussenanlageControl = new AussenanlageControl();
         }
         this.aussenanlageControl.oeffneAussenanlageView();
+    }
+
+    public void oeffneParkettControl() {
+        if (this.parkettControl == null) {
+            this.parkettControl = new ParkettControl();
+        }
+        this.parkettControl.oeffneParkettView();
     }
 }
