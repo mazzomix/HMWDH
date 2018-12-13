@@ -6,14 +6,10 @@ import Gui.Grundriss.GrundrissControl;
 import Gui.FensterAussentueren.FensterAussentuerenControl;
 import Gui.Innentueren.InnentuerenControl;
 import Gui.Parkett.ParkettControl;
-import Gui.Sanitärinstallation.SanitärinstallationControl;
-import HibernateCont.Haustyp;
-import HibernateCont.HibernateUtil;
-import HibernateCont.Kunde;
+import Gui.Sanitaerinstallation.SanitärinstallationControl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import javax.swing.JOptionPane;
 public class KundeControl {
 
     // das View-Objekt des Grundfensters

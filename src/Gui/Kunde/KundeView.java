@@ -41,7 +41,7 @@ public class KundeView extends JFrame {
     private JMenu mnSonderwuensche    = new JMenu("Sonderwünsche");
     private JMenuItem mnItmGrundriss  = new JMenuItem("Grundrissvarianten");
     private JMenuItem mnItmFensterAussentueren  = new JMenuItem("Fenster und Aussentueren");
-    private JMenuItem mnItmSanitärinstallation = new JMenuItem("Sanitärinstallation");
+    private JMenuItem mnItmSanitärinstallation = new JMenuItem("Sanitaerinstallation");
     private JMenuItem mnItmInnentueren = new JMenuItem("Innentüren");
     private JMenuItem mnItmAussenanlage = new JMenuItem("Außenanlage");
     private JMenuItem mnItmParkett = new JMenuItem("Parkett");

@@ -1,12 +1,17 @@
-package Gui.Sanitärinstallation;
+package Gui.Sanitaerinstallation;
 
 import Gui.Basis.BasisView;
+
+import javax.swing.JTextField;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class SanitärinstallationView extends  BasisView {
+
+public class SanitaerinstallationView extends  BasisView {
     public static final long serialVersionUID = 1L;
-
-    private SanitärinstallationControl sanitärinstallationControl;
+    private int[] auswahl = new int[6];
+    private SanitaerinstallationControl sanitaerinstallationControl;
 
     private JLabel lblOGGrößeresWaschbecken = new JLabel("Größeres Waschbecken im OG");
     private JTextField txtPreisOGGrößeresWaschbecken = new JTextField("160");
@@ -32,18 +37,21 @@ public class SanitärinstallationView extends  BasisView {
 
 
 
-    public SanitärinstallationView(SanitärinstallationControl sanitärinstallationControl){
-        this.sanitärinstallationControl = sanitärinstallationControl;
-        this.setTitle("Sonderwünsche zu Sanitärinstallation-Varianten");
+
+
+    public SanitaerinstallationView(SanitaerinstallationControl sanitaerinstallationControl){
+        this.sanitaerinstallationControl = sanitaerinstallationControl;
+        this.setTitle("Sonderwünsche zu Sanitaerinstallation-Varianten");
         this.initKomponenten();
-        this.leseSanitärinstallationSonderwuensche();
+        this.leseSanitaerinstallationSonderwuensche();
+        this.iniListener();
     }
 
     @Override
     protected void initKomponenten() {
         super.initKomponenten();
 
-        super.getLblSonderwunsch().setText("Sanitärinstallation-Varianten");
+        super.getLblSonderwunsch().setText("Sanitaerinstallation-Varianten");
         super.getPnlSonderwunsch().add(lblOGGrößeresWaschbecken);
         lblOGGrößeresWaschbecken.setBounds(10, 50, 350, 25);
         super.getPnlSonderwunsch().add(txtPreisOGGrößeresWaschbecken);
@@ -90,12 +98,83 @@ public class SanitärinstallationView extends  BasisView {
 
     }
 
-    private void leseSanitärinstallationSonderwuensche(){this.sanitärinstallationControl.leseSanitärinstallationSonderwuensche();}
+    protected void iniListener() {
+        super.initListener();
+        chckBxOGGrößeresWaschbecken.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[0] = Integer.parseInt(txtPreisOGGrößeresWaschbecken.getText());
+                }else {
+                    auswahl[0] = 0;
+                }
 
+            }
+        });
+        chckBxDGGrößeresWaschbecken.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[1] = Integer.parseInt(txtPreisDGGrößeresWaschbecken.getText());
+                }else {
+                    auswahl[1] = 0;
+                }
+
+            }
+        });
+        chckBxOGBodentiefeDusche.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[2] = Integer.parseInt(txtPreisOGBodentiefeDusche.getText());
+                }else {
+                    auswahl[2] = 0;
+                }
+
+            }
+        });
+        chckBxDGBodentiefeDusche.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
+                if(abBttn.getModel().isSelected()) {
+                    auswahl[3] = Integer.parseInt(txtPreisDGBodentiefeDusche.getText());
+                }else {
+                    auswahl[3] = 0;
+                }
+
+            }
+        });
+
+        };
+
+
+
+
+
+    private void leseSanitaerinstallationSonderwuensche(){this.sanitaerinstallationControl.leseSanitaerinstallationSonderwuensche();}
+
+    /* berechnet den Preis der ausgesuchten Sonderwuensche und zeigt diesen an */
     protected  void berechneUndZeigePreisSonderwuensche(){
-        double preis = sanitärinstallationControl.berechnePreis();
-        txtGesamtpreis.setText("Gesamtpreis: " + Double.toString(preis) + " €");
+
+        if(sanitaerinstallationControl.pruefeKonstellationSonderwuensche(auswahl)) {
+            sanitaerinstallationControl.zeigePreisSonderwuensche(auswahl);
+
+        }else {
+            sanitaerinstallationControl.zeigeFehlerSonderwunsch();
+        }
     }
 
-    protected  void speichereSonderwuensche(){}
+    /* speichert die ausgesuchten Sonderwuensche in der Datenbank ab */
+    protected void speichereSonderwuensche(){
+        // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] auswahl)
+        // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
+    }
+    protected JLabel getTxtGesamtpreis() {
+        return this.txtGesamtpreis;
+
+    }
 }
