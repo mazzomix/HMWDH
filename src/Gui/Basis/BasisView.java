@@ -28,7 +28,6 @@ public abstract class BasisView extends JFrame {
         this.initListener();
     }
 
-
     /* initialisiert die Steuerelemente auf der Maske */
     protected void initKomponenten(){
         // pnlSonderwunsch wird erzeugt.

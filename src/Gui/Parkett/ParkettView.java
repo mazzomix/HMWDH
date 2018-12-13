@@ -13,12 +13,12 @@ import java.awt.event.ActionListener;
 public class ParkettView extends BasisView{
 
     public static final long serialVersionUID = 1L;
-    private int[] auswahl = new int[6]; 
+    private int[] auswahl = new int[10];
     // das Control-Objekt des Grundriss-Fensters
     private ParkettControl parkettControl;
-   
 
-    //---Anfang Attribute der grafischen Oberflaeche---
+
+	//---Anfang Attribute der grafischen Oberflaeche---
     private JLabel lblEGEssbereichDielen = new JLabel("Landhausdielen massiv im Essbereich des EG");
     private JTextField txtPreisEGEssbereichDielen = new JTextField("2890");                                  //String Preis wird später direkt aus der Datenbank gelesen
     private JLabel lblEGEssbereichDielenEuro = new JLabel("Euro");
@@ -79,8 +79,9 @@ public class ParkettView extends BasisView{
      * @param parkettControl ParkettControl, enthaelt das zugehoerige Control
      */
     public ParkettView(ParkettControl parkettControl){
+
         this.parkettControl = parkettControl;
-        this.setTitle("Sonderwünsche zu Grundriss-Varianten");
+        this.setTitle("Sonderwünsche zu Parkett-Varianten");
         this.initKomponenten();
         this.leseParkettSonderwuensche();
         this.iniListener();
@@ -91,7 +92,7 @@ public class ParkettView extends BasisView{
     protected void initKomponenten(){
         super.initKomponenten();
         // pnlSonderwunsch wird belegt.
-        super.getLblSonderwunsch().setText("Grundriss-Varianten");
+        super.getLblSonderwunsch().setText("Parkett-Varianten");
         super.getPnlSonderwunsch().add(lblEGEssbereichDielen);
         lblEGEssbereichDielen.setBounds(10, 50, 350, 25);
         super.getPnlSonderwunsch().add(txtPreisEGEssbereichDielen);
@@ -187,7 +188,7 @@ public class ParkettView extends BasisView{
 		super.getPnlSonderwunsch().add(txtPreisDGOhneBadbereichParkett);
 		txtPreisDGOhneBadbereichParkett.setBounds(350, 275, 80, 25);
 		txtPreisDGOhneBadbereichParkett.setEditable(false);
-		super.getPnlSonderwunsch().add(lblDGOhneBadbereichParkett);
+		super.getPnlSonderwunsch().add(lblDGOhneBadbereichParkettEuro);
 		lblDGOhneBadbereichParkettEuro.setBounds(440, 275, 50, 25);
 		super.getPnlSonderwunsch().add(chckBxDGOhneBadbereichParkett);
 		chckBxDGOhneBadbereichParkett.setBounds(470, 275, 25, 25);
@@ -311,7 +312,7 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 				if(abBttn.getModel().isSelected()) {
-					auswahl[9] = Integer.parseInt(chckBxDGKomplettDielen.getText());
+					auswahl[9] = Integer.parseInt(txtPreisDGKomplettDielen.getText());
 				}else {
 					auswahl[9] = 0;
 				}
