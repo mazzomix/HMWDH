@@ -1,13 +1,16 @@
 package Gui.Basis;
 
-import HibernateCont.Hausnummer;
-import HibernateCont.HibernateUtil;
-import HibernateCont.Kunde;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import HibernateCont.*;
+import org.hibernate.*;
 import org.hibernate.query.Query;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.PersistenceException;
+import javax.transaction.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class BasisDatabaseMethods {
 
@@ -45,7 +48,7 @@ public class BasisDatabaseMethods {
         kunde.setHausnummer(hausnummer);
 
         // Speichere die änderungen
-        session.save(kunde);
+        session.saveOrUpdate(kunde);
         kundennummer = kunde.getId();
         // Änderungen in die Datenbank schreiben
         try{
@@ -61,21 +64,33 @@ public class BasisDatabaseMethods {
 
     public Kunde holeKunde(int id) {
         Kunde kunde = null;
-        int hausnr = 0;
-        Session session = factory.openSession();
-        session.beginTransaction();
-        hausnr = session.load(Hausnummer.class, id).getHausnummer();
+        Hausnummer hausnr = null;
+        Haustyp h = null;
+        boolean init;
 
-        String hql = "from Kunde as kunde where kunde.hausnummer.hausnummer=" + hausnr;
-        Query query = session.createQuery(hql);
+        Session session = factory.openSession();
+
         try {
+            hausnr = session.load(Hausnummer.class, id);
+            String hql =    "select k " +
+                            "from Kunde k " +
+                            "where k.hausnummer.hausnummer=:hausnr";
+            Query query = session.createQuery(hql, Kunde.class).setParameter("hausnr", hausnr.getHausnummer());
+
             kunde = (Kunde) query.list().get(0);
+
+            if(!Hibernate.isInitialized(kunde.getHausnummer().getHaustyp())){
+                Hibernate.initialize(kunde.getHausnummer().getHaustyp());
+            }
+            //init = Hibernate.isInitialized(kunde);
+
         } catch (IndexOutOfBoundsException e) {
             throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
         }
-
-
-        session.close();
 
         return kunde;
     }
@@ -95,5 +110,17 @@ public class BasisDatabaseMethods {
         session.close();
 
         return hasDg;
+    }
+
+    public List<SonderwuenscheGrundriss> holeSonderwuenscheGrundriss() {
+        List<SonderwuenscheGrundriss> sonderwuensche = new ArrayList<>();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from SonderwuenscheGrundriss ");
+        sonderwuensche = query.list();
+        session.close();
+
+        return sonderwuensche;
     }
 }

@@ -1,4 +1,12 @@
 package Gui.Grundriss;
+
+import Business.KundeModel;
+import HibernateCont.SonderwuenscheGrundriss;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Klasse, welche das Fenster mit den Sonderwuenschen zu den Grundriss-Varianten
  * kontrolliert.
@@ -9,7 +17,9 @@ public final class GrundrissControl {
     private GrundrissView grundrissView;
     private GrundrissModel grundrissModel;
     //vorrübergehend :
-    private int hausnummer = 5;
+    private int hausnummer;
+    KundeModel kunde;
+    private Set<SonderwuenscheGrundriss> wuensche = new HashSet();
 
 
     /**
@@ -19,6 +29,8 @@ public final class GrundrissControl {
     public GrundrissControl(){
         this.grundrissView = new GrundrissView(this);
         this.grundrissModel = new GrundrissModel();
+        this.kunde = KundeModel.getInstance();
+        this.hausnummer = kunde.getKunde().getHausnummer().getHausnummer();
     }
 
     /**
@@ -32,12 +44,12 @@ public final class GrundrissControl {
     }
 
   
-    public boolean pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw){
+    public boolean pruefeKonstellationSonderwuensche(double[] ausgewaehlteSw){
 		this.grundrissModel.checkAuswahl(ausgewaehlteSw, hausnummer);
 		return this.grundrissModel.getAuswahl();
 	}
 	
-    public void zeigePreisSonderwuensche(int[] auswahl) {
+    public void zeigePreisSonderwuensche(double[] auswahl) {
 		this.grundrissModel.gesamtpreisBerechnen(auswahl);
 		this.grundrissView.getTxtGesamtpreis().setText(""+grundrissModel.getPreis());
 		this.grundrissModel.resetPreis();
@@ -46,4 +58,12 @@ public final class GrundrissControl {
 		this.grundrissView.getTxtGesamtpreis().setText("Fehlerhafte Konstellation");
 	        this.grundrissModel.resetAuswahl();
 	}
+
+    public Set<SonderwuenscheGrundriss> getWuensche() {
+        return this.wuensche;
+    }
+
+    public void addWunsch(SonderwuenscheGrundriss wunsch) {
+        this.wuensche.add(wunsch);
+    }
 }

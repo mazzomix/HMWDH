@@ -1,5 +1,8 @@
 package Gui.Basis;
 
+import Business.KundeModel;
+import HibernateCont.Kunde;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -18,6 +21,10 @@ public abstract class BasisView extends JFrame {
     private JMenuBar mnBar 			 = new JMenuBar();
     //-------Ende Attribute der grafischen Oberflaeche-------
 
+    protected KundeModel kunde;
+    protected BasisDatabaseMethods db;
+    protected static final String currency = "Euro";
+
     /**
      * erzeugt ein BasisView-Objekt
      */
@@ -26,6 +33,8 @@ public abstract class BasisView extends JFrame {
         this.setLayout(null);
         this.setLocation(400, 200);
         this.initListener();
+        this.kunde = KundeModel.getInstance();
+        this.db = BasisDatabaseMethods.getInstance();
     }
 
     /* initialisiert die Steuerelemente auf der Maske */

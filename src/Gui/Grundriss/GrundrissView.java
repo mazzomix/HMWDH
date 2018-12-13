@@ -2,9 +2,15 @@ package Gui.Grundriss;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.swing.*;
 
 import Gui.Basis.BasisView;
+import HibernateCont.SonderwuenscheGrundriss;
+import org.hibernate.Hibernate;
+
 /**
  * Klasse, welche das Fenster mit den Sonderwuenschen zu
  * den Grundrissvarianten bereitstellt.
@@ -12,40 +18,42 @@ import Gui.Basis.BasisView;
 public class GrundrissView extends BasisView{
 
     public static final long serialVersionUID = 1L;
-    private int[] auswahl = new int[6]; 
+    private double[] auswahl = new double[6];
     // das Control-Objekt des Grundriss-Fensters
     private GrundrissControl grundrissControl;
+	// Liste der Sonderwünsche aus der Datenbank
+    private List<SonderwuenscheGrundriss> sonderwuenscheGrundriss = db.holeSonderwuenscheGrundriss();
    
 
     //---Anfang Attribute der grafischen Oberflaeche---
-    private JLabel lblWandKueche = new JLabel("Wand zur Abtrennung der Küche von dem Essbereich");
-    private JTextField txtPreisWandKueche = new JTextField("300");                                  //String Preis wird später direkt aus der Datenbank gelesen 
-    private JLabel lblWandKuecheEuro = new JLabel("Euro");
+    private JLabel lblWandKueche = new JLabel(sonderwuenscheGrundriss.get(0).getWunsch());
+    private JTextField txtPreisWandKueche = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(0).getPreis()));                                  //String Preis wird später direkt aus der Datenbank gelesen
+    private JLabel lblWandKuecheEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxWandKueche = new JCheckBox();
     
-    private JLabel lblTuerKueche = new JLabel("Tür in der Wand zwischen Küche und Essbereich");
-    private JTextField txtPreisTuerKueche = new JTextField("300");
-    private JLabel lblTuerKuecheEuro = new JLabel("Euro");
+    private JLabel lblTuerKueche = new JLabel(sonderwuenscheGrundriss.get(1).getWunsch());
+    private JTextField txtPreisTuerKueche = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(1).getPreis()));
+    private JLabel lblTuerKuecheEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxTuerKueche = new JCheckBox();
     
-    private JLabel lblGrZimmer = new JLabel("Großes Zimmer im OG statt zwei kleinen Zimmern");
-    private JTextField txtPreisGrZimmer = new JTextField("0");
-    private JLabel lblGrZimmerEuro = new JLabel("Euro");
+    private JLabel lblGrZimmer = new JLabel(sonderwuenscheGrundriss.get(2).getWunsch());
+    private JTextField txtPreisGrZimmer = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(2).getPreis()));
+    private JLabel lblGrZimmerEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxGrZimmer = new JCheckBox();
     
-    private JLabel lblTreppenraum = new JLabel("Abgetrennter Treppenraum im DG");
-    private JTextField txtPreisTreppenraum = new JTextField("890");
-    private JLabel lblTreppenraumEuro = new JLabel("Euro");
+    private JLabel lblTreppenraum = new JLabel(sonderwuenscheGrundriss.get(3).getWunsch());
+    private JTextField txtPreisTreppenraum = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(3).getPreis()));
+    private JLabel lblTreppenraumEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxTreppenraum = new JCheckBox();
     
-    private JLabel lblBadVorrichtung = new JLabel("Vorrichtung eines Bades im DG");
-    private JTextField txtPreisBadVorrichtung = new JTextField("990");
-    private JLabel lblBadVorrichtungEuro = new JLabel("Euro");
+    private JLabel lblBadVorrichtung = new JLabel(sonderwuenscheGrundriss.get(4).getWunsch());
+    private JTextField txtPreisBadVorrichtung = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(4).getPreis()));
+    private JLabel lblBadVorrichtungEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxBadVorrichtung = new JCheckBox();
     
-    private JLabel lblBadAusfuehrung = new JLabel("Ausführung eines Bades im DG");
-    private JTextField txtPreisBadAusfuehrung = new JTextField("8990");
-    private JLabel lblBadAusfuehrungEuro = new JLabel("Euro");
+    private JLabel lblBadAusfuehrung = new JLabel(sonderwuenscheGrundriss.get(5).getWunsch());
+    private JTextField txtPreisBadAusfuehrung = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(5).getPreis()));
+    private JLabel lblBadAusfuehrungEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxBadAusfuehrung = new JCheckBox();
     
     private JLabel lblGesamtpreis = new JLabel("Gesamtpreis: ");
@@ -145,7 +153,8 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[0] = Integer.parseInt(txtPreisWandKueche.getText());
+                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(0));
+	  	        	auswahl[0] = sonderwuenscheGrundriss.get(0).getPreis();
 	  	        }else {
 	  	        	auswahl[0] = 0;
 	  	        }
@@ -157,7 +166,8 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[1] = Integer.parseInt(txtPreisTuerKueche.getText());
+                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(1));
+	  	        	auswahl[1] = sonderwuenscheGrundriss.get(1).getPreis();
 	  	        }else {
 	  	        	auswahl[1] = 0;
 	  	        }
@@ -169,7 +179,8 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[2] = Integer.parseInt(txtPreisGrZimmer.getText());
+                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(2));
+	  	        	auswahl[2] = sonderwuenscheGrundriss.get(2).getPreis();
 	  	        }else {
 	  	        	auswahl[2] = 0;
 	  	        }
@@ -181,7 +192,8 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[3] = Integer.parseInt(txtPreisTreppenraum.getText());
+                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(3));
+	  	        	auswahl[3] = sonderwuenscheGrundriss.get(3).getPreis();
 	  	        }else {
 	  	        	auswahl[3] = 0;
 	  	        }
@@ -193,7 +205,8 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[4] = Integer.parseInt(txtPreisBadVorrichtung.getText());
+                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(4));
+	  	        	auswahl[4] = sonderwuenscheGrundriss.get(4).getPreis();
 	  	        }else {
 	  	        	auswahl[4] = 0;
 	  	        }
@@ -205,7 +218,8 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[5] = Integer.parseInt(txtPreisBadAusfuehrung.getText());
+                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(5));
+	  	        	auswahl[5] = sonderwuenscheGrundriss.get(5).getPreis();
 	  	        }else {
 	  	        	auswahl[5] = 0;
 	  	        }
@@ -234,6 +248,16 @@ public class GrundrissView extends BasisView{
     protected void speichereSonderwuensche(){
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
+        Set kunden = new HashSet();
+        for (SonderwuenscheGrundriss wunsch: grundrissControl.getWuensche()){
+            kunden = wunsch.getKunden();
+            kunden.add(kunde.getKunde());
+            wunsch.setKunden(kunden);
+        }
+        kunde.getKunde().setSonderwuenscheGrundriss(grundrissControl.getWuensche());
+        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+
+
     }
     
     protected JTextField getTxtGesamtpreis() {

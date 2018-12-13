@@ -1,6 +1,9 @@
 package Gui.Kunde;
 
+import Business.KundeModel;
 import Gui.Basis.BasisDatabaseMethods;
+import HibernateCont.Hausnummer;
+import HibernateCont.Haustyp;
 import HibernateCont.Kunde;
 
 import java.awt.*;
@@ -176,6 +179,7 @@ public class KundeView extends JFrame {
     }
 
     private void leseKunden(){
+        this.lblError.setText("");
         Kunde kunde = null;
         BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
         try{
@@ -185,6 +189,9 @@ public class KundeView extends JFrame {
             this.txtEmail.setText(kunde.getEmail());
             this.txtTelefon.setText(kunde.getTelefonNummer());
             this.lblTextKundennummer.setText(String.valueOf(kunde.getId()));
+            Hausnummer hausnummer = kunde.getHausnummer();
+            Haustyp haustyp = hausnummer.getHaustyp();
+            KundeModel.getInstance().setKunde(kunde);
         } catch (IndexOutOfBoundsException e) {
             this.lblError.setText("<html>Für diese Hausnummer existiert kein Kunde</html>");
         }
@@ -203,6 +210,7 @@ public class KundeView extends JFrame {
         try{
             int kundennummer = db.speichereKunden(kunde, (Integer)this.cmbBxNummerHaus.getSelectedItem());
             this.lblTextKundennummer.setText(String.valueOf(kundennummer));
+            KundeModel.getInstance().setKunde(kunde);
         } catch (PersistenceException p) {
             this.lblError.setText("<html>ConstraintViolationException: Möglicherweise ist diese Hausnummer bereits an einen Kunden vergeben</html>");
         }

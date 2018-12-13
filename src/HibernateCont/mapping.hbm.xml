@@ -45,7 +45,7 @@
         </id>
         <property name="wunsch" column="wunsch" type="string"/>
         <property name="preis" column="preis" type="double"/>
-        <set name="kunden" table="kunde_sonderwuensche_grundriss" inverse="true">
+        <set name="kunden" table="kunde_sonderwuensche_grundriss" inverse="true" lazy="false">
             <key column="sonderwuensche_id" />
             <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
         </set>
