@@ -6,7 +6,7 @@ import Gui.Grundriss.GrundrissControl;
 import Gui.FensterAussentueren.FensterAussentuerenControl;
 import Gui.Innentueren.InnentuerenControl;
 import Gui.Parkett.ParkettControl;
-import Gui.Sanitaerinstallation.SanitärinstallationControl;
+import Gui.Sanitaerinstallation.SanitaerinstallationControl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -17,7 +17,7 @@ public class KundeControl {
     // das GrundrissControl-Objekt zum Kunden
     private GrundrissControl grundrissControl;
     private FensterAussentuerenControl fensterAussentuerenControl;
-    private SanitärinstallationControl sanitärinstallationControl;
+    private SanitaerinstallationControl sanitärinstallationControl;
     private InnentuerenControl innentuerenControl;
     private AussenanlageControl aussenanlageControl;
     private ParkettControl parkettControl;
@@ -49,7 +49,7 @@ public class KundeControl {
     }
     public void oeffneSanitärinstallationControl(){
         if(this.sanitärinstallationControl == null){
-            this.sanitärinstallationControl = new SanitärinstallationControl();
+            this.sanitärinstallationControl = new SanitaerinstallationControl();
         }
         this.sanitärinstallationControl.oeffneSanitärinstallationView();
     }
