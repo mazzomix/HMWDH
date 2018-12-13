@@ -65,6 +65,10 @@ public abstract class BasisView extends JFrame {
         return lblSonderwunsch;
     }
 
+    protected JButton getBtnBerechnen(){return btnBerechnen;}
+
+    protected JButton getBtnSpeichern(){return btnSpeichern;}
+
     /* berechnet den Preis der ausgesuchten Sonderwuensche und zeigt diesen an */
     protected abstract void berechneUndZeigePreisSonderwuensche();
 

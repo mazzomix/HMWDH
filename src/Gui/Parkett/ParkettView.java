@@ -16,7 +16,7 @@ public class ParkettView extends BasisView{
     private int[] auswahl = new int[10];
     // das Control-Objekt des Grundriss-Fensters
     private ParkettControl parkettControl;
-
+	private BasisView basisView;
 
 	//---Anfang Attribute der grafischen Oberflaeche---
     private JLabel lblEGEssbereichDielen = new JLabel("Landhausdielen massiv im Essbereich des EG");
@@ -92,6 +92,10 @@ public class ParkettView extends BasisView{
     protected void initKomponenten(){
         super.initKomponenten();
         // pnlSonderwunsch wird belegt.
+		super.setSize(550, 450);	//Fenster vergrößern
+		super.getPnlSonderwunsch().setSize(510, 360);
+		super.getBtnBerechnen().setLocation(210, 380);
+		super.getBtnSpeichern().setLocation(370, 380);
         super.getLblSonderwunsch().setText("Parkett-Varianten");
         super.getPnlSonderwunsch().add(lblEGEssbereichDielen);
         lblEGEssbereichDielen.setBounds(10, 50, 350, 25);
@@ -194,9 +198,9 @@ public class ParkettView extends BasisView{
 		chckBxDGOhneBadbereichParkett.setBounds(470, 275, 25, 25);
         
         super.getPnlSonderwunsch().add(lblGesamtpreis);
-    	lblGesamtpreis.setBounds(10, 300, 350, 25);
+    	lblGesamtpreis.setBounds(10, 325, 350, 25);
     	super.getPnlSonderwunsch().add(txtGesamtpreis);
-    	txtGesamtpreis.setBounds(350, 300, 150, 25);
+    	txtGesamtpreis.setBounds(350, 325, 150, 25);
     	txtGesamtpreis.setEditable(false);
     }
     
