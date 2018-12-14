@@ -123,4 +123,28 @@ public class BasisDatabaseMethods {
 
         return sonderwuensche;
     }
+
+    public List<SonderwuenscheFensterAussentueren> holeSonderwuenscheFensterAussentueren() {
+        List<SonderwuenscheFensterAussentueren> sonderwuensche = new ArrayList<>();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from SonderwuenscheFensterAussentueren ");
+        sonderwuensche = query.list();
+        session.close();
+
+        return sonderwuensche;
+    }
+
+    public List<SonderwuenscheSanitaerinstallation> holeSonderwuenscheSanitaerinstallation() {
+        List<SonderwuenscheSanitaerinstallation> sonderwuensche = new ArrayList<>();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from SonderwuenscheSanitaerinstallation ");
+        sonderwuensche = query.list();
+        session.close();
+
+        return sonderwuensche;
+    }
 }

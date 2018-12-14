@@ -2,7 +2,7 @@ package Gui.FensterAussentueren;
 
 public class FensterAussentuerenModel {
     private int _preis = 0;
-    public void gesamtpreisBerechnen (int[] preise) {
+    public void gesamtpreisBerechnen (double[] preise) {
         for(int i = 0; i<preise.length; i++) {
             this._preis += preise[i];
         }

@@ -3,9 +3,7 @@ package Gui.Grundriss;
 import Business.KundeModel;
 import HibernateCont.SonderwuenscheGrundriss;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Klasse, welche das Fenster mit den Sonderwuenschen zu den Grundriss-Varianten
@@ -19,7 +17,8 @@ public final class GrundrissControl {
     //vorrübergehend :
     private int hausnummer;
     KundeModel kunde;
-    private Set<SonderwuenscheGrundriss> wuensche = new HashSet();
+    private List<SonderwuenscheGrundriss> wuensche = new ArrayList();
+    private Set<SonderwuenscheGrundriss> ausgewaehlteWuensche = new HashSet<>();
 
 
     /**
@@ -59,11 +58,36 @@ public final class GrundrissControl {
 	        this.grundrissModel.resetAuswahl();
 	}
 
-    public Set<SonderwuenscheGrundriss> getWuensche() {
-        return this.wuensche;
-    }
-
     public void addWunsch(SonderwuenscheGrundriss wunsch) {
         this.wuensche.add(wunsch);
+    }
+
+    public Set<SonderwuenscheGrundriss> getAusgewaehlteWuensche() {
+        return ausgewaehlteWuensche;
+    }
+
+    public void setAusgewaehlteWuensche(Set<SonderwuenscheGrundriss> ausgewaehlteWuensche) {
+        this.ausgewaehlteWuensche = ausgewaehlteWuensche;
+    }
+
+    public void addAusgewaehltenWuensch(SonderwuenscheGrundriss ausgewaehlterWuensch) {
+        this.ausgewaehlteWuensche.add(ausgewaehlterWuensch);
+    }
+
+    public List<SonderwuenscheGrundriss> getWuensche() {
+        return wuensche;
+    }
+
+    public void setWuensche(List<SonderwuenscheGrundriss> wuensche) {
+        this.wuensche = wuensche;
+    }
+
+    public void removeAusgewaehltenWunsch(Integer id) {
+        for (Iterator<SonderwuenscheGrundriss> i = this.getAusgewaehlteWuensche().iterator(); i.hasNext();) {
+            SonderwuenscheGrundriss element = i.next();
+            if (element.getId() == id) {
+                i.remove();
+            }
+        }
     }
 }

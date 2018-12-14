@@ -2,6 +2,8 @@ package Gui.Grundriss;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,33 +28,33 @@ public class GrundrissView extends BasisView{
    
 
     //---Anfang Attribute der grafischen Oberflaeche---
-    private JLabel lblWandKueche = new JLabel(sonderwuenscheGrundriss.get(0).getWunsch());
-    private JTextField txtPreisWandKueche = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(0).getPreis()));                                  //String Preis wird später direkt aus der Datenbank gelesen
+    private JLabel lblWandKueche = new JLabel();
+    private JTextField txtPreisWandKueche = new JTextField();                                  //String Preis wird später direkt aus der Datenbank gelesen
     private JLabel lblWandKuecheEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxWandKueche = new JCheckBox();
     
-    private JLabel lblTuerKueche = new JLabel(sonderwuenscheGrundriss.get(1).getWunsch());
-    private JTextField txtPreisTuerKueche = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(1).getPreis()));
+    private JLabel lblTuerKueche = new JLabel();
+    private JTextField txtPreisTuerKueche = new JTextField();
     private JLabel lblTuerKuecheEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxTuerKueche = new JCheckBox();
     
-    private JLabel lblGrZimmer = new JLabel(sonderwuenscheGrundriss.get(2).getWunsch());
-    private JTextField txtPreisGrZimmer = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(2).getPreis()));
+    private JLabel lblGrZimmer = new JLabel();
+    private JTextField txtPreisGrZimmer = new JTextField();
     private JLabel lblGrZimmerEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxGrZimmer = new JCheckBox();
     
-    private JLabel lblTreppenraum = new JLabel(sonderwuenscheGrundriss.get(3).getWunsch());
-    private JTextField txtPreisTreppenraum = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(3).getPreis()));
+    private JLabel lblTreppenraum = new JLabel();
+    private JTextField txtPreisTreppenraum = new JTextField();
     private JLabel lblTreppenraumEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxTreppenraum = new JCheckBox();
     
-    private JLabel lblBadVorrichtung = new JLabel(sonderwuenscheGrundriss.get(4).getWunsch());
-    private JTextField txtPreisBadVorrichtung = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(4).getPreis()));
+    private JLabel lblBadVorrichtung = new JLabel();
+    private JTextField txtPreisBadVorrichtung = new JTextField();
     private JLabel lblBadVorrichtungEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxBadVorrichtung = new JCheckBox();
     
-    private JLabel lblBadAusfuehrung = new JLabel(sonderwuenscheGrundriss.get(5).getWunsch());
-    private JTextField txtPreisBadAusfuehrung = new JTextField(String.valueOf(sonderwuenscheGrundriss.get(5).getPreis()));
+    private JLabel lblBadAusfuehrung = new JLabel();
+    private JTextField txtPreisBadAusfuehrung = new JTextField();
     private JLabel lblBadAusfuehrungEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxBadAusfuehrung = new JCheckBox();
     
@@ -68,6 +70,7 @@ public class GrundrissView extends BasisView{
     public GrundrissView (GrundrissControl grundrissControl){
         this.grundrissControl = grundrissControl;
         this.setTitle("Sonderwünsche zu Grundriss-Varianten");
+		this.grundrissControl.setWuensche(db.holeSonderwuenscheGrundriss());
         this.initKomponenten();
         this.leseGrundrissSonderwuensche();
         this.iniListener();
@@ -144,7 +147,50 @@ public class GrundrissView extends BasisView{
     	super.getPnlSonderwunsch().add(txtGesamtpreis);
     	txtGesamtpreis.setBounds(350, 225, 150, 25);
     	txtGesamtpreis.setEditable(false);
+
+		lblWandKueche.setText(grundrissControl.getWuensche().get(0).getWunsch());
+		txtPreisWandKueche.setText(String.valueOf(grundrissControl.getWuensche().get(0).getPreis()));
+		lblTuerKueche.setText(grundrissControl.getWuensche().get(1).getWunsch());
+		txtPreisTuerKueche.setText(String.valueOf(grundrissControl.getWuensche().get(1).getPreis()));
+		lblGrZimmer.setText(grundrissControl.getWuensche().get(2).getWunsch());
+		txtPreisGrZimmer.setText(String.valueOf(grundrissControl.getWuensche().get(2).getPreis()));
+		lblTreppenraum.setText(grundrissControl.getWuensche().get(3).getWunsch());
+		txtPreisTreppenraum.setText(String.valueOf(grundrissControl.getWuensche().get(3).getPreis()));
+		lblBadVorrichtung.setText(grundrissControl.getWuensche().get(4).getWunsch());
+		txtPreisBadVorrichtung.setText(String.valueOf(grundrissControl.getWuensche().get(4).getPreis()));
+		lblBadAusfuehrung.setText(grundrissControl.getWuensche().get(5).getWunsch());
+		txtPreisBadAusfuehrung.setText(String.valueOf(grundrissControl.getWuensche().get(5).getPreis()));
     }
+
+    public void intialiseForChosenKunde(){
+		Set<SonderwuenscheGrundriss> kundenWuensche = kunde.getKunde().getSonderwuenscheGrundriss();
+		grundrissControl.setAusgewaehlteWuensche(kundenWuensche);
+		double summePreis = 0;
+		for(SonderwuenscheGrundriss wunsch: kundenWuensche){
+			switch (wunsch.getId()){
+				case 1:
+					chckBxWandKueche.setSelected(true);
+					break;
+				case 2:
+					chckBxTuerKueche.setSelected(true);
+					break;
+				case 3:
+					chckBxGrZimmer.setSelected(true);
+					break;
+				case 4:
+					chckBxTreppenraum.setSelected(true);
+					break;
+				case 5:
+					chckBxBadVorrichtung.setSelected(true);
+					break;
+				case 6:
+					chckBxBadAusfuehrung.setSelected(true);
+					break;
+			}
+			summePreis += wunsch.getPreis();
+		}
+		txtGesamtpreis.setText(String.valueOf(summePreis));
+	}
     
     protected void iniListener() {
     	super.initListener();
@@ -153,10 +199,11 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(0));
+                    grundrissControl.addAusgewaehltenWuensch(sonderwuenscheGrundriss.get(0));
 	  	        	auswahl[0] = sonderwuenscheGrundriss.get(0).getPreis();
 	  	        }else {
 	  	        	auswahl[0] = 0;
+					grundrissControl.removeAusgewaehltenWunsch(grundrissControl.getWuensche().get(0).getId());
 	  	        }
 				
 			}
@@ -166,10 +213,11 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(1));
+                    grundrissControl.addAusgewaehltenWuensch(sonderwuenscheGrundriss.get(1));
 	  	        	auswahl[1] = sonderwuenscheGrundriss.get(1).getPreis();
 	  	        }else {
 	  	        	auswahl[1] = 0;
+					grundrissControl.removeAusgewaehltenWunsch(grundrissControl.getWuensche().get(1).getId());
 	  	        }
 				
 			}
@@ -179,10 +227,11 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(2));
+                    grundrissControl.addAusgewaehltenWuensch(sonderwuenscheGrundriss.get(2));
 	  	        	auswahl[2] = sonderwuenscheGrundriss.get(2).getPreis();
 	  	        }else {
 	  	        	auswahl[2] = 0;
+					grundrissControl.removeAusgewaehltenWunsch(grundrissControl.getWuensche().get(2).getId());
 	  	        }
 				
 			}
@@ -192,10 +241,11 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(3));
+                    grundrissControl.addAusgewaehltenWuensch(sonderwuenscheGrundriss.get(3));
 	  	        	auswahl[3] = sonderwuenscheGrundriss.get(3).getPreis();
 	  	        }else {
 	  	        	auswahl[3] = 0;
+					grundrissControl.removeAusgewaehltenWunsch(grundrissControl.getWuensche().get(3).getId());
 	  	        }
 				
 			}
@@ -205,10 +255,11 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(4));
+                    grundrissControl.addAusgewaehltenWuensch(sonderwuenscheGrundriss.get(4));
 	  	        	auswahl[4] = sonderwuenscheGrundriss.get(4).getPreis();
 	  	        }else {
 	  	        	auswahl[4] = 0;
+					grundrissControl.removeAusgewaehltenWunsch(grundrissControl.getWuensche().get(4).getId());
 	  	        }
 				
 			}
@@ -218,12 +269,32 @@ public class GrundrissView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-                    grundrissControl.addWunsch(sonderwuenscheGrundriss.get(5));
+                    grundrissControl.addAusgewaehltenWuensch(sonderwuenscheGrundriss.get(5));
 	  	        	auswahl[5] = sonderwuenscheGrundriss.get(5).getPreis();
 	  	        }else {
 	  	        	auswahl[5] = 0;
+					grundrissControl.removeAusgewaehltenWunsch(grundrissControl.getWuensche().get(5).getId());
 	  	        }
 				
+			}
+		});
+
+    	this.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				intialiseForChosenKunde();
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				chckBxWandKueche.setSelected(false);
+				chckBxTuerKueche.setSelected(false);
+				chckBxGrZimmer.setSelected(false);
+				chckBxTreppenraum.setSelected(false);
+				chckBxBadVorrichtung.setSelected(false);
+				chckBxBadAusfuehrung.setSelected(false);
+				txtGesamtpreis.setText("");
 			}
 		});
     }
@@ -248,14 +319,8 @@ public class GrundrissView extends BasisView{
     protected void speichereSonderwuensche(){
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
-        Set kunden = new HashSet();
-        for (SonderwuenscheGrundriss wunsch: grundrissControl.getWuensche()){
-            kunden = wunsch.getKunden();
-            kunden.add(kunde.getKunde());
-            wunsch.setKunden(kunden);
-        }
-        kunde.getKunde().setSonderwuenscheGrundriss(grundrissControl.getWuensche());
-        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+		kunde.getKunde().setSonderwuenscheGrundriss(grundrissControl.getAusgewaehlteWuensche());
+		db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
 
 
     }

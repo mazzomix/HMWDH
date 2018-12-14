@@ -6,7 +6,7 @@ public class SanitaerinstallationModel {
         private boolean auswahl;
 
 
-      public void gesamtpreisBerechnen (int[] preise) {
+      public void gesamtpreisBerechnen (double[] preise) {
         for(int i = 0; i<preise.length; i++) {
             this.preis += preise[i];
         }

@@ -2,9 +2,14 @@ package Gui.FensterAussentueren;
 
 import javax.swing.*;
 import Gui.Basis.BasisView;
+import HibernateCont.SonderwuenscheFensterAussentueren;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Iterator;
+import java.util.Set;
 
 public class FensterAussentuerenView extends BasisView {
 
@@ -13,7 +18,7 @@ public class FensterAussentuerenView extends BasisView {
     // das Control-Objekt des FensterAussentueren-Fensters
     private FensterAussentuerenControl fensterAussentuerenControl;
 
-    private int[] auswahl = new int[9];
+    private double[] auswahl = new double[9];
 
     //---Anfang Attribute der grafischen Oberflaeche---
     private JLabel lblSchiebeTuerEgTerrasse = new JLabel("Schiebetüren im EG zur Terrasse:");
@@ -78,6 +83,7 @@ public class FensterAussentuerenView extends BasisView {
         this.initKomponenten();
         this.leseFensterAussentuerenSonderwuensche();
         this.iniListener();
+        this.fensterAussentuerenControl.setWuensche(db.holeSonderwuenscheFensterAussentueren());
     }
 
 
@@ -190,11 +196,12 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[0] = Integer.parseInt(txtPreisSchiebeTuerEgTerrasse.getText());
+                    auswahl[0] = fensterAussentuerenControl.getWuensche().get(0).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(0));
                 }else {
                     auswahl[0] = 0;
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(0).getId());
                 }
-
             }
         });
         chckBxSchiebeTuerDgTerrasse.addActionListener(new ActionListener() {
@@ -202,9 +209,11 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[1] = Integer.parseInt(txtPreisSchiebeTuerDgTerrasse.getText());
+                    auswahl[1] = fensterAussentuerenControl.getWuensche().get(1).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(1));
                 }else {
                     auswahl[1] = 0;
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(1).getId());
                 }
 
             }
@@ -214,10 +223,12 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[2] = Integer.parseInt(txtPreisEinbruchschutzHaustuer.getText());
+                    auswahl[2] = fensterAussentuerenControl.getWuensche().get(2).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(2));
                 }else {
                     auswahl[2] = 0;
-                }
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(2).getId());
+            }
 
             }
         });
@@ -226,9 +237,11 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[3] = Integer.parseInt(txtPreisVorbeitetungElektRollaedenEg.getText());
+                    auswahl[3] = fensterAussentuerenControl.getWuensche().get(3).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(3));
                 }else {
                     auswahl[3] = 0;
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(3).getId());
                 }
 
             }
@@ -238,9 +251,11 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[4] = Integer.parseInt(txtPreisVorbeitetungElektRollaedenOg.getText());
+                    auswahl[4] = fensterAussentuerenControl.getWuensche().get(4).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(4));
                 }else {
                     auswahl[4] = 0;
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(4).getId());
                 }
 
             }
@@ -250,9 +265,11 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[5] = Integer.parseInt(txtPreisVorbeitetungElektRollaedenDg.getText());
+                    auswahl[5] = fensterAussentuerenControl.getWuensche().get(5).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(5));
                 }else {
                     auswahl[5] = 0;
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(5).getId());
                 }
 
             }
@@ -262,9 +279,11 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[6] = Integer.parseInt(txtPreisElektRollaedenEg.getText());
+                    auswahl[6] = fensterAussentuerenControl.getWuensche().get(6).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(6));
                 }else {
                     auswahl[6] = 0;
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(6).getId());
                 }
 
             }
@@ -274,9 +293,11 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[7] = Integer.parseInt(txtPreisElektRollaedenOg.getText());
+                    auswahl[7] = fensterAussentuerenControl.getWuensche().get(7).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(7));
                 }else {
                     auswahl[7] = 0;
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(7).getId());
                 }
 
             }
@@ -286,13 +307,75 @@ public class FensterAussentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[8] = Integer.parseInt(txtPreisElektRollaedenDg.getText());
+                    auswahl[8] = fensterAussentuerenControl.getWuensche().get(8).getPreis();
+                    fensterAussentuerenControl.addAusgewaehltenWuensch(fensterAussentuerenControl.getWuensche().get(8));
                 }else {
                     auswahl[8] = 0;
+                    fensterAussentuerenControl.removeAusgewaehltenWunsch(fensterAussentuerenControl.getWuensche().get(8).getId());
                 }
-
             }
         });
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                initFieldsFromDatabase();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                chckBxSchiebeTuerEgTerrasse.setSelected(false);
+                chckBxSchiebeTuerDgTerrasse.setSelected(false);
+                chckBxGrEinbruchschutzHaustuer.setSelected(false);
+                chckBxVorbeitetungElektRollaedenEg.setSelected(false);
+                chckBxVorbeitetungElektRollaedenOg.setSelected(false);
+                chckBxVorbeitetungElektRollaedenDg.setSelected(false);
+                chckBxElektRollaedenEg.setSelected(false);
+                chckBxElektRollaedenOg.setSelected(false);
+                chckBxElektRollaedenDg.setSelected(false);
+                txtGesamtpreis.setText("");
+            }
+        });
+    }
+
+    private void initFieldsFromDatabase(){
+        Set<SonderwuenscheFensterAussentueren> kundenWuensche = kunde.getKunde().getSonderwuenscheFensterAussentueren();
+        fensterAussentuerenControl.setAusgewaehlteWuensche(kundenWuensche);
+        double summePreis = 0;
+        for(SonderwuenscheFensterAussentueren wunsch: kundenWuensche){
+            switch (wunsch.getId()){
+                case 1:
+                    chckBxSchiebeTuerEgTerrasse.setSelected(true);
+                    break;
+                case 2:
+                    chckBxSchiebeTuerDgTerrasse.setSelected(true);
+                    break;
+                case 3:
+                    chckBxGrEinbruchschutzHaustuer.setSelected(true);
+                    break;
+                case 4:
+                    chckBxVorbeitetungElektRollaedenEg.setSelected(true);
+                    break;
+                case 5:
+                    chckBxVorbeitetungElektRollaedenOg.setSelected(true);
+                    break;
+                case 6:
+                    chckBxVorbeitetungElektRollaedenDg.setSelected(true);
+                    break;
+                case 7:
+                    chckBxElektRollaedenEg.setSelected(true);
+                    break;
+                case 8:
+                    chckBxElektRollaedenOg.setSelected(true);
+                    break;
+                case 9:
+                    chckBxElektRollaedenDg.setSelected(true);
+                    break;
+            }
+            summePreis += wunsch.getPreis();
+        }
+        txtGesamtpreis.setText(String.valueOf(summePreis));
+
     }
 
     private void leseFensterAussentuerenSonderwuensche() {
@@ -310,11 +393,11 @@ public class FensterAussentuerenView extends BasisView {
     protected void speichereSonderwuensche() {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
+        kunde.getKunde().setSonderwuenscheFensterAussentueren(fensterAussentuerenControl.getAusgewaehlteWuensche());
+        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
     }
     protected JTextField getTxtGesamtpreis() {
         return this.txtGesamtpreis;
 
     }
-
-
 }
