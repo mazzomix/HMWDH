@@ -1,10 +1,14 @@
 package Gui.Parkett;
 
 import Gui.Basis.BasisView;
+import HibernateCont.SonderwuenscheParkett;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Set;
 
 /**
  * Klasse, welche das Fenster mit den Sonderwuenschen zu
@@ -13,60 +17,60 @@ import java.awt.event.ActionListener;
 public class ParkettView extends BasisView{
 
     public static final long serialVersionUID = 1L;
-    private int[] auswahl = new int[10];
+    private double[] auswahl = new double[10];
     // das Control-Objekt des Grundriss-Fensters
     private ParkettControl parkettControl;
 	private BasisView basisView;
 
 	//---Anfang Attribute der grafischen Oberflaeche---
-    private JLabel lblEGEssbereichDielen = new JLabel("Landhausdielen massiv im Essbereich des EG");
-    private JTextField txtPreisEGEssbereichDielen = new JTextField("2890");                                  //String Preis wird später direkt aus der Datenbank gelesen
-    private JLabel lblEGEssbereichDielenEuro = new JLabel("Euro");
+    private JLabel lblEGEssbereichDielen = new JLabel("");
+    private JTextField txtPreisEGEssbereichDielen = new JTextField("");                                  //String Preis wird später direkt aus der Datenbank gelesen
+    private JLabel lblEGEssbereichDielenEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxEGEssbereichDielen = new JCheckBox();
     
-    private JLabel lblEGKuechenbereichDielen = new JLabel("Landhausdielen massiv im Küchenbereich des EG");
-    private JTextField txtPreisEGKuechenbereichDielen = new JTextField("2090");
-    private JLabel lblEGKuechenbereichDielenEuro = new JLabel("Euro");
+    private JLabel lblEGKuechenbereichDielen = new JLabel("");
+    private JTextField txtPreisEGKuechenbereichDielen = new JTextField("");
+    private JLabel lblEGKuechenbereichDielenEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxEGKuechenbereichDielen = new JCheckBox();
     
-    private JLabel lblEGEssbereichParkett = new JLabel("Stäbchenparkett im Essbereich des EG");
-    private JTextField txtPreisEGEssbereichParkett = new JTextField("2090");
-    private JLabel lblEGEssbereichParkettEuro = new JLabel("Euro");
+    private JLabel lblEGEssbereichParkett = new JLabel("");
+    private JTextField txtPreisEGEssbereichParkett = new JTextField("");
+    private JLabel lblEGEssbereichParkettEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxEGEssbereichParkett = new JCheckBox();
     
-    private JLabel lblEGKuechenbereichParkett = new JLabel("Stäbchenparkett im Küchenbereich des EG");
-    private JTextField txtPreisEGKuechenbereichParkett = new JTextField("1790");
-    private JLabel lblEGKuechenbereichParkettEuro = new JLabel("Euro");
+    private JLabel lblEGKuechenbereichParkett = new JLabel("");
+    private JTextField txtPreisEGKuechenbereichParkett = new JTextField("");
+    private JLabel lblEGKuechenbereichParkettEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxEGKuechenbereichParkett = new JCheckBox();
     
-    private JLabel lblParkettOG = new JLabel("Stäbchenparkett im OG");
-    private JTextField txtPreisParkettOG = new JTextField("1690");
-    private JLabel lblParkettOGEuro = new JLabel("Euro");
+    private JLabel lblParkettOG = new JLabel("");
+    private JTextField txtPreisParkettOG = new JTextField("");
+    private JLabel lblParkettOGEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxParkettOG = new JCheckBox();
     
-    private JLabel lblDielenOG = new JLabel("Landhausdielen massiv im OG");
-    private JTextField txtPreisDielenOG = new JTextField("2490");
-    private JLabel lblDielenOGEuro = new JLabel("Euro");
+    private JLabel lblDielenOG = new JLabel("");
+    private JTextField txtPreisDielenOG = new JTextField("");
+    private JLabel lblDielenOGEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxDielenOG = new JCheckBox();
 
-    private JLabel lblDGKomplettDielen = new JLabel("Landhausdielen massiv komplett im DG");
-    private JTextField txtPreisDGKomplettDielen = new JTextField("2490");
-    private JLabel lblDGKomplettDielenEuro = new JLabel("Euro");
+    private JLabel lblDGKomplettDielen = new JLabel("");
+    private JTextField txtPreisDGKomplettDielen = new JTextField("");
+    private JLabel lblDGKomplettDielenEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxDGKomplettDielen = new JCheckBox();
 
-	private JLabel lblDGOhneBadbereichDielen = new JLabel("Landhausdielen massiv ohne Badebereich im DG");
-	private JTextField txtPreisDGOhneBadbereichDielen = new JTextField("2090");
-	private JLabel lblDGOhneBadbereichDielenEuro = new JLabel("Euro");
+	private JLabel lblDGOhneBadbereichDielen = new JLabel("");
+	private JTextField txtPreisDGOhneBadbereichDielen = new JTextField("");
+	private JLabel lblDGOhneBadbereichDielenEuro = new JLabel(BasisView.currency);
 	private JCheckBox chckBxDGOhneBadbereichDielen = new JCheckBox();
 
-	private JLabel lblDGKomplettParkett = new JLabel("Stäbchenparkett im DG komplett im DG");
-	private JTextField txtPreisDGKomplettParkett = new JTextField("1690");
-	private JLabel lblDGKomplettParkettEuro = new JLabel("Euro");
+	private JLabel lblDGKomplettParkett = new JLabel("");
+	private JTextField txtPreisDGKomplettParkett = new JTextField("");
+	private JLabel lblDGKomplettParkettEuro = new JLabel(BasisView.currency);
 	private JCheckBox chckBxDGKomplettParkett = new JCheckBox();
 
-	private JLabel lblDGOhneBadbereichParkett = new JLabel("Landhausdielen ohne Badbereich im DG");
-	private JTextField txtPreisDGOhneBadbereichParkett = new JTextField("1690");
-	private JLabel lblDGOhneBadbereichParkettEuro = new JLabel("Euro");
+	private JLabel lblDGOhneBadbereichParkett = new JLabel("");
+	private JTextField txtPreisDGOhneBadbereichParkett = new JTextField("");
+	private JLabel lblDGOhneBadbereichParkettEuro = new JLabel(BasisView.currency);
 	private JCheckBox chckBxDGOhneBadbereichParkett = new JCheckBox();
     
     private JLabel lblGesamtpreis = new JLabel("Gesamtpreis: ");
@@ -82,6 +86,7 @@ public class ParkettView extends BasisView{
 
         this.parkettControl = parkettControl;
         this.setTitle("Sonderwünsche zu Parkett-Varianten");
+		this.parkettControl.setWuensche(db.holeSonderwuenscheParkett());
         this.initKomponenten();
         this.leseParkettSonderwuensche();
         this.iniListener();
@@ -202,6 +207,28 @@ public class ParkettView extends BasisView{
     	super.getPnlSonderwunsch().add(txtGesamtpreis);
     	txtGesamtpreis.setBounds(350, 325, 150, 25);
     	txtGesamtpreis.setEditable(false);
+
+    	lblEGEssbereichDielen.setText(parkettControl.getWuensche().get(0).getWunsch());
+		lblEGKuechenbereichDielen.setText(parkettControl.getWuensche().get(1).getWunsch());
+		lblEGEssbereichParkett.setText(parkettControl.getWuensche().get(2).getWunsch());
+		lblEGKuechenbereichParkett.setText(parkettControl.getWuensche().get(3).getWunsch());
+		lblDielenOG.setText(parkettControl.getWuensche().get(4).getWunsch());
+		lblParkettOG.setText(parkettControl.getWuensche().get(5).getWunsch());
+		lblDGKomplettDielen.setText(parkettControl.getWuensche().get(6).getWunsch());
+		lblDGOhneBadbereichDielen.setText(parkettControl.getWuensche().get(7).getWunsch());
+		lblDGKomplettParkett.setText(parkettControl.getWuensche().get(8).getWunsch());
+		lblDGOhneBadbereichParkett.setText(parkettControl.getWuensche().get(9).getWunsch());
+
+		txtPreisEGEssbereichDielen.setText(String.valueOf(parkettControl.getWuensche().get(0).getPreis()));
+		txtPreisEGKuechenbereichDielen.setText(String.valueOf(parkettControl.getWuensche().get(1).getPreis()));
+		txtPreisEGEssbereichParkett.setText(String.valueOf(parkettControl.getWuensche().get(2).getPreis()));
+		txtPreisEGKuechenbereichParkett.setText(String.valueOf(parkettControl.getWuensche().get(3).getPreis()));
+		txtPreisDielenOG.setText(String.valueOf(parkettControl.getWuensche().get(4).getPreis()));
+		txtPreisParkettOG.setText(String.valueOf(parkettControl.getWuensche().get(5).getPreis()));
+		txtPreisDGKomplettDielen.setText(String.valueOf(parkettControl.getWuensche().get(6).getPreis()));
+		txtPreisDGOhneBadbereichDielen.setText(String.valueOf(parkettControl.getWuensche().get(7).getPreis()));
+		txtPreisDGKomplettParkett.setText(String.valueOf(parkettControl.getWuensche().get(8).getPreis()));
+		txtPreisDGOhneBadbereichParkett.setText(String.valueOf(parkettControl.getWuensche().get(9).getPreis()));
     }
     
     protected void iniListener() {
@@ -211,9 +238,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[0] = Integer.parseInt(txtPreisEGEssbereichDielen.getText());
+					auswahl[0] = parkettControl.getWuensche().get(0).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(0));
 	  	        }else {
 	  	        	auswahl[0] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(0).getId());
 	  	        }
 				
 			}
@@ -223,9 +252,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[1] = Integer.parseInt(txtPreisEGKuechenbereichDielen.getText());
+	  	        	auswahl[1] = parkettControl.getWuensche().get(1).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(1));
 	  	        }else {
 	  	        	auswahl[1] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(1).getId());
 	  	        }
 				
 			}
@@ -235,9 +266,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[2] = Integer.parseInt(txtPreisEGEssbereichParkett.getText());
+	  	        	auswahl[2] = parkettControl.getWuensche().get(2).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(2));
 	  	        }else {
 	  	        	auswahl[2] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(2).getId());
 	  	        }
 				
 			}
@@ -247,9 +280,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[3] = Integer.parseInt(txtPreisEGKuechenbereichParkett.getText());
+	  	        	auswahl[3] = parkettControl.getWuensche().get(3).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(3));
 	  	        }else {
 	  	        	auswahl[3] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(3).getId());
 	  	        }
 				
 			}
@@ -259,9 +294,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[4] = Integer.parseInt(txtPreisParkettOG.getText());
+	  	        	auswahl[4] = parkettControl.getWuensche().get(4).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(4));
 	  	        }else {
 	  	        	auswahl[4] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(4).getId());
 	  	        }
 				
 			}
@@ -271,9 +308,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[5] = Integer.parseInt(txtPreisDielenOG.getText());
+	  	        	auswahl[5] = parkettControl.getWuensche().get(5).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(5));
 	  	        }else {
 	  	        	auswahl[5] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(5).getId());
 	  	        }
 				
 			}
@@ -283,9 +322,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 				if(abBttn.getModel().isSelected()) {
-					auswahl[6] = Integer.parseInt(txtPreisDGOhneBadbereichParkett.getText());
+					auswahl[6] = parkettControl.getWuensche().get(6).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(6));
 				}else {
 					auswahl[6] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(6).getId());
 				}
 			}
 		});
@@ -294,9 +335,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 				if(abBttn.getModel().isSelected()) {
-					auswahl[7] = Integer.parseInt(txtPreisDGOhneBadbereichDielen.getText());
+					auswahl[7] = parkettControl.getWuensche().get(7).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(7));
 				}else {
 					auswahl[7] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(7).getId());
 				}
 			}
 		});
@@ -305,9 +348,11 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 				if(abBttn.getModel().isSelected()) {
-					auswahl[8] = Integer.parseInt(txtPreisDGKomplettParkett.getText());
+					auswahl[8] = parkettControl.getWuensche().get(8).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(8));
 				}else {
 					auswahl[8] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(8).getId());
 				}
 			}
 		});
@@ -316,14 +361,81 @@ public class ParkettView extends BasisView{
 			public void actionPerformed(ActionEvent actionEvent) {
 				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
 				if(abBttn.getModel().isSelected()) {
-					auswahl[9] = Integer.parseInt(txtPreisDGKomplettDielen.getText());
+					auswahl[9] = parkettControl.getWuensche().get(9).getPreis();
+					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(9));
 				}else {
 					auswahl[9] = 0;
+					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(9).getId());
 				}
 			}
 		});
-    }
 
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				initFieldsFromDatabase();
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				chckBxEGEssbereichDielen.setSelected(false);
+				chckBxEGKuechenbereichDielen.setSelected(false);
+				chckBxEGEssbereichParkett.setSelected(false);
+				chckBxEGKuechenbereichParkett.setSelected(false);
+				chckBxDielenOG.setSelected(false);
+				chckBxParkettOG.setSelected(false);
+				chckBxDGKomplettDielen.setSelected(false);
+				chckBxDGOhneBadbereichDielen.setSelected(false);
+				chckBxDGKomplettParkett.setSelected(false);
+				chckBxDGOhneBadbereichParkett.setSelected(false);
+				txtGesamtpreis.setText("");
+			}
+		});
+
+	}
+
+	private void initFieldsFromDatabase(){
+		Set<SonderwuenscheParkett> kundenWuensche = kunde.getKunde().getSonderwuenscheParkett();
+		parkettControl.setAusgewaehlteWuensche(kundenWuensche);
+		double summePreis = 0;
+		for(SonderwuenscheParkett wunsch: kundenWuensche){
+			switch (wunsch.getId()){
+				case 1:
+					chckBxEGEssbereichDielen.setSelected(true);
+					break;
+				case 2:
+					chckBxEGKuechenbereichDielen.setSelected(true);
+					break;
+				case 3:
+					chckBxEGEssbereichParkett.setSelected(true);
+					break;
+				case 4:
+					chckBxEGKuechenbereichParkett.setSelected(true);
+					break;
+				case 5:
+					chckBxDielenOG.setSelected(true);
+					break;
+				case 6:
+					chckBxParkettOG.setSelected(true);
+					break;
+				case 7:
+					chckBxDGKomplettDielen.setSelected(true);
+					break;
+				case 8:
+					chckBxDGOhneBadbereichDielen.setSelected(true);
+					break;
+				case 9:
+					chckBxDGKomplettParkett.setSelected(true);
+					break;
+				case 10:
+					chckBxDGOhneBadbereichParkett.setSelected(true);
+					break;
+			}
+			summePreis += wunsch.getPreis();
+		}
+		txtGesamtpreis.setText(String.valueOf(summePreis));
+
+	}
     private void leseParkettSonderwuensche(){
         this.parkettControl.leseParkettSonderwuensche();
     }
@@ -344,6 +456,9 @@ public class ParkettView extends BasisView{
     protected void speichereSonderwuensche(){
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
+
+		kunde.getKunde().setSonderwuenscheParkett(parkettControl.getAusgewaehlteWuensche());
+		db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
     }
     
 

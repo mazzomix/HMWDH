@@ -1,7 +1,12 @@
 package Gui.Aussenanlage;
 
 import Gui.Basis.BasisView;
+import HibernateCont.SonderwuenscheAussenanlagen;
+
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Set;
 
 public class AussenanlageView extends  BasisView {
     public static final long serialVersionUID = 1L;
@@ -50,7 +55,9 @@ public class AussenanlageView extends  BasisView {
     public AussenanlageView(AussenanlageControl aussenanlageControl){
         this.aussenanlageControl = aussenanlageControl;
         this.setTitle("Sonderwünsche zu Aussenanlage-Varianten");
+        this.aussenanlageControl.setWuensche(db.holeSonderwuenscheAussenanlagen());
         this.initKomponenten();
+        this.initListener();
         this.leseAussenanlageSonderwuensche();
     }
 
@@ -122,8 +129,81 @@ public class AussenanlageView extends  BasisView {
         super.getPnlSonderwunsch().add(txtGesamtpreis);
         txtGesamtpreis.setBounds(200, 200, 200, 25);
 
+        lblEGAbstellraumTerrasse.setText(aussenanlageControl.getWuensche().get(0).getWunsch());
+        txtPreisEGAbstellraumTerrasse.setText(String.valueOf(aussenanlageControl.getWuensche().get(0).getPreis()));
+        lblEGVorbereitungEleAntriebe.setText(aussenanlageControl.getWuensche().get(1).getWunsch());
+        txtPreisEGVorbereitungEleAntriebe.setText(String.valueOf(aussenanlageControl.getWuensche().get(1).getPreis()));
+        lblDGVorbereitungEleAntriebe.setText(aussenanlageControl.getWuensche().get(2).getWunsch());
+        txtPreisDGVorbereitungEleAntriebe.setText(String.valueOf(aussenanlageControl.getWuensche().get(2).getPreis()));
+        lblEGElektrischeMarkise.setText(aussenanlageControl.getWuensche().get(3).getWunsch());
+        txtPreisEGElektrischeMarkise.setText(String.valueOf(aussenanlageControl.getWuensche().get(3).getPreis()));
+        lblDGElektrischeMarkise.setText(aussenanlageControl.getWuensche().get(4).getWunsch());
+        txtPreisDGElektrischeMarkise.setText(String.valueOf(aussenanlageControl.getWuensche().get(4).getPreis()));
+        lblEleAntriebGaragentor.setText(aussenanlageControl.getWuensche().get(5).getWunsch());
+        txtPreisEleAntriebGaragentor.setText(String.valueOf(aussenanlageControl.getWuensche().get(5).getPreis()));
+        lblSektionaltor.setText(aussenanlageControl.getWuensche().get(6).getWunsch());
+        txtPreisSektionaltor.setText(String.valueOf(aussenanlageControl.getWuensche().get(6).getPreis()));
+
 
     }
+
+    protected void iniListener() {
+        super.initListener();
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                initFieldsFromDatabase();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                chckBxEGAbstellraumTerrasse.setSelected(false);
+                chckBxVorbereitungEleAntriebe.setSelected(false);
+                chckBxDGVorbereitungEleAntriebe.setSelected(false);
+                chckBxEGElektrischeMarkise.setSelected(false);
+                chckBxDGElektrischeMarkise.setSelected(false);
+                chckBxEleAntriebGaragentor.setSelected(false);
+                chckBxSektionaltor.setSelected(false);
+                txtGesamtpreis.setText("");
+            }
+        });
+    }
+
+    private void initFieldsFromDatabase(){
+        Set<SonderwuenscheAussenanlagen> kundenWuensche = kunde.getKunde().getSonderwuenscheAussenanlagen();
+        aussenanlageControl.setAusgewaehlteWuensche(kundenWuensche);
+        double summePreis = 0;
+        for(SonderwuenscheAussenanlagen wunsch: kundenWuensche){
+            switch (wunsch.getId()){
+                case 1:
+                    chckBxEGAbstellraumTerrasse.setSelected(true);
+                    break;
+                case 2:
+                    chckBxVorbereitungEleAntriebe.setSelected(true);
+                    break;
+                case 3:
+                    chckBxDGVorbereitungEleAntriebe.setSelected(true);
+                    break;
+                case 4:
+                    chckBxEGElektrischeMarkise.setSelected(true);
+                    break;
+                case 5:
+                    chckBxDGElektrischeMarkise.setSelected(true);
+                    break;
+                case 6:
+                    chckBxEleAntriebGaragentor.setSelected(true);
+                    break;
+                case 7:
+                    chckBxSektionaltor.setSelected(true);
+                    break;
+            }
+            summePreis += wunsch.getPreis();
+        }
+        txtGesamtpreis.setText(String.valueOf(summePreis));
+
+    }
+
 
     private void leseAussenanlageSonderwuensche(){this.aussenanlageControl.leseAussenanlageSonderwuensche();}
 
@@ -132,5 +212,8 @@ public class AussenanlageView extends  BasisView {
         txtGesamtpreis.setText("Gesamtpreis: " + Double.toString(preis) + " €");
     }
 
-    protected  void speichereSonderwuensche(){}
+    protected  void speichereSonderwuensche(){
+        kunde.getKunde().setSonderwuenscheAussenanlagen(aussenanlageControl.getAusgewaehlteWuensche());
+        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+    }
 }

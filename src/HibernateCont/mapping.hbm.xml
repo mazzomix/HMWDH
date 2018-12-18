@@ -27,7 +27,7 @@
         </set>
     </class>
 
-    <class name="HibernateCont.SonderwuenscheFliesen" table="sonderwuensche_fliesen" schema="hmwdh">
+    <class name="HibernateCont.SonderwuenscheFliesen" table="sonderwuensche_fliesen" schema="hmwdh" lazy="false">
         <id name="id" column="id" type="int">
             <generator class="increment" />
         </id>
@@ -69,13 +69,13 @@
         </id>
         <property name="wunsch" column="wunsch" type="string"/>
         <property name="preis" column="preis" type="double"/>
-        <set name="kunden" table="kunde_sonderwuensche_innentueren" inverse="true">
+        <set name="kunden" table="kunde_sonderwuensche_innentueren" inverse="true" lazy="false">
             <key column="sonderwuensche_id" />
             <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
         </set>
     </class>
 
-    <class name="HibernateCont.SonderwuenscheParkett" table="sonderwuensche_parkett" schema="hmwdh">
+    <class name="HibernateCont.SonderwuenscheParkett" table="sonderwuensche_parkett" schema="hmwdh" lazy="false">
         <id name="id" column="id" type="int">
             <generator class="increment" />
         </id>
@@ -132,7 +132,7 @@
             <key column="kunden_id"/>
             <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheFensterAussentueren" />
         </set>
-        <set name="sonderwuenscheFliesen" table="kunde_sonderwuensche_fliesen" cascade="save-update">
+        <set name="sonderwuenscheFliesen" table="kunde_sonderwuensche_fliesen" cascade="save-update" lazy="false">
             <key column="kunde_id"/>
             <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheFliesen" />
         </set>
@@ -144,11 +144,11 @@
             <key column="kunde_id"/>
             <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheHeizung" />
         </set>
-        <set name="sonderwuenscheInnentueren" table="kunde_sonderwuensche_innentueren" cascade="save-update">
+        <set name="sonderwuenscheInnentueren" table="kunde_sonderwuensche_innentueren" cascade="save-update" lazy="false">
             <key column="kunde_id"/>
             <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheInnentueren" />
         </set>
-        <set name="sonderwuenscheParkett" table="kunde_sonderwuensche_parkett" cascade="save-update">
+        <set name="sonderwuenscheParkett" table="kunde_sonderwuensche_parkett" cascade="save-update" lazy="false">
             <key column="kunde_id"/>
             <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheParkett" />
         </set>

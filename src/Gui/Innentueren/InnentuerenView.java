@@ -3,6 +3,9 @@ package Gui.Innentueren;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Set;
 
 import javax.swing.AbstractButton;
 import javax.swing.JCheckBox;
@@ -10,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import Gui.Basis.BasisView;
+import HibernateCont.SonderwuenscheInnentueren;
 
 /**
  * Klasse, welche das Fenster fuer die Sonderwuensche zu den Innentueren
@@ -20,7 +24,7 @@ import Gui.Basis.BasisView;
 public class InnentuerenView extends BasisView {
 
     public static final long serialVersionUID = 1L;
-    private int[] auswahl = new int[3];
+    private double[] auswahl = new double[3];
     private int[] anzahl = new int[3];
 
     private InnentuerenControl innentuerenControl;
@@ -53,6 +57,7 @@ public class InnentuerenView extends BasisView {
     public InnentuerenView(InnentuerenControl innentuerenControl) {
         this.innentuerenControl = innentuerenControl;
         this.setTitle("Sonderwuensche zu den Innentueren");
+        this.innentuerenControl.setWuensche(db.holeSonderwuenscheInnentueren());
         this.initKomponenten();
         this.iniListener();
         this.leseInnentuerenSonderwuensche();
@@ -114,6 +119,13 @@ public class InnentuerenView extends BasisView {
         super.getPnlSonderwunsch().add(txtGesamtpreis);
         txtGesamtpreis.setBounds(350, 225, 150, 25);
         txtGesamtpreis.setEditable(false);
+
+        this.lblKlarGlasInnentuer.setText(innentuerenControl.getWuensche().get(0).getWunsch());
+        this.lblMilchglasInnentuer.setText(innentuerenControl.getWuensche().get(1).getWunsch());
+        this.lblGaragentuerHolz.setText(innentuerenControl.getWuensche().get(2).getWunsch());
+        this.txtPreisKlarGlasInnentuer.setText(String.valueOf(innentuerenControl.getWuensche().get(0).getPreis()));
+        this.txtPreisMilchglasInnentuer.setText(String.valueOf(innentuerenControl.getWuensche().get(1).getPreis()));
+        this.txtPreisGaragentuerHolz.setText(String.valueOf(innentuerenControl.getWuensche().get(2).getPreis()));
     }
 
     protected void iniListener() {
@@ -123,10 +135,12 @@ public class InnentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton) actionEvent.getSource();
                 if (abBttn.getModel().isSelected()) {
-                    auswahl[0] = Integer.parseInt(txtPreisKlarGlasInnentuer.getText());
+                    auswahl[0] = innentuerenControl.getWuensche().get(0).getPreis();
+                    innentuerenControl.addAusgewaehltenWuensch(innentuerenControl.getWuensche().get(0));
                     anzahl[0] = Integer.parseInt(txtMaengeKlarGlasInnentuer.getText());
                 } else {
                     auswahl[0] = 0;
+                    innentuerenControl.removeAusgewaehltenWunsch(innentuerenControl.getWuensche().get(0).getId());
                     anzahl[0] = 0;
                 }
 
@@ -137,10 +151,12 @@ public class InnentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton) actionEvent.getSource();
                 if (abBttn.getModel().isSelected()) {
-                    auswahl[1] = Integer.parseInt(txtPreisMilchglasInnentuer.getText());
+                    auswahl[1] = innentuerenControl.getWuensche().get(1).getPreis();
+                    innentuerenControl.addAusgewaehltenWuensch(innentuerenControl.getWuensche().get(1));
                     anzahl[1] = Integer.parseInt(txtMaengeMilchglasInnentuer.getText());
                 } else {
                     auswahl[1] = 0;
+                    innentuerenControl.removeAusgewaehltenWunsch(innentuerenControl.getWuensche().get(0).getId());
                     anzahl[1] = 0;
                 }
 
@@ -151,13 +167,52 @@ public class InnentuerenView extends BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton) actionEvent.getSource();
                 if (abBttn.getModel().isSelected()) {
-                    auswahl[2] = Integer.parseInt(txtPreisGaragentuerHolz.getText());
+                    auswahl[2] = innentuerenControl.getWuensche().get(2).getPreis();
+                    innentuerenControl.addAusgewaehltenWuensch(innentuerenControl.getWuensche().get(2));
                 } else {
                     auswahl[2] = 0;
+                    innentuerenControl.removeAusgewaehltenWunsch(innentuerenControl.getWuensche().get(0).getId());
                 }
 
             }
         });
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                initFieldsFromDatabase();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                chckBxKlarGlasInnentuer.setSelected(false);
+                chckBxMilchglasInnentuer.setSelected(false);
+                chckBxGaragentuerHolz.setSelected(false);
+                txtGesamtpreis.setText("");
+            }
+        });
+
+    }
+
+    private void initFieldsFromDatabase(){
+        Set<SonderwuenscheInnentueren> kundenWuensche = kunde.getKunde().getSonderwuenscheInnentueren();
+        innentuerenControl.setAusgewaehlteWuensche(kundenWuensche);
+        double summePreis = 0;
+        for(SonderwuenscheInnentueren wunsch: kundenWuensche){
+            switch (wunsch.getId()){
+                case 1:
+                    chckBxKlarGlasInnentuer.setSelected(true);
+                    break;
+                case 2:
+                    chckBxMilchglasInnentuer.setSelected(true);
+                    break;
+                case 3:
+                    chckBxGaragentuerHolz.setSelected(true);
+                    break;
+            }
+            summePreis += wunsch.getPreis();
+        }
+        txtGesamtpreis.setText(String.valueOf(summePreis));
 
     }
 
@@ -177,7 +232,8 @@ public class InnentuerenView extends BasisView {
 
     @Override
     protected void speichereSonderwuensche() {
-        // to be done
+        kunde.getKunde().setSonderwuenscheInnentueren(innentuerenControl.getAusgewaehlteWuensche());
+        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
     }
 
     protected JTextField getTxtGesamtpreis() {

@@ -147,4 +147,52 @@ public class BasisDatabaseMethods {
 
         return sonderwuensche;
     }
+
+    public List<SonderwuenscheInnentueren> holeSonderwuenscheInnentueren() {
+        List<SonderwuenscheInnentueren> sonderwuensche = new ArrayList<>();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from SonderwuenscheInnentueren ");
+        sonderwuensche = query.list();
+        session.close();
+
+        return sonderwuensche;
+    }
+
+    public List<SonderwuenscheAussenanlagen> holeSonderwuenscheAussenanlagen() {
+        List<SonderwuenscheAussenanlagen> sonderwuensche = new ArrayList<>();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from SonderwuenscheAussenanlagen ");
+        sonderwuensche = query.list();
+        session.close();
+
+        return sonderwuensche;
+    }
+
+    public List<SonderwuenscheParkett> holeSonderwuenscheParkett() {
+        List<SonderwuenscheParkett> sonderwuensche = new ArrayList<>();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from SonderwuenscheParkett ");
+        sonderwuensche = query.list();
+        session.close();
+
+        return sonderwuensche;
+    }
+
+    public List<SonderwuenscheFliesen> holeSonderwuenscheFliesen() {
+        List<SonderwuenscheFliesen> sonderwuensche = new ArrayList<>();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from SonderwuenscheFliesen ");
+        sonderwuensche = query.list();
+        session.close();
+
+        return sonderwuensche;
+    }
 }

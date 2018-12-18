@@ -1,11 +1,14 @@
 package Gui.Parkett;
 
 
+import Business.KundeModel;
+
 public class ParkettModel {
 	private int _preis = 0;
-	private boolean _auswahl = true; 
+	private boolean _auswahl = true;
+	private KundeModel kunde = KundeModel.getInstance();
 	
-	public void gesamtpreisBerechnen (int[] preise) { 
+	public void gesamtpreisBerechnen (double[] preise) {
 		for(int i = 0; i<preise.length; i++) {
 			this._preis += preise[i]; 
 		}
@@ -16,7 +19,7 @@ public class ParkettModel {
 		return _preis;
 	}
 	
-	public void checkAuswahl(int[] auswahl, int hausnummer) {
+	public void checkAuswahl(double[] auswahl) {
 		
 		//2.2 geht nur wenn 2.1 auch ausgesucht wurde
 		//2.4 geht nur , wenn DG vorhanden ist. Standardgemäß ist die Treppe von dem Raum im DG nur durch eine Brüstung getrennt.
@@ -26,13 +29,13 @@ public class ParkettModel {
 		if(auswahl[1]!=0 && auswahl[0] == 0) {
 			this._auswahl = false;
 		}
-		if(auswahl[3] != 0 && (hausnummer == 1 || hausnummer == 6 || hausnummer == 7|| hausnummer == 14 || hausnummer == 15|| hausnummer == 24)) {
+		if(auswahl[3] != 0 && (this.kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)) {
 			this._auswahl = false;
 		}
-		if(auswahl[4] != 0 && (hausnummer == 1 || hausnummer == 6 || hausnummer == 7|| hausnummer == 14 || hausnummer == 15|| hausnummer == 24)){
+		if(auswahl[4] != 0 && (this.kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)){
 			this._auswahl = false;
 		}
-		if(auswahl[5]!= 0 && ((hausnummer == 1 || hausnummer == 6 || hausnummer == 7|| hausnummer == 14 || hausnummer == 15|| hausnummer == 24) || auswahl[4] == 0)) {
+		if(auswahl[5]!= 0 && (this.kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)) {
 			this._auswahl = false;
 		}
 		
