@@ -15,16 +15,16 @@ public class InnentuerenModel {
     }
 
     public void gesamtpreisBerechnen(double[] preise, int[] anzahle) {
+    	
         for (int i = 0; i < preise.length; i++) {
             this.preis += preise[i] * (this.anzahl += anzahle[i]);
             this.anzahl = 0;
         }
     }
-
+    
     public void resetPreis() {
         preis = 0;
         anzahl = 0;
-
     }
 
     public int getPreis() {
