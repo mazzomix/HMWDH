@@ -212,7 +212,7 @@ public class AussenanlageView extends  BasisView {
 
     protected  void berechneUndZeigePreisSonderwuensche(){
         double preis = aussenanlageControl.berechnePreis();
-        txtGesamtpreis.setText("Gesamtpreis: " + Double.toString(preis) + " €");
+        txtGesamtpreis.setText("" + Double.toString(preis) + " €");
     }
 
     protected  void speichereSonderwuensche(){
