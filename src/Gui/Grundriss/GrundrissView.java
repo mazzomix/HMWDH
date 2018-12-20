@@ -320,7 +320,7 @@ public class GrundrissView extends BasisView{
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
 		kunde.getKunde().setSonderwuenscheGrundriss(grundrissControl.getAusgewaehlteWuensche());
-		db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+		db.speichereKunden(kunde.getKunde());
 
 
     }

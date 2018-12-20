@@ -5,6 +5,7 @@ import Gui.Basis.BasisDatabaseMethods;
 import HibernateCont.Hausnummer;
 import HibernateCont.Haustyp;
 import HibernateCont.Kunde;
+import org.hibernate.ObjectNotFoundException;
 
 import java.awt.*;
 import javax.persistence.PersistenceException;
@@ -174,7 +175,13 @@ public class KundeView extends JFrame {
 
     private void holeInfoDachgeschoss(){
         BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
-        boolean dg = db.hasDachgeschoss((Integer) this.cmbBxNummerHaus.getSelectedItem());
+        boolean dg = false;
+        try{
+            dg = db.hasDachgeschoss((Integer) this.cmbBxNummerHaus.getSelectedItem());
+        } catch (Exception e){
+
+        }
+
 
         if(dg) {
             this.lblTxtDachgeschoss.setText("Ja");
@@ -199,6 +206,8 @@ public class KundeView extends JFrame {
             KundeModel.getInstance().setKunde(kunde);
         } catch (IndexOutOfBoundsException e) {
             this.lblError.setText("<html>Für diese Hausnummer existiert kein Kunde</html>");
+        } catch (ObjectNotFoundException e){
+            this.lblError.setText("<html>Für diese Hausnummer existiert kein Kunde</html>");
         }
 
     }
@@ -213,7 +222,7 @@ public class KundeView extends JFrame {
         kunde.setDeleted((byte)0);
         BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
         try{
-            int kundennummer = db.speichereKunden(kunde, (Integer)this.cmbBxNummerHaus.getSelectedItem());
+            int kundennummer = db.speichereKunden(kunde);
             this.lblTextKundennummer.setText(String.valueOf(kundennummer));
             KundeModel.getInstance().setKunde(kunde);
         } catch (PersistenceException p) {
@@ -223,9 +232,43 @@ public class KundeView extends JFrame {
     }
 
     private void aendereKunden(){
+        try {
+            Kunde kunde = KundeModel.getInstance().getKunde();
+
+            BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
+            kunde.setVorname(this.txtVorname.getText());
+            kunde.setNachname(this.txtNachname.getText());
+            kunde.setEmail(this.txtEmail.getText());
+            kunde.setTelefonNummer(this.txtTelefon.getText());
+            kunde.setDeleted((byte)0);
+            db.speichereKunden(kunde);
+        } catch(NullPointerException e) {
+            this.lblError.setText("<html>Kein Kunde ausgewählt</html>");
+        }
     }
 
     private void loescheKunden(){
+        try {
+            Kunde kunde = KundeModel.getInstance().getKunde();
+
+            BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
+            boolean deleted = db.loescheKunde(kunde);
+
+            this.txtVorname.setText("");
+            this.txtNachname.setText("");
+            this.txtEmail.setText("");
+            this.txtTelefon.setText("");
+            this.lblTextKundennummer.setText("");
+
+            if(deleted){
+                this.lblError.setText("<html>Der Kunde wurde gelöscht</html>");
+            }
+            else{
+                this.lblError.setText("<html>Fehler beim löschen</html>");
+            }
+        } catch(NullPointerException e) {
+            this.lblError.setText("<html>Kein Kunde ausgewählt</html>");
+        }
     }
 
 }

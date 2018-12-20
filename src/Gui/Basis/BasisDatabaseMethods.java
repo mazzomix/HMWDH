@@ -38,14 +38,11 @@ public class BasisDatabaseMethods {
         return BasisDatabaseMethods.instance;
     }
 
-    public int speichereKunden (Kunde kunde, int hausnummer_id) {
+    public int speichereKunden (Kunde kunde) {
         int kundennummer = 0;
         // Session erstellen und Transaction beginnen
         Session session = factory.openSession();
         session.beginTransaction();
-
-        Hausnummer hausnummer = session.load(Hausnummer.class, hausnummer_id);
-        kunde.setHausnummer(hausnummer);
 
         // Speichere die änderungen
         session.saveOrUpdate(kunde);
@@ -62,20 +59,16 @@ public class BasisDatabaseMethods {
         return kundennummer;
     }
 
-    public Kunde holeKunde(int id) {
+    public Kunde holeKunde(int hausnummer) {
         Kunde kunde = null;
-        Hausnummer hausnr = null;
-        Haustyp h = null;
-        boolean init;
 
         Session session = factory.openSession();
 
         try {
-            hausnr = session.load(Hausnummer.class, id);
             String hql =    "select k " +
                             "from Kunde k " +
                             "where k.hausnummer.hausnummer=:hausnr";
-            Query query = session.createQuery(hql, Kunde.class).setParameter("hausnr", hausnr.getHausnummer());
+            Query query = session.createQuery(hql, Kunde.class).setParameter("hausnr", hausnummer);
 
             kunde = (Kunde) query.list().get(0);
 
@@ -86,13 +79,41 @@ public class BasisDatabaseMethods {
 
         } catch (IndexOutOfBoundsException e) {
             throw e;
+        } catch (ObjectNotFoundException e){
+            throw e;
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             session.close();
         }
 
         return kunde;
+    }
+
+    public boolean loescheKunde(Kunde kunde){
+
+        boolean deleted = true;
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        String hql = "delete  " +
+                "from Kunde k " +
+                "where k.id= :kunde";
+        Query query = session.createQuery(hql).setParameter("kunde", kunde.getId());
+        query.executeUpdate();
+
+        try{
+            session.getTransaction().commit();
+        } catch (PersistenceException p){
+            deleted = false;
+            throw p;
+        } catch (Exception e){
+            deleted = false;
+        }
+
+        session.close();
+        return deleted;
     }
 
     public boolean hasDachgeschoss(int id) {

@@ -217,6 +217,6 @@ public class AussenanlageView extends  BasisView {
 
     protected  void speichereSonderwuensche(){
         kunde.getKunde().setSonderwuenscheAussenanlagen(aussenanlageControl.getAusgewaehlteWuensche());
-        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+        db.speichereKunden(kunde.getKunde());
     }
 }

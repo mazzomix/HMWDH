@@ -394,7 +394,7 @@ public class FensterAussentuerenView extends BasisView {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
         kunde.getKunde().setSonderwuenscheFensterAussentueren(fensterAussentuerenControl.getAusgewaehlteWuensche());
-        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+        db.speichereKunden(kunde.getKunde());
     }
     protected JTextField getTxtGesamtpreis() {
         return this.txtGesamtpreis;

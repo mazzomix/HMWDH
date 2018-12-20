@@ -111,7 +111,7 @@
             <generator class="increment" />
         </id>
         <property name="hausnummer" column="hausnummer"/>
-        <many-to-one name="haustyp" class="HibernateCont.Haustyp" column="haustyp_id" />
+        <one-to-one name="haustyp" class="HibernateCont.Haustyp"/>
     </class>
 
     <class name="HibernateCont.Kunde" table="kunde" schema="hmwdh">

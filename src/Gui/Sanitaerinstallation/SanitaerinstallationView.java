@@ -232,7 +232,7 @@ public class SanitaerinstallationView extends  BasisView {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] auswahl)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
         kunde.getKunde().setSonderwuenscheSanitaerinstallation(sanitaerinstallationControl.getAusgewaehlteWuensche());
-        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+        db.speichereKunden(kunde.getKunde());
     }
     protected JLabel getTxtGesamtpreis() {
         return this.txtGesamtpreis;

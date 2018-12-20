@@ -458,7 +458,7 @@ public class ParkettView extends BasisView{
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
 
 		kunde.getKunde().setSonderwuenscheParkett(parkettControl.getAusgewaehlteWuensche());
-		db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+		db.speichereKunden(kunde.getKunde());
     }
     
 

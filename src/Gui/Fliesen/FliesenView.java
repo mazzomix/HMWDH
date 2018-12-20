@@ -313,7 +313,7 @@ public class FliesenView extends BasisView {
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
 
         kunde.getKunde().setSonderwuenscheFliesen(fliesenControl.getAusgewaehlteWuensche());
-        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+        db.speichereKunden(kunde.getKunde());
     }
     protected JTextField getTxtGesamtpreis() {
         return this.txtGesamtpreis;
