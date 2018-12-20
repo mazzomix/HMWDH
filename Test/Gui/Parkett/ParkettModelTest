@@ -1,0 +1,78 @@
+package Gui.Parkett;
+
+import Business.KundeModel;
+import Gui.Basis.BasisDatabaseMethods;
+import HibernateCont.Kunde;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ParkettModelTest {
+
+
+    @Test
+    void testGesamtpreisBerechnen() {
+        ParkettModel pm = new ParkettModel();
+        double[] preis_array1 = {2890, 2090, 2090, 1790, 2490,1690, 2490, 2090, 1690, 1690};
+        double[] preis_array2 = {2890, 0, 2090, 0, 0,0, 0, 0, 0, 0};
+        pm.gesamtpreisBerechnen(preis_array1);
+        assertEquals(11470,pm.getPreis());
+        pm.resetPreis();
+        pm.gesamtpreisBerechnen(preis_array2);
+        assertEquals(600, pm.getPreis());
+    }
+
+
+    @Test
+    void testCheckAuswahl() {
+        KundeModel kundeModel = KundeModel.getInstance();
+        BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
+        double[] auswahl_array1 = {2890, 2090, 2090, 1790, 2490,1690, 2490, 2090, 1690, 1690};
+        double[] auswahl_array2 = {2890, 0, 2090, 0, 0,0, 0, 0, 0, 0};
+        ParkettModel pm = new ParkettModel();
+
+        kundeModel.setKunde(db.holeKunde(1));
+        pm.checkAuswahl(auswahl_array2);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+        pm.checkAuswahl(auswahl_array1);
+        assertFalse(pm.getAuswahl());
+        pm.resetAuswahl();
+
+
+        kundeModel.setKunde(db.holeKunde(2));
+        pm.checkAuswahl(auswahl_array2);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+        pm.checkAuswahl(auswahl_array1);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+
+        kundeModel.setKunde(db.holeKunde(3));
+        pm.checkAuswahl(auswahl_array2);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+        pm.checkAuswahl(auswahl_array1);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+
+        kundeModel.setKunde(db.holeKunde(4));
+        pm.checkAuswahl(auswahl_array2);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+        pm.checkAuswahl(auswahl_array1);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+
+        kundeModel.setKunde(db.holeKunde(5));
+        pm.checkAuswahl(auswahl_array2);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+        pm.checkAuswahl(auswahl_array1);
+        assertTrue(pm.getAuswahl());
+        pm.resetAuswahl();
+
+    }
+
+}
