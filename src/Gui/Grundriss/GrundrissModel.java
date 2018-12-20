@@ -29,13 +29,13 @@ public class GrundrissModel  {
 		if(auswahl[1]!=0 && auswahl[0] == 0) {
 			this._auswahl = false;
 		}
-		if(auswahl[3] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)) {
+		if(auswahl[3] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1)) {
 			this._auswahl = false;
 		}
-		if(auswahl[4] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)){
+		if(auswahl[4] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1)){
 			this._auswahl = false;
 		}
-		if(auswahl[5]!= 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)) {
+		if(auswahl[5]!= 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1)) {
 			this._auswahl = false;
 		}
 		
