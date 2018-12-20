@@ -1,0 +1,24 @@
+package Gui.Parkett;
+
+import Business.KundeModel;
+import Gui.Basis.BasisDatabaseMethods;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ParkettViewTest {
+
+    @Test
+    void speichereSonderwuensche() {
+        ParkettControl pc = new ParkettControl();
+        ParkettView pv = new ParkettView(pc);
+        KundeModel kundeModel = KundeModel.getInstance();
+        BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
+
+        kundeModel.setKunde(db.holeKunde(1));
+
+        kundeModel.getKunde().setSonderwuenscheParkett(gc.getAusgewaehlteWuensche());
+        assertTrue(kundeModel.getKunde().getSonderwuenscheParkett() == gc.getAusgewaehlteWuensche());
+
+    }
+}
