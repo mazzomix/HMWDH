@@ -282,7 +282,7 @@ public class HeizungView extends BasisView {
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
 
         kunde.getKunde().setSonderwuenscheHeizung(HeizungControl.getAusgewaehlteWuensche());
-        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+        db.speichereKunden(kunde.getKunde());
     }
     protected JTextField getTxtGesamtpreis() {
         return this.txtGesamtpreis;

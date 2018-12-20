@@ -21,7 +21,7 @@ import HibernateCont.SonderwuenscheInnentueren;
  * 29.11 : V1 noch keine beruecksichtigung von Menge der Tueren
  * pro Geschoss . Notwendig?! JA
  *
- * 16.12 : V2 label hinzugefügt, Maske angepasst um Tueren pro geschoss zu berücksichtigen
+ * 16.12 : V2 label hinzugefï¿½gt, Maske angepasst um Tueren pro geschoss zu berï¿½cksichtigen
  **/
 public class InnentuerenView extends BasisView {
 
@@ -32,19 +32,19 @@ public class InnentuerenView extends BasisView {
     private InnentuerenControl innentuerenControl;
     // Definition der grafischen Oberflaeche
 
-    private JLabel lblKlarGlasInnentuer = new JLabel("Glasausschnitt (Klarglas)");
-    private JTextField txtPreisKlarGlasInnentuer = new JTextField("460");
-    private JLabel lblKlarGlasInnentuerPreis = new JLabel("Euro");
+    private JLabel lblKlarGlasInnentuer = new JLabel("");
+    private JTextField txtPreisKlarGlasInnentuer = new JTextField("");
+    private JLabel lblKlarGlasInnentuerPreis = new JLabel(BasisView.currency);
     private JCheckBox chckBxKlarGlasInnentuer = new JCheckBox();
 
-    private JLabel lblMilchglasInnentuer = new JLabel("Glasausschnitt (Milchglas)");
-    private JTextField txtPreisMilchglasInnentuer = new JTextField("560");
-    private JLabel lblMilchglasInnentuerPreis = new JLabel("Euro");
+    private JLabel lblMilchglasInnentuer = new JLabel("");
+    private JTextField txtPreisMilchglasInnentuer = new JTextField("");
+    private JLabel lblMilchglasInnentuerPreis = new JLabel(BasisView.currency);
     private JCheckBox chckBxMilchglasInnentuer = new JCheckBox();
 
-    private JLabel lblGaragentuerHolz = new JLabel("Garage als Holztuer");
-    private JTextField txtPreisGaragentuerHolz = new JTextField("660");
-    private JLabel lblGaragentuerHolzPreis = new JLabel("Euro");
+    private JLabel lblGaragentuerHolz = new JLabel("");
+    private JTextField txtPreisGaragentuerHolz = new JTextField("");
+    private JLabel lblGaragentuerHolzPreis = new JLabel(BasisView.currency);
     private JCheckBox chckBxGaragentuerHolz = new JCheckBox();    
     
     // NEU
@@ -352,7 +352,7 @@ public class InnentuerenView extends BasisView {
     @Override
     protected void speichereSonderwuensche() {
         kunde.getKunde().setSonderwuenscheInnentueren(innentuerenControl.getAusgewaehlteWuensche());
-        db.speichereKunden(kunde.getKunde(), kunde.getKunde().getHausnummer().getId());
+        db.speichereKunden(kunde.getKunde());
     }
 
     protected JTextField getTxtGesamtpreis() {

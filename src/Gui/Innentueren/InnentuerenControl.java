@@ -2,6 +2,8 @@ package Gui.Innentueren;
 
 import HibernateCont.SonderwuenscheInnentueren;
 
+import java.util.*;
+
 public class InnentuerenControl {
 
     // das View-Objekt des Grundriss-Fensters TESTZWECK
