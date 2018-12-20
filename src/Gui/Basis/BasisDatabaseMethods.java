@@ -195,4 +195,15 @@ public class BasisDatabaseMethods {
 
         return sonderwuensche;
     }
+    public List<SonderwuenscheHeizung> holeSonderwuenscheHeizung() {
+        List<SonderwuenscheHeizung> sonderwuensche = new ArrayList<>();
+        Session session = factory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("from SonderwuenscheHeizung ");
+        sonderwuensche = query.list();
+        session.close();
+
+        return sonderwuensche;
+    }
 }
