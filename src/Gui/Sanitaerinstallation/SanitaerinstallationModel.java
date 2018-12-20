@@ -1,10 +1,12 @@
 package Gui.Sanitaerinstallation;
 
+import Business.KundeModel;
+
 public class SanitaerinstallationModel {
 
         private int preis = 0;
         private boolean auswahl;
-
+        private KundeModel kunde = KundeModel.getInstance();
 
       public void gesamtpreisBerechnen (double[] preise) {
         for(int i = 0; i<preise.length; i++) {
