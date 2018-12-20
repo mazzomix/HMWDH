@@ -48,8 +48,8 @@ public class AussenanlageView extends  BasisView {
     private JLabel lblSektionaltorEuro = new JLabel("Euro");
     public JCheckBox chckBxSektionaltor = new JCheckBox();
 
-    private JLabel txtGesamtpreis = new JLabel("Gesamtpreis");
-
+    private JLabel lblGesamtpreis = new JLabel("Gesamtpreis: ");
+    private JTextField txtGesamtpreis = new JTextField();
 
 
     public AussenanlageView(AussenanlageControl aussenanlageControl){
@@ -126,8 +126,11 @@ public class AussenanlageView extends  BasisView {
         super.getPnlSonderwunsch().add(chckBxEleAntriebGaragentor);
         chckBxEleAntriebGaragentor.setBounds(470, 175, 25, 25);
 
-        super.getPnlSonderwunsch().add(txtGesamtpreis);
-        txtGesamtpreis.setBounds(200, 200, 200, 25);
+         super.getPnlSonderwunsch().add(lblGesamtpreis);
+    	lblGesamtpreis.setBounds(10, 225, 350, 25);
+    	super.getPnlSonderwunsch().add(txtGesamtpreis);
+    	txtGesamtpreis.setBounds(350, 225, 150, 25);
+    	txtGesamtpreis.setEditable(false);
 
         lblEGAbstellraumTerrasse.setText(aussenanlageControl.getWuensche().get(0).getWunsch());
         txtPreisEGAbstellraumTerrasse.setText(String.valueOf(aussenanlageControl.getWuensche().get(0).getPreis()));
