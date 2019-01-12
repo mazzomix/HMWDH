@@ -160,6 +160,13 @@ public class GrundrissView extends BasisView{
 		txtPreisBadVorrichtung.setText(String.valueOf(grundrissControl.getWuensche().get(4).getPreis()));
 		lblBadAusfuehrung.setText(grundrissControl.getWuensche().get(5).getWunsch());
 		txtPreisBadAusfuehrung.setText(String.valueOf(grundrissControl.getWuensche().get(5).getPreis()));
+
+		if(this.kunde.getKunde().getSonderwuenscheGrundriss() != null){
+			for (SonderwuenscheGrundriss wunsch : this.kunde.getKunde().getSonderwuenscheGrundriss())
+			{
+				auswahl[wunsch.getId() -1] = wunsch.getPreis();
+			}
+		}
     }
 
     public void intialiseForChosenKunde(){
