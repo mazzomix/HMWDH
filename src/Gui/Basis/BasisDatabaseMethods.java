@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class BasisDatabaseMethods {
+public class BasisDatabaseMethods
+{
 
     private SessionFactory factory;
     private static BasisDatabaseMethods instance;
 
-    private BasisDatabaseMethods() {
+    private BasisDatabaseMethods()
+    {
         factory = null;
         // Erzeuge SessionFactory
         try {
@@ -31,14 +33,16 @@ public class BasisDatabaseMethods {
         }
     }
 
-    public static synchronized  BasisDatabaseMethods getInstance () {
+    public static synchronized  BasisDatabaseMethods getInstance ()
+    {
         if (BasisDatabaseMethods.instance == null) {
             BasisDatabaseMethods.instance = new BasisDatabaseMethods ();
         }
         return BasisDatabaseMethods.instance;
     }
 
-    public int speichereKunden (Kunde kunde) {
+    public int speichereKunden (Kunde kunde)
+    {
         int kundennummer = 0;
         // Session erstellen und Transaction beginnen
         Session session = factory.openSession();
@@ -59,7 +63,8 @@ public class BasisDatabaseMethods {
         return kundennummer;
     }
 
-    public Kunde holeKunde(int hausnummer) {
+    public Kunde holeKunde(int hausnummer)
+    {
         Kunde kunde = null;
 
         Session session = factory.openSession();
@@ -91,7 +96,28 @@ public class BasisDatabaseMethods {
         return kunde;
     }
 
-    public boolean loescheKunde(Kunde kunde){
+    public Hausnummer holeHausnummer(int hausnummer)
+    {
+        Hausnummer hausnummerObject = new Hausnummer();
+        Session session = factory.openSession();
+
+        String hql =    "select h " +
+                "from Hausnummer h " +
+                "where h.hausnummer=:hausnr";
+        Query query = session.createQuery(hql, Hausnummer.class).setParameter("hausnr", hausnummer);
+
+        hausnummerObject = (Hausnummer) query.list().get(0);
+
+        if(!Hibernate.isInitialized(hausnummerObject.getHaustyp())){
+            Hibernate.initialize(hausnummerObject.getHaustyp());
+        }
+        session.close();
+
+        return hausnummerObject;
+    }
+
+    public boolean loescheKunde(Kunde kunde)
+    {
 
         boolean deleted = true;
         Session session = factory.openSession();
@@ -116,7 +142,8 @@ public class BasisDatabaseMethods {
         return deleted;
     }
 
-    public boolean hasDachgeschoss(int id) {
+    public boolean hasDachgeschoss(int id)
+    {
         Hausnummer hausnummer = null;
         boolean hasDg = false;
         Session session = factory.openSession();
@@ -133,7 +160,8 @@ public class BasisDatabaseMethods {
         return hasDg;
     }
 
-    public List<SonderwuenscheGrundriss> holeSonderwuenscheGrundriss() {
+    public List<SonderwuenscheGrundriss> holeSonderwuenscheGrundriss()
+    {
         List<SonderwuenscheGrundriss> sonderwuensche = new ArrayList<>();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -145,7 +173,8 @@ public class BasisDatabaseMethods {
         return sonderwuensche;
     }
 
-    public List<SonderwuenscheFensterAussentueren> holeSonderwuenscheFensterAussentueren() {
+    public List<SonderwuenscheFensterAussentueren> holeSonderwuenscheFensterAussentueren()
+    {
         List<SonderwuenscheFensterAussentueren> sonderwuensche = new ArrayList<>();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -157,7 +186,8 @@ public class BasisDatabaseMethods {
         return sonderwuensche;
     }
 
-    public List<SonderwuenscheSanitaerinstallation> holeSonderwuenscheSanitaerinstallation() {
+    public List<SonderwuenscheSanitaerinstallation> holeSonderwuenscheSanitaerinstallation()
+    {
         List<SonderwuenscheSanitaerinstallation> sonderwuensche = new ArrayList<>();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -169,7 +199,8 @@ public class BasisDatabaseMethods {
         return sonderwuensche;
     }
 
-    public List<SonderwuenscheInnentueren> holeSonderwuenscheInnentueren() {
+    public List<SonderwuenscheInnentueren> holeSonderwuenscheInnentueren()
+    {
         List<SonderwuenscheInnentueren> sonderwuensche = new ArrayList<>();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -181,7 +212,8 @@ public class BasisDatabaseMethods {
         return sonderwuensche;
     }
 
-    public List<SonderwuenscheAussenanlagen> holeSonderwuenscheAussenanlagen() {
+    public List<SonderwuenscheAussenanlagen> holeSonderwuenscheAussenanlagen()
+    {
         List<SonderwuenscheAussenanlagen> sonderwuensche = new ArrayList<>();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -193,7 +225,8 @@ public class BasisDatabaseMethods {
         return sonderwuensche;
     }
 
-    public List<SonderwuenscheParkett> holeSonderwuenscheParkett() {
+    public List<SonderwuenscheParkett> holeSonderwuenscheParkett()
+    {
         List<SonderwuenscheParkett> sonderwuensche = new ArrayList<>();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -205,7 +238,8 @@ public class BasisDatabaseMethods {
         return sonderwuensche;
     }
 
-    public List<SonderwuenscheFliesen> holeSonderwuenscheFliesen() {
+    public List<SonderwuenscheFliesen> holeSonderwuenscheFliesen()
+    {
         List<SonderwuenscheFliesen> sonderwuensche = new ArrayList<>();
         Session session = factory.openSession();
         session.beginTransaction();
@@ -216,7 +250,8 @@ public class BasisDatabaseMethods {
 
         return sonderwuensche;
     }
-    public List<SonderwuenscheHeizung> holeSonderwuenscheHeizung() {
+    public List<SonderwuenscheHeizung> holeSonderwuenscheHeizung()
+    {
         List<SonderwuenscheHeizung> sonderwuensche = new ArrayList<>();
         Session session = factory.openSession();
         session.beginTransaction();

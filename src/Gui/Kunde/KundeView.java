@@ -221,10 +221,13 @@ public class KundeView extends JFrame {
         kunde.setTelefonNummer(this.txtTelefon.getText());
         kunde.setDeleted((byte)0);
         BasisDatabaseMethods db = BasisDatabaseMethods.getInstance();
+        kunde.setHausnummer(db.holeHausnummer(cmbBxNummerHaus.getItemAt(cmbBxNummerHaus.getSelectedIndex())));
+
         try{
             int kundennummer = db.speichereKunden(kunde);
             this.lblTextKundennummer.setText(String.valueOf(kundennummer));
             KundeModel.getInstance().setKunde(kunde);
+            this.lblError.setText("<html>Kunde angelegt</html>");
         } catch (PersistenceException p) {
             this.lblError.setText("<html>ConstraintViolationException: Möglicherweise ist diese Hausnummer bereits an einen Kunden vergeben</html>");
         }
