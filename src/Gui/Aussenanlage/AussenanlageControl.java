@@ -1,57 +1,98 @@
 package Gui.Aussenanlage;
 
+import Business.KundeModel;
 import HibernateCont.SonderwuenscheAussenanlagen;
 
 import java.util.*;
 
 public final class AussenanlageControl {
-    private AussenanlageView aussenanlageControl;
+    private AussenanlageView aussenanlageView;
+    private  AussenanlageModel aussenanlageModel;
     private double preis;
+    KundeModel kunde;
     private List<SonderwuenscheAussenanlagen> wuensche = new ArrayList();
     private Set<SonderwuenscheAussenanlagen> ausgewaehlteWuensche = new HashSet<>();
 
 
 
-    public AussenanlageControl() { this.aussenanlageControl = new AussenanlageView(this);}
+    public AussenanlageControl() {
+        this.aussenanlageView = new AussenanlageView(this);
+        this.aussenanlageModel = new AussenanlageModel();
+        this.kunde = KundeModel.getInstance();
+    }
 
-    public void oeffneAussenanlageView(){this.aussenanlageControl.setVisible(true);}
+    public void oeffneAussenanlageView(){
+        this.aussenanlageView.setVisible(true);
+    }
 
     public void leseAussenanlageSonderwuensche(){}
 
-    public boolean pruefeKonstellationSonderwuensche(int [] ausgewaehlteSw) { return true;}
+    public boolean pruefeKonstellationSonderwuensche(double [] ausgewaehlteSw)
+    {
+        this.aussenanlageModel.checkAuswahl(ausgewaehlteSw);
+        return this.aussenanlageModel.getAuswahl();
 
-    public double berechnePreis(){
+    }
+
+   /* public double berechnePreis(){
         preis = 0;
         this.ausgewaehlteWuensche = new HashSet<>();
-        if(aussenanlageControl.chckBxEGAbstellraumTerrasse.isSelected() == true){
+        if(aussenanlageView.chckBxEGAbstellraumTerrasse.isSelected() == true){
             preis += this.getWuensche().get(0).getPreis();
             this.addAusgewaehltenWuensch(this.getWuensche().get(0));
         }
-        if(aussenanlageControl.chckBxVorbereitungEleAntriebe.isSelected() == true){
+        if(aussenanlageView.chckBxVorbereitungEleAntriebe.isSelected() == true){
             preis += this.getWuensche().get(1).getPreis();
             this.addAusgewaehltenWuensch(this.getWuensche().get(1));
         }
-        if(aussenanlageControl.chckBxDGVorbereitungEleAntriebe.isSelected() == true){
+        if(aussenanlageView.chckBxDGVorbereitungEleAntriebe.isSelected() == true){
             preis += this.getWuensche().get(2).getPreis();
             this.addAusgewaehltenWuensch(this.getWuensche().get(2));
         }
-        if(aussenanlageControl.chckBxEGElektrischeMarkise.isSelected() == true){
+        if(aussenanlageView.chckBxEGElektrischeMarkise.isSelected() == true){
             preis += this.getWuensche().get(3).getPreis();
             this.addAusgewaehltenWuensch(this.getWuensche().get(3));
         }
-        if(aussenanlageControl.chckBxDGElektrischeMarkise.isSelected() == true){
+        if(aussenanlageView.chckBxDGElektrischeMarkise.isSelected() == true){
             preis += this.getWuensche().get(4).getPreis();
             this.addAusgewaehltenWuensch(this.getWuensche().get(4));
         }
-        if(aussenanlageControl.chckBxEleAntriebGaragentor.isSelected() == true){
+        if(aussenanlageView.chckBxEleAntriebGaragentor.isSelected() == true){
             preis += this.getWuensche().get(5).getPreis();
             this.addAusgewaehltenWuensch(this.getWuensche().get(5));
         }
-        if(aussenanlageControl.chckBxSektionaltor.isSelected() == true){
+        if(aussenanlageView.chckBxSektionaltor.isSelected() == true){
             preis += this.getWuensche().get(6).getPreis();
             this.addAusgewaehltenWuensch(this.getWuensche().get(6));
         }
         return preis;
+    }*/
+
+    public void zeigePreisSonderwuensche(double[] auswahl) {
+        this.aussenanlageModel.gesamtpreisBerechnen(auswahl);
+        this.aussenanlageView.getTxtGesamtpreis().setText(""+aussenanlageModel.getPreis());
+        this.aussenanlageModel.resetPreis();
+    }
+
+    public void zeigeFehlerSonderwunsch () {
+        this.aussenanlageView.getTxtGesamtpreis().setText("Fehlerhafte Konstellation");
+        this.aussenanlageModel.resetAuswahl();
+    }
+
+    public void addWunsch(SonderwuenscheAussenanlagen wunsch) {
+        this.wuensche.add(wunsch);
+    }
+
+    public Set<SonderwuenscheAussenanlagen> getAusgewaehlteWuensche() {
+        return ausgewaehlteWuensche;
+    }
+
+    public void setAusgewaehlteWuensche(Set<SonderwuenscheAussenanlagen> ausgewaehlteWuensche) {
+        this.ausgewaehlteWuensche = ausgewaehlteWuensche;
+    }
+
+    public void addAusgewaehltenWuensch(SonderwuenscheAussenanlagen ausgewaehlterWuensch) {
+        this.ausgewaehlteWuensche.add(ausgewaehlterWuensch);
     }
 
     public List<SonderwuenscheAussenanlagen> getWuensche() {
@@ -60,18 +101,6 @@ public final class AussenanlageControl {
 
     public void setWuensche(List<SonderwuenscheAussenanlagen> wuensche) {
         this.wuensche = wuensche;
-    }
-
-    public Set<SonderwuenscheAussenanlagen> getAusgewaehlteWuensche() {
-        return ausgewaehlteWuensche;
-    }
-
-    public void addAusgewaehltenWuensch(SonderwuenscheAussenanlagen ausgewaehlterWuensch) {
-        this.ausgewaehlteWuensche.add(ausgewaehlterWuensch);
-    }
-
-    public void setAusgewaehlteWuensche(Set<SonderwuenscheAussenanlagen> ausgewaehlteWuensche) {
-        this.ausgewaehlteWuensche = ausgewaehlteWuensche;
     }
 
     public void removeAusgewaehltenWunsch(Integer id) {
