@@ -386,7 +386,12 @@ public class FensterAussentuerenView extends BasisView {
     protected void berechneUndZeigePreisSonderwuensche() {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann der Preis berechnet.
-        fensterAussentuerenControl.zeigePreisSonderwuensche(auswahl);
+        if(fensterAussentuerenControl.pruefeKonstellationSonderwuensche(auswahl)){
+            fensterAussentuerenControl.zeigePreisSonderwuensche(auswahl);
+        }else {
+            fensterAussentuerenControl.zeigeFehlerSonderwunsch();
+        }
+
     }
 
     /* speichert die ausgesuchten Sonderwuensche in der Datenbank ab */
@@ -401,3 +406,4 @@ public class FensterAussentuerenView extends BasisView {
 
     }
 }
+
