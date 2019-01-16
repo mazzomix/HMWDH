@@ -9,7 +9,7 @@
         </id>
         <property name="wunsch" column="wunsch" type="string"/>
         <property name="preis" column="preis" type="double"/>
-        <set name="kunden" table="kunde_sonderwuensche_aussenanlagen" inverse="true">
+        <set name="kunden" table="kunde_sonderwuensche_aussenanlagen" inverse="true" lazy="false">
             <key column="sonderwuensche_id" />
             <many-to-many column="kunde_id" class="HibernateCont.Kunde" />
         </set>
@@ -124,7 +124,7 @@
         <property name="email" column="email" type="string"/>
         <property name="deleted" column="deleted" type="byte"/>
         <many-to-one name="hausnummer" column="hausnummer_id" unique="true" class="HibernateCont.Hausnummer" cascade="all" />
-        <set name="sonderwuenscheAussenanlagen" table="kunde_sonderwuensche_aussenanlagen" cascade="save-update">
+        <set name="sonderwuenscheAussenanlagen" table="kunde_sonderwuensche_aussenanlagen" cascade="save-update" lazy="false">
             <key column="kunde_id"/>
             <many-to-many column="sonderwuensche_id" class="HibernateCont.SonderwuenscheAussenanlagen" />
         </set>
