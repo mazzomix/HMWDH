@@ -20,6 +20,7 @@ public class FensterAussentuerenControl {
 
         this.fensterAussentuerenView = new FensterAussentuerenView(this);
         this.fensterAussentuerenModel = new FensterAussentuerenModel();
+
     }
 
     /**
@@ -37,8 +38,15 @@ public class FensterAussentuerenControl {
         this.fensterAussentuerenModel.resetPreis();
     }
 
-    public boolean pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw){
-        return true;
+    public void zeigeFehlerSonderwunsch () {
+        this.fensterAussentuerenView.getTxtGesamtpreis().setText("Fehlerhafte Konstellation");
+        this.fensterAussentuerenModel.resetAuswahl();
+    }
+
+    public boolean pruefeKonstellationSonderwuensche(double[] ausgewaehlteSw){
+
+        this.fensterAussentuerenModel.checkAuswahl(ausgewaehlteSw);
+        return this.fensterAussentuerenModel.getAuswahl();
     }
 
     public List<SonderwuenscheFensterAussentueren> getWuensche() {
