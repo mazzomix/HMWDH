@@ -1,0 +1,67 @@
+Build vom 16.01.2019 um 18 Uhr Branch Develop
+Kundenreview
+
+
+/ KUNDE (/F10) und (/F11) /
+
+1) Keine Pflichtfeldprüfung auf :	Nachname ist Pflichtfeld beim anlegen / anzeigen
+					Telefonnummer ODER Emailadresse sind Pflichtfeld
+					Wenn Telefonnummer vorhanden, dann nur Ziffern, Wenn Email vorhanden dann zwingend @ enthalten
+					
+2) Verbesserungsvorschlag:		Ein Kunde kauft nur 1 Haus, Kombination ist eine 1 zu 1 Beziehung
+
+/ GRUNDRISS (/F20) und (/F21) /
+
+1) Keine Prüfung in check methode auf : //2.6 get nur, wenn DG vorhanden ist und 2.5 ausgesucht wurde
+
+/ FENSTER UND AUSSENTUEREN (/F30) und (/F31) /
+
+KEIN FEHLER : Preise hardcoded und nicht aus DB
+
+/ INNENTUEREN (/F40) und (/F41) /
+
+1) (/F41) bisher nicht comitted. Keine Prüfung der Sonderwünsche vorhanden / muss erfolgen auf Grundriss und dazu Gesamtzahl der Tuern
+
+KEIN FEHLER : Preise hardcoded und nicht aus DB
+
+/ Heizungen (/F50) und (/F51) /
+
+1) (/F51) bisher nicht comitted. Keine Prüfung der Sonderwünsche vorhanden / muss erfolgen auf ausgewählte Sonderwünsche, sowie auf DG in Grundriss. Geschossmäßige Auflistung!
+
+2) Preisberechnung muss sich auch auf Heizkörperanzahl beziehen 
+
+POSITIV : Preis aus DB
+
+/ Sanitärinstallation (/F60) und (/F61) /
+
+1) (/F61) bisher nicht comitted. Keine Prüfung der Sonderwünsche vorhanden / muss erfolgen auf ausgewählte Sonderwünsche, sowie auf DG in Grundriss. 
+
+POSITIV : Preis aus DB
+
+/ Fliesen (/F70) und (/F71) /
+
+1) (/F71) bisher nicht comitted. Keine Prüfung der Sonderwünsche vorhanden / muss erfolgen auf ausgewählte Sonderwünsche, sowie auf DG in Grundriss und ob 2.6 gewünscht. 
+
+POSITIV : Preis aus DB
+
+/ Parkett (/F80) und (/F81) /
+
+1) (/F81) bisher falsch comitted. Prüfung der Sonderwünsche von Grundriss vorhanden / Prüfung muss sich auf Fliesen und Heizungen beziehen. 
+	-> 	8.1 geht nur, wenn weder 5.4 noch 5.5 ausgesucht worden sind, da man bei einer Fußbodenheizung keine massiven Landhausdielen verlegen kann. 
+	->	8.2 geht nur, wenn 7.1 ausgesucht wurde und wenn weder 5.4 noch 5.5 ausgewählt worden sind, siehe 8.1. 
+	->	8.4 geht nur, wenn 7.1 ausgesucht wurde. 
+	->	8.5 geht nur, wenn weder 5.4 noch 5.5 ausgesucht worden sind, siehe 8.1. 
+	->	8.7 geht nur, wenn das DG vorhanden ist und weder 7.5 noch 5.5 ausgesucht worden sind, zu 5.5 siehe 8.1. 
+	->	8.8 geht nur, wenn das DG vorhanden ist und 5.5 nicht ausgesucht worden ist, siehe 8.1. 
+	->	8.9 geht nur, wenn das DG vorhanden ist und 7.5 nicht ausgesucht worden ist. 
+
+POSITIV : Preis und Name aus DB
+
+/ Außenanlagen (/F90) und (/F91) /
+
+1) Fehlende Prüfung auf : 9.4 geht nur, falls 9.2 ausgesucht wurde.
+2) Compilefehler
+
+/ Bilder vom Haus anzeigen (/F100) /
+
+nicht vorhanden
