@@ -37,12 +37,8 @@ public class SanitaerinstallationView extends  BasisView {
     private JLabel lblDGBodentiefeDuscheEuro = new JLabel("Euro");
     public JCheckBox chckBxDGBodentiefeDusche = new JCheckBox();
 
-    private JLabel txtGesamtpreis = new JLabel("Gesamtpreis");
-
-
-
-
-
+    private JLabel lblGesamtpreis = new JLabel("Gesamtpreis: ");
+    private JTextField txtGesamtpreis = new JTextField();
     public SanitaerinstallationView(SanitaerinstallationControl sanitaerinstallationControl){
         this.sanitaerinstallationControl = sanitaerinstallationControl;
         this.setTitle("Sonderwünsche zu Sanitaerinstallation-Varianten");
@@ -97,8 +93,11 @@ public class SanitaerinstallationView extends  BasisView {
         super.getPnlSonderwunsch().add(chckBxDGBodentiefeDusche);
         chckBxDGBodentiefeDusche.setBounds(470, 125, 25, 25);
 
+        super.getPnlSonderwunsch().add(lblGesamtpreis);
+        lblGesamtpreis.setBounds(10, 225, 350, 25);
         super.getPnlSonderwunsch().add(txtGesamtpreis);
-        txtGesamtpreis.setBounds(200, 200, 200, 25);
+        txtGesamtpreis.setBounds(350, 225, 150, 25);
+        txtGesamtpreis.setEditable(false);
 
         lblOGGrößeresWaschbecken.setText(sanitaerinstallationControl.getWuensche().get(0).getWunsch());
         txtPreisOGGrößeresWaschbecken.setText(String.valueOf(sanitaerinstallationControl.getWuensche().get(0).getPreis()));
@@ -146,7 +145,7 @@ public class SanitaerinstallationView extends  BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[2] = auswahl[1] = sanitaerinstallationControl.getWuensche().get(2).getPreis();
+                    auswahl[2] = sanitaerinstallationControl.getWuensche().get(2).getPreis();
                     sanitaerinstallationControl.addAusgewaehltenWuensch(sanitaerinstallationControl.getWuensche().get(2));
                 }else {
                     auswahl[2] = 0;
@@ -160,7 +159,7 @@ public class SanitaerinstallationView extends  BasisView {
             public void actionPerformed(ActionEvent actionEvent) {
                 AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
                 if(abBttn.getModel().isSelected()) {
-                    auswahl[3] = auswahl[2] = auswahl[1] = sanitaerinstallationControl.getWuensche().get(3).getPreis();
+                    auswahl[3] = sanitaerinstallationControl.getWuensche().get(3).getPreis();
                     sanitaerinstallationControl.addAusgewaehltenWuensch(sanitaerinstallationControl.getWuensche().get(3));
                 }else {
                     auswahl[3] = 0;
@@ -234,8 +233,9 @@ public class SanitaerinstallationView extends  BasisView {
         kunde.getKunde().setSonderwuenscheSanitaerinstallation(sanitaerinstallationControl.getAusgewaehlteWuensche());
         db.speichereKunden(kunde.getKunde());
     }
-    protected JLabel getTxtGesamtpreis() {
+    protected JTextField getTxtGesamtpreis() {
         return this.txtGesamtpreis;
 
     }
 }
+
