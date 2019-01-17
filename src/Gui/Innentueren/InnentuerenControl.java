@@ -36,6 +36,29 @@ public class InnentuerenControl {
         return this.innentuerenModel.getAuswahl();
     }
 
+
+    public int initMaengeKeller(int anzahl)
+    {
+        anzahl = innentuerenModel.getAnzkeller();
+        return anzahl;
+    }
+    public int initMaengeEG(int anzahl)
+    {
+        anzahl = innentuerenModel.getAnzeg();
+        return anzahl;
+    }
+    public int initMaengeOG(int anzahl)
+    {
+        anzahl = innentuerenModel.getAnzog();
+        return anzahl;
+    }
+    public int initMaengeDG(int anzahl)
+    {
+        anzahl = innentuerenModel.getAnzdg();
+        return anzahl;
+    }
+
+
     public void zeigePreisSonderwuensche(double[] auswahl, int[] anzahl) {
         this.innentuerenModel.gesamtpreisBerechnen(auswahl, anzahl);
         this.innentuerenView.getTxtGesamtpreis().setText("" + innentuerenModel.getPreis());
