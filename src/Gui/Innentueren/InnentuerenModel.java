@@ -1,5 +1,10 @@
 package Gui.Innentueren;
 
+import Business.KundeModel;
+import HibernateCont.SonderwuenscheGrundriss;
+
+import java.util.Set;
+
 public class InnentuerenModel {
 
     private int preis = 0;
@@ -9,6 +14,7 @@ public class InnentuerenModel {
     private int anzeg = 0;
     private int anzog = 4;
     private int anzdg = 0;
+    
 
     private KundeModel kunde = KundeModel.getInstance();
     Set<SonderwuenscheGrundriss> grundriss;
@@ -34,31 +40,31 @@ public class InnentuerenModel {
          */
 
         grundriss = kunde.getKunde().getSonderwuenscheGrundriss();
-        boolean wunschgewaehlt = false;
+
         for (SonderwuenscheGrundriss sg : grundriss) {
 
             if (sg.getWunsch().contains("Tür in der Wand zwischen Küche und Essbereich")) {
-                wunschgewaehlt = true;
+
                 anzeg = 1;
                 break;
             }
             if (sg.getWunsch().contains("Großes Zimmer im OG statt zwei kleinen Zimmern")) {
-                wunschgewaehlt = true;
+
                 anzog = 3;
                 break;
             }
             if ((sg.getWunsch().contains("Abgetrennter Treppenraum im DG")) && (sg.getWunsch().contains("Ausführung eines Bades im DG")) && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)) {
-                wunschgewaehlt = true;
+
                 anzdg = 2;
                 break;
             }
             if ((sg.getWunsch().contains("Abgetrennter Treppenraum im DG")) || (sg.getWunsch().contains("Ausführung eines Bades im DG")) && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)) {
-                wunschgewaehlt = true;
+
                 anzdg = 1;
                 break;
             }
             if ((kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1) || ((!sg.getWunsch().contains("Abgetrennter Treppenraum im DG")) && (!sg.getWunsch().contains("Ausführung eines Bades im DG")) && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1))) {
-                wunschgewaehlt = true;
+
                 anzdg = 0;
                 break;
             }
@@ -69,7 +75,15 @@ public class InnentuerenModel {
             anzkeller = 1 ;
         }
     }
-    
+
+    public void checkMaenge(int anzahl1, int anzahl2, int maxanzahl) {
+
+        if((anzahl1+anzahl2)>maxanzahl)
+        {
+            this.auswahl = false;
+        }
+    }
+
     public void gesamtpreisBerechnen(double[] preise, int[] anzahle) {
     	
         for (int i = 0; i < preise.length; i++) {
