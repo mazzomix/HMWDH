@@ -5,7 +5,7 @@ import Business.KundeModel;
 public class SanitaerinstallationModel {
 
         private int preis = 0;
-        private boolean auswahl;
+        private boolean auswahl = true;
         private KundeModel kunde = KundeModel.getInstance();
 
       public void gesamtpreisBerechnen (double[] preise) {
@@ -14,6 +14,20 @@ public class SanitaerinstallationModel {
         }
 
        }
+
+    public void checkAuswahl(double[] auswahl) {
+
+        if(auswahl[1] != 0 && kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1){
+            this.auswahl = false;
+        }
+        if(auswahl[2] != 0 && auswahl[0] != 0){
+            this.auswahl = false;
+        }
+        if(auswahl[3] != 0 && (auswahl[1] != 0 || kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1)){
+            this.auswahl = false;
+        }
+
+    }
 
 
     public boolean getAuswahl() {
@@ -31,4 +45,3 @@ public class SanitaerinstallationModel {
     public void resetPreis() { preis = 0;}
 
 }
-
