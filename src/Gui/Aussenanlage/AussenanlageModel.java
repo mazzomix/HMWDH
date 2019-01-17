@@ -14,7 +14,7 @@ public class AussenanlageModel {
 
     }
 
-     public void checkAuswahl(double[] auswahl) {
+    public void checkAuswahl(double[] auswahl) {
 
         if(auswahl[2] !=0 && kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1){
             this._auswahl = false;
@@ -51,4 +51,6 @@ public class AussenanlageModel {
         _auswahl = true;
     }
 
+
 }
+
