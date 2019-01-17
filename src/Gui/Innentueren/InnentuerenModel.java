@@ -10,10 +10,10 @@ public class InnentuerenModel {
     private int preis = 0;
     private boolean auswahl = true;
     private int anzahl;
-    private int anzkeller = 2;
-    private int anzeg = 0;
-    private int anzog = 4;
-    private int anzdg = 0;
+    public int anzkeller = 2;
+    public int anzeg = 0;
+    public int anzog = 4;
+    public int anzdg = 0;
 
 
     private KundeModel kunde = KundeModel.getInstance();
@@ -29,13 +29,13 @@ public class InnentuerenModel {
 
     public void checkAuswahl(double[] auswahl, KundeModel kunde) {
 
-       // Bedingungen
+        // Bedingungen
         /*
         A11 -   Der Kundenberater möchte innerhalb von A10 eine Prüfung haben, welche sicherstellt, dass die Kombination der Sonderwünsche möglich ist.
-                Hierbei ist explizit zu beachten, dass aus /F40/ für 4.1 eine Anzahl x Türen zwischen 1 und max. Anzahl gewählt werden muss. 
-                Für 4.2 muss eine Anzahl Türen y zwischen 1 und max. liegen. Zu beachten ist hierbei das Anzahl x + y kleiner gleich max. sein muss. 
-                Die Anzahl der Türen ist gesondert definiert. 
-                Funktion 4.3 kann nur ausgewählt werden, wenn ein DG vorhanden ist. Der Gesamtpreis wird nach jeder Auswahl berechnet werden falls die Prüfung positiv verläuft. 
+                Hierbei ist explizit zu beachten, dass aus /F40/ für 4.1 eine Anzahl x Türen zwischen 1 und max. Anzahl gewählt werden muss.
+                Für 4.2 muss eine Anzahl Türen y zwischen 1 und max. liegen. Zu beachten ist hierbei das Anzahl x + y kleiner gleich max. sein muss.
+                Die Anzahl der Türen ist gesondert definiert.
+                Funktion 4.3 kann nur ausgewählt werden, wenn ein DG vorhanden ist. Der Gesamtpreis wird nach jeder Auswahl berechnet werden falls die Prüfung positiv verläuft.
                 Außerdem wird der Gesamtpreis danach angezeigt. Verläuft eine Prüfung negativ, wird eine entsprechende Fehlermeldung ausgegeben.
          */
 
@@ -76,17 +76,6 @@ public class InnentuerenModel {
         }
     }
 
-    public void checkMaenge(int anzahl1, int anzahl2, int maxanzahl) {
-
-        if((anzahl1+anzahl2)>maxanzahl)
-        {
-            this.auswahl = false;
-        }
-        if((anzahl1+anzahl2)<1)
-        {
-            this.auswahl = false;
-        }
-    }
 
     public void gesamtpreisBerechnen(double[] preise, int[] anzahle) {
     	
@@ -111,7 +100,7 @@ public class InnentuerenModel {
     public int getAnzkeller() {
         return anzkeller;
     }
-    public int getAnzeg() {
+    protected int getAnzeg() {
         return anzeg;
     }
     public int getAnzog() {
