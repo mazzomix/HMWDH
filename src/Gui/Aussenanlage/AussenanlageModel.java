@@ -14,20 +14,25 @@ public class AussenanlageModel {
 
     }
 
-    public void checkAuswahl(double[] auswahl) {
+     public void checkAuswahl(double[] auswahl) {
 
-        if(auswahl[2] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1)) {
+        if(auswahl[2] !=0 && kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1){
             this._auswahl = false;
         }
-        if(auswahl[5] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1)){
-            this._auswahl = false;
+        if (auswahl[3] != 0 && auswahl[1] == 0){
+            this._auswahl= false;
         }
         if(auswahl[4]!= 0 && ((kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1) || auswahl[2] == 0)) {
+            this._auswahl = false;
+        }
+        if(auswahl[5] != 0 && kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1){
             this._auswahl = false;
         }
         if(auswahl[6] != 0 && ((kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1) || auswahl[5] == 0)){
             this._auswahl = false;
         }
+
+
     }
 
     public boolean getAuswahl(){
