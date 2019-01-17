@@ -37,7 +37,7 @@ CREATE TABLE `sonderwuensche_innentueren` (
 
 LOCK TABLES `sonderwuensche_innentueren` WRITE;
 /*!40000 ALTER TABLE `sonderwuensche_innentueren` DISABLE KEYS */;
-INSERT INTO `sonderwuensche_innentueren` VALUES (1,'Mehrpreis für die Ausführung eines Glasausschnitts\r\n(Klarglas) in einer Innentür',460),(2,'Mehrpreis für die Ausführung eines Glasausschnitts\r\n(Milchglas) in einer Innentür',560),(3,'Innentür zur Garage als Holztür',660);
+INSERT INTO `sonderwuensche_innentueren` VALUES (1,'Ausführung Glasausschnitt\r\n(Klarglas) in Innentür',460),(2,'Ausführung Glasausschnitt\r\n(Milchglas) in Innentür',560),(3,'Innentür zur Garage als Holztür',660);
 /*!40000 ALTER TABLE `sonderwuensche_innentueren` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
