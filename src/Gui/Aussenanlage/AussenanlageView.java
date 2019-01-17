@@ -60,7 +60,7 @@ public class AussenanlageView extends  BasisView {
         this.setTitle("Sonderwünsche zu Aussenanlage-Varianten");
         this.aussenanlageControl.setWuensche(db.holeSonderwuenscheAussenanlagen());
         this.initKomponenten();
-        this.iniListener();
+        this.inisListener();
         this.leseAussenanlageSonderwuensche();
     }
 
@@ -163,10 +163,8 @@ public class AussenanlageView extends  BasisView {
 
     }
 
-    protected void iniListener() {
-        super.initListener();
-
-        protected void inisListener() {
+  
+    protected void inisListener() {
         super.initListener();
 
         chckBxEGAbstellraumTerrasse.addActionListener(new ActionListener() {
