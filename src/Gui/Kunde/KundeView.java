@@ -139,7 +139,11 @@ public class KundeView extends JFrame {
             leseKunden();
         });
         btnAnlegen.addActionListener(aEvent-> {
-            legeKundenAn();
+            if(txtNachname.getText().equals("") || txtTelefon.getText().equals("") || txtEmail.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Nachname, Telefonnummer oder E-Mail fehlt.", "Fehler beim Anlegen", JOptionPane.WARNING_MESSAGE);
+            }
+            else
+                legeKundenAn();
         });
         btnAendern.addActionListener(aEvent-> {
             aendereKunden();
