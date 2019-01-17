@@ -29,14 +29,14 @@ public class InnentuerenModel {
 
     public void checkAuswahl(double[] auswahl, KundeModel kunde) {
 
-        // Bedingungen
+       // Bedingungen
         /*
-        A14 - Der Kundenberater möchte innerhalb von A13 eine Prüfung haben, welche sicherstellt, dass die Kombination der Sonderwünsche möglich ist.
-        Hierbei ist explizit zu beachten, dass aus /F50/ für 5.1 eine Anzahl x zusätzlicher Heizkörper zwischen 1 und 5 gewählt werden muss.
-        Für 5.2 muss eine Anzahl Heizungen mit glatter Oberfläche z zwischen 1 und Anzahl vorhandener Heizkörper + den in 5.1 gewählten liegen. Die Anzahl der Heizkörper ist gesondert definiert.
-        Funktion 5.3 kann nur zwischen 1 und 2 gewählt werden, und 2 auch nur wenn DG vorhanden und 2.6 ausgewählt.
-        5.4 kann nur gewählt werden, wenn kein DG vorhanden ist, 5.5 wiederum nur wenn DG vorhanden. Der Gesamtpreis wird nach jeder Auswahl berechnet werden falls die Prüfung positiv verläuft.
-        Außerdem wird der Gesamtpreis danach angezeigt. Verläuft eine Prüfung negativ, wird eine entsprechende Fehlermeldung ausgegeben.
+        A11 -   Der Kundenberater möchte innerhalb von A10 eine Prüfung haben, welche sicherstellt, dass die Kombination der Sonderwünsche möglich ist.
+                Hierbei ist explizit zu beachten, dass aus /F40/ für 4.1 eine Anzahl x Türen zwischen 1 und max. Anzahl gewählt werden muss. 
+                Für 4.2 muss eine Anzahl Türen y zwischen 1 und max. liegen. Zu beachten ist hierbei das Anzahl x + y kleiner gleich max. sein muss. 
+                Die Anzahl der Türen ist gesondert definiert. 
+                Funktion 4.3 kann nur ausgewählt werden, wenn ein DG vorhanden ist. Der Gesamtpreis wird nach jeder Auswahl berechnet werden falls die Prüfung positiv verläuft. 
+                Außerdem wird der Gesamtpreis danach angezeigt. Verläuft eine Prüfung negativ, wird eine entsprechende Fehlermeldung ausgegeben.
          */
 
         grundriss = kunde.getKunde().getSonderwuenscheGrundriss();
