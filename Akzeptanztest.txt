@@ -1,12 +1,12 @@
-Build vom 16.01.2019 um 18 Uhr Branch Develop UPDATE 17.01.2019
+﻿Build vom 16.01.2019 um 18 Uhr Branch Develop UPDATE 17.01.2019
 Kundenreview
 
 
 / KUNDE (/F10) und (/F11) /
 
-1) Keine Pflichtfeldprüfung auf :	Nachname ist Pflichtfeld beim anlegen / anzeigen
-					Telefonnummer ODER Emailadresse sind Pflichtfeld
-					Wenn Telefonnummer vorhanden, dann nur Ziffern, Wenn Email vorhanden dann zwingend @ enthalten
+1) Keine Pflichtfeldprüfung auf :	Nachname ist Pflichtfeld beim anlegen / anzeigen -- ABGESCHLOSSEN
+					Telefonnummer ODER Emailadresse sind Pflichtfeld  -- ABGESCHLOSSEN
+					Wenn Telefonnummer vorhanden, dann nur Ziffern, Wenn Email vorhanden dann zwingend @ enthalten  -- ABGESCHLOSSEN
 					
 2) Verbesserungsvorschlag:		Ein Kunde kauft nur 1 Haus, Kombination ist eine 1 zu 1 Beziehung
 

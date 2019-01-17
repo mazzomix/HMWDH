@@ -139,7 +139,18 @@ public class KundeView extends JFrame {
             leseKunden();
         });
         btnAnlegen.addActionListener(aEvent-> {
-            legeKundenAn();
+            if(txtNachname.getText().equals("") || txtTelefon.getText().equals("") || txtEmail.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Nachname, Telefonnummer oder E-Mail fehlt.", "Fehler beim Anlegen", JOptionPane.WARNING_MESSAGE);
+            }
+            else if (!txtTelefon.getText().matches("[0-9]+")){
+                JOptionPane.showMessageDialog(null, "Telefonnummer darf nur aus Nummern bestehen.", "Fehler beim Anlegen", JOptionPane.WARNING_MESSAGE);
+            }
+            else if (!txtEmail.getText().contains("@") || !txtEmail.getText().contains("."))
+            {
+                JOptionPane.showMessageDialog(null, "E-Mail-Adresse ungültig (kein @ oder .)", "Fehler beim Anlegen", JOptionPane.WARNING_MESSAGE);
+            }
+            else
+                legeKundenAn();
         });
         btnAendern.addActionListener(aEvent-> {
             aendereKunden();
