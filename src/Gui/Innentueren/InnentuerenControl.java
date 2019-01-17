@@ -1,16 +1,18 @@
 package Gui.Innentueren;
 
+import Business.KundeModel;
 import HibernateCont.SonderwuenscheInnentueren;
 
 import java.util.*;
 
 public class InnentuerenControl {
 
-    // das View-Objekt des Grundriss-Fensters TESTZWECK
+    
     private InnentuerenView innentuerenView;
     private InnentuerenModel innentuerenModel;
     private List<SonderwuenscheInnentueren> wuensche = new ArrayList();
     private Set<SonderwuenscheInnentueren> ausgewaehlteWuensche = new HashSet<>();
+    KundeModel kunde;
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Innentueren-Fenster und
@@ -19,6 +21,7 @@ public class InnentuerenControl {
     public InnentuerenControl() {
         this.innentuerenView = new InnentuerenView(this);
         this.innentuerenModel = new InnentuerenModel();
+        this.kunde = KundeModel.getInstance();
     }
 
     public void oeffneInnentuerenView() {
@@ -29,6 +32,7 @@ public class InnentuerenControl {
     }
 
     public boolean pruefeKonstellationSonderwuensche(double[] auswahl) {
+        this.innentuerenModel.checkAuswahl(auswahl, kunde);
         return this.innentuerenModel.getAuswahl();
     }
 
