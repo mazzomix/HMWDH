@@ -19,7 +19,7 @@ public class GrundrissModel  {
 		return _preis;
 	}
 	
-	public void checkAuswahl(double[] auswahl, int hausnummer) {
+	public void checkAuswahl(double[] auswahl) {
 		
 		//2.2 geht nur wenn 2.1 auch ausgesucht wurde
 		//2.4 geht nur , wenn DG vorhanden ist. Standardgemäß ist die Treppe von dem Raum im DG nur durch eine Brüstung getrennt.
@@ -35,7 +35,7 @@ public class GrundrissModel  {
 		if(auswahl[4] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1)){
 			this._auswahl = false;
 		}
-		if(auswahl[5]!= 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1)) {
+		if(auswahl[5]!= 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1 || auswahl[4] == 0)) {
 			this._auswahl = false;
 		}
 		
