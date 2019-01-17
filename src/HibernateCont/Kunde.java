@@ -1,6 +1,8 @@
 package HibernateCont;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Kunde {
@@ -15,7 +17,7 @@ public class Kunde {
     private Set<SonderwuenscheFensterAussentueren> sonderwuenscheFensterAussentueren = new HashSet<>();
     private Set<SonderwuenscheFliesen> sonderwuenscheFliesen = new HashSet<>();
     private Set<SonderwuenscheGrundriss> sonderwuenscheGrundriss = new HashSet<>();
-    private Set<SonderwuenscheHeizung> sonderwuenscheHeizung = new HashSet<>();
+    private List<SonderwuenscheHeizung> sonderwuenscheHeizung = new ArrayList<>();
     private Set<SonderwuenscheInnentueren> sonderwuenscheInnentueren = new HashSet<>();
     private Set<SonderwuenscheParkett> sonderwuenscheParkett = new HashSet<>();
     private Set<SonderwuenscheSanitaerinstallation> sonderwuenscheSanitaerinstallation = new HashSet<>();
@@ -124,11 +126,11 @@ public class Kunde {
         this.sonderwuenscheGrundriss = sonderwuenscheGrundriss;
     }
 
-    public Set<SonderwuenscheHeizung> getSonderwuenscheHeizung() {
+    public List<SonderwuenscheHeizung> getSonderwuenscheHeizung() {
         return sonderwuenscheHeizung;
     }
 
-    public void setSonderwuenscheHeizung(Set<SonderwuenscheHeizung> sonderwuenscheHeizung) {
+    public void setSonderwuenscheHeizung(List<SonderwuenscheHeizung> sonderwuenscheHeizung) {
         this.sonderwuenscheHeizung = sonderwuenscheHeizung;
     }
 

@@ -29,7 +29,7 @@ public abstract class BasisView extends JFrame {
      * erzeugt ein BasisView-Objekt
      */
     public BasisView (){
-        this.setSize(550,400);
+        this.setSize(650,400);
         this.setLayout(null);
         this.setLocation(400, 200);
         this.initListener();
@@ -41,7 +41,7 @@ public abstract class BasisView extends JFrame {
     protected void initKomponenten(){
         // pnlSonderwunsch wird erzeugt.
         this.add(pnlSonderwunsch);
-        pnlSonderwunsch.setBounds(10, 10, 510, 310);
+        pnlSonderwunsch.setBounds(10, 10, 610, 310);
         pnlSonderwunsch.setLayout(null);
         pnlSonderwunsch.setBackground(new Color(255, 255, 102));
         pnlSonderwunsch.add(lblSonderwunsch);

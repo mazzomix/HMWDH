@@ -12,7 +12,7 @@ public class HeizungControl {
     private HeizungView HeizungView;
     private HeizungModel HeizungModel;
     private List<SonderwuenscheHeizung> wuensche = new ArrayList();
-    private Set<SonderwuenscheHeizung> ausgewaehlteWuensche = new HashSet<>();
+    private List<SonderwuenscheHeizung> ausgewaehlteWuensche = new ArrayList<>();
 
     /**
      * erzeugt ein das View-Objekt und Model-Objekt zum Heizung-Fenster und
@@ -33,8 +33,8 @@ public class HeizungControl {
 
     public void leseHeizungSonderwuensche(){
     }
-    public void zeigePreisSonderwuensche(double[] auswahl,int [] stueck) {
-        this.HeizungModel.gesamtpreisBerechnen(auswahl,stueck);
+    public void zeigePreisSonderwuensche() {
+        this.HeizungModel.gesamtpreisBerechnen(this.ausgewaehlteWuensche);
         this.HeizungView.getTxtGesamtpreis().setText(""+HeizungModel.getPreis());
         this.HeizungModel.resetPreis();
     }
@@ -51,7 +51,7 @@ public class HeizungControl {
         this.wuensche = wuensche;
     }
 
-    public Set<SonderwuenscheHeizung> getAusgewaehlteWuensche() {
+    public List<SonderwuenscheHeizung> getAusgewaehlteWuensche() {
         return ausgewaehlteWuensche;
     }
 
@@ -59,7 +59,7 @@ public class HeizungControl {
         this.ausgewaehlteWuensche.add(ausgewaehlterWuensch);
     }
 
-    public void setAusgewaehlteWuensche(Set<SonderwuenscheHeizung> ausgewaehlteWuensche) {
+    public void setAusgewaehlteWuensche(List<SonderwuenscheHeizung> ausgewaehlteWuensche) {
         this.ausgewaehlteWuensche = ausgewaehlteWuensche;
     }
 
@@ -70,5 +70,30 @@ public class HeizungControl {
                 i.remove();
             }
         }
+    }
+
+    public void berechneAnzahl(int count, int wunschId){
+        List<SonderwuenscheHeizung> liste = null;
+        if(this.getAusgewaehlteWuensche() == null){
+            liste = new ArrayList<>();
+        } else{
+            liste = this.getAusgewaehlteWuensche();
+        }
+        for (int i = 0; i<count; i++){
+            liste.add(this.getWuensche().get(wunschId));
+        }
+        this.setAusgewaehlteWuensche(liste);
+    }
+
+    public int getAnzahlSonderwunsch(int wunschId){
+        int count = 0;
+        Map test = new HashMap();
+        for (SonderwuenscheHeizung ausgewahlterWunsch: this.getAusgewaehlteWuensche()
+             ) {
+            if (ausgewahlterWunsch == null)continue;
+            if(ausgewahlterWunsch.getId() == wunschId) count++;
+
+        }
+        return count;
     }
 }

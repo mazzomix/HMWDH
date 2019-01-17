@@ -1,14 +1,20 @@
 package Gui.Heizung;
 
+import HibernateCont.SonderwuenscheHeizung;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class HeizungModel {
-    private int _preis = 0;
-    public void gesamtpreisBerechnen (double[] preise, int[] stueck) {
-        for(int i = 0; i<preise.length; i++) {
-            this._preis += preise[i]*stueck[i];
+    private double _preis = 0;
+    public void gesamtpreisBerechnen (List<SonderwuenscheHeizung> wuensche) {
+        for (SonderwuenscheHeizung wunsch: wuensche
+             ) {
+            _preis += wunsch.getPreis();
         }
 
     }
-    public int getPreis() {
+    public double getPreis() {
         return _preis;
     }
     public void resetPreis() {
