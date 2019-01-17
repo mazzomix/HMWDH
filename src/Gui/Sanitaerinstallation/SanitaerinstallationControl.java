@@ -34,6 +34,7 @@ public final class SanitaerinstallationControl {
 
 
     public boolean pruefeKonstellationSonderwuensche(double [] auswahl) {
+        this.sanitaerinstallationModel.checkAuswahl(auswahl);
         return this.sanitaerinstallationModel.getAuswahl();
     }
 
@@ -78,3 +79,4 @@ public final class SanitaerinstallationControl {
         }
     }
 }
+
