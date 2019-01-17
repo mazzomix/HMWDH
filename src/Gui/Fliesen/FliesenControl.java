@@ -1,5 +1,6 @@
 package Gui.Fliesen;
 
+import Business.KundeModel;
 import HibernateCont.SonderwuenscheFliesen;
 
 import java.util.*;
@@ -9,6 +10,7 @@ public class FliesenControl {
     // das View-Objekt des Fliesen-Fensters
     private FliesenView fliesenView;
     private FliesenModel fliesenModel;
+    private KundeModel kunde;
     private List<SonderwuenscheFliesen> wuensche = new ArrayList();
     private Set<SonderwuenscheFliesen> ausgewaehlteWuensche = new HashSet<>();
 
@@ -17,7 +19,7 @@ public class FliesenControl {
      * oeffnet das View.
      */
     public FliesenControl(){
-
+        this.kunde = KundeModel.getInstance();
         this.fliesenView = new FliesenView(this);
         this.fliesenModel = new FliesenModel();
     }
@@ -37,10 +39,15 @@ public class FliesenControl {
         this.fliesenModel.resetPreis();
     }
 
-    public boolean pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw){
-        return true;
+    public void zeigeFehlerSonderwunsch () {
+        this.fliesenView.getTxtGesamtpreis().setText("Fehlerhafte Konstellation");
+        this.fliesenModel.resetAuswahl();
     }
 
+    public boolean pruefeKonstellationSonderwuensche(double[] ausgewaehlteSw){
+        this.fliesenModel.checkAuswahl(ausgewaehlteSw, kunde);
+        return this.fliesenModel.getAuswahl();
+    }
     public List<SonderwuenscheFliesen> getWuensche() {
         return wuensche;
     }
@@ -70,3 +77,4 @@ public class FliesenControl {
         }
     }
 }
+
