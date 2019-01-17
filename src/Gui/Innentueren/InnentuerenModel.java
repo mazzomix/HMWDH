@@ -14,7 +14,7 @@ public class InnentuerenModel {
     private int anzeg = 0;
     private int anzog = 4;
     private int anzdg = 0;
-    
+
 
     private KundeModel kunde = KundeModel.getInstance();
     Set<SonderwuenscheGrundriss> grundriss;
@@ -79,6 +79,10 @@ public class InnentuerenModel {
     public void checkMaenge(int anzahl1, int anzahl2, int maxanzahl) {
 
         if((anzahl1+anzahl2)>maxanzahl)
+        {
+            this.auswahl = false;
+        }
+        if((anzahl1+anzahl2)<1)
         {
             this.auswahl = false;
         }
