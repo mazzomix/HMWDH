@@ -22,7 +22,7 @@ Updadte : abgeschlossen
 
 1) (/F41) bisher nicht comitted. Keine Prüfung der Sonderwünsche vorhanden / muss erfolgen auf Grundriss und dazu Gesamtzahl der Tuern
 
-Updadte : 
+Updadte : abgeschlossen aber (!)ungetestet(!)
 
 / Heizungen (/F50) und (/F51) /
 
