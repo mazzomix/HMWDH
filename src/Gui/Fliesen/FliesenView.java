@@ -30,7 +30,8 @@ public class FliesenView extends BasisView {
     private JLabel lblKeineFlieseBadOGEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxKeineFlieseBadOG = new JCheckBox();
 
-    private JLabel lblGroßFormatFlieseKuecheEG = new JLabel("");
+    private JLabel lblGroßFormatFlieseKuecheEG = new JLabel("Mehrpreis bei großformatige Fliesen im");
+    private JLabel lblGroßFormatFlieseKuecheEG2 = new JLabel("Küchenbereich des EG:");
     private JTextField txtPreisGroßFormatFlieseKuecheEG = new JTextField("");
     private JLabel lblGleichFormatFlieseKuecheEGEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxGleichFormatFlieseKuecheEG = new JCheckBox();
@@ -76,6 +77,7 @@ public class FliesenView extends BasisView {
     protected void initKomponenten() {
         super.initKomponenten();
         // pnlSonderwunsch wird belegt.
+
         super.getLblSonderwunsch().setText("Fliesen-Varianten");
         super.getPnlSonderwunsch().add(lblKeinFlieseKuecheEG);
         lblKeinFlieseKuecheEG.setBounds(10, 50, 350, 25);
@@ -98,7 +100,9 @@ public class FliesenView extends BasisView {
         chckBxKeineFlieseBadOG.setBounds(470, 75, 25, 25);
 
         super.getPnlSonderwunsch().add(lblGroßFormatFlieseKuecheEG);
+        super.getPnlSonderwunsch().add(lblGroßFormatFlieseKuecheEG2);
         lblGroßFormatFlieseKuecheEG.setBounds(10, 100, 350, 25);
+        lblGroßFormatFlieseKuecheEG2.setBounds(10,115,350,25);
         super.getPnlSonderwunsch().add(txtPreisGroßFormatFlieseKuecheEG);
         txtPreisGroßFormatFlieseKuecheEG.setBounds(350, 100, 80, 25);
         txtPreisGroßFormatFlieseKuecheEG.setEditable(false);
@@ -108,34 +112,34 @@ public class FliesenView extends BasisView {
         chckBxGleichFormatFlieseKuecheEG.setBounds(470, 100, 25, 25);
 
         super.getPnlSonderwunsch().add(lblGroßFormatFlieseBadOG);
-        lblGroßFormatFlieseBadOG.setBounds(10, 125, 350, 25);
+        lblGroßFormatFlieseBadOG.setBounds(10, 140, 350, 25);
         super.getPnlSonderwunsch().add(txtPreisGroßFormatFlieseBadOG);
-        txtPreisGroßFormatFlieseBadOG.setBounds(350, 125, 80, 25);
+        txtPreisGroßFormatFlieseBadOG.setBounds(350, 140, 80, 25);
         txtPreisGroßFormatFlieseBadOG.setEditable(false);
         super.getPnlSonderwunsch().add(lblGleichFormatFlieseBadOGEuro);
-        lblGleichFormatFlieseBadOGEuro.setBounds(440, 125, 50, 25);
+        lblGleichFormatFlieseBadOGEuro.setBounds(440, 140, 50, 25);
         super.getPnlSonderwunsch().add(chckBxGleichFormatFlieseBadOG);
-        chckBxGleichFormatFlieseBadOG.setBounds(470, 125, 25, 25);
+        chckBxGleichFormatFlieseBadOG.setBounds(470, 140, 25, 25);
 
         super.getPnlSonderwunsch().add(lblFliesenBadDG);
-        lblFliesenBadDG.setBounds(10, 150, 350, 25);
+        lblFliesenBadDG.setBounds(10, 165, 350, 25);
         super.getPnlSonderwunsch().add(txtPreisFliesenBadDG);
-        txtPreisFliesenBadDG.setBounds(350, 150, 80, 25);
+        txtPreisFliesenBadDG.setBounds(350, 165, 80, 25);
         txtPreisFliesenBadDG.setEditable(false);
         super.getPnlSonderwunsch().add(lblFliesenBadDGEuro);
-        lblFliesenBadDGEuro.setBounds(440, 150, 50, 25);
+        lblFliesenBadDGEuro.setBounds(440, 165, 50, 25);
         super.getPnlSonderwunsch().add(chckBxFliesenBadDG);
-        chckBxFliesenBadDG.setBounds(470, 150, 25, 25);
+        chckBxFliesenBadDG.setBounds(470, 165, 25, 25);
 
         super.getPnlSonderwunsch().add(lblGroßFliesenBadDG);
-        lblGroßFliesenBadDG.setBounds(10, 175, 350, 25);
+        lblGroßFliesenBadDG.setBounds(10, 165+25, 350, 25);
         super.getPnlSonderwunsch().add(txtPreisGroßFliesenBadDG);
-        txtPreisGroßFliesenBadDG.setBounds(350, 175, 80, 25);
+        txtPreisGroßFliesenBadDG.setBounds(350, 165+25, 80, 25);
         txtPreisGroßFliesenBadDG.setEditable(false);
         super.getPnlSonderwunsch().add(lblGroßFliesenBadDGEuro);
-        lblGroßFliesenBadDGEuro.setBounds(440, 175, 50, 25);
+        lblGroßFliesenBadDGEuro.setBounds(440, 165+25, 50, 25);
         super.getPnlSonderwunsch().add(chckBxGroßFliesenBadDG);
-        chckBxGroßFliesenBadDG.setBounds(470, 175, 25, 25);
+        chckBxGroßFliesenBadDG.setBounds(470, 165+25, 25, 25);
 
         super.getPnlSonderwunsch().add(lblGesamtpreis);
         lblGesamtpreis.setBounds(10, 275, 350, 25);
@@ -144,11 +148,12 @@ public class FliesenView extends BasisView {
         txtGesamtpreis.setEditable(false);
 
 
+
         lblKeinFlieseKuecheEG.setText(fliesenControl.getWuensche().get(0).getWunsch());
         txtPreisKeinFlieseKuecheEG.setText(String.valueOf(fliesenControl.getWuensche().get(0).getPreis()));
         lblKeineFlieseBadOG.setText(fliesenControl.getWuensche().get(1).getWunsch());
         txtPreisKeineFlieseBadOG.setText(String.valueOf(fliesenControl.getWuensche().get(1).getPreis()));
-        lblGroßFormatFlieseKuecheEG.setText(fliesenControl.getWuensche().get(2).getWunsch());
+        //lblGroßFormatFlieseKuecheEG.setText(fliesenControl.getWuensche().get(2).getWunsch());
         txtPreisGroßFormatFlieseKuecheEG.setText(String.valueOf(fliesenControl.getWuensche().get(2).getPreis()));
         lblGroßFormatFlieseBadOG.setText(String.valueOf(fliesenControl.getWuensche().get(3).getWunsch()));
         txtPreisGroßFormatFlieseBadOG.setText(String.valueOf(fliesenControl.getWuensche().get(3).getPreis()));
@@ -304,7 +309,11 @@ public class FliesenView extends BasisView {
     protected void berechneUndZeigePreisSonderwuensche() {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann der Preis berechnet.
-        fliesenControl.zeigePreisSonderwuensche(auswahl);
+        if(fliesenControl.pruefeKonstellationSonderwuensche(auswahl)) {
+            fliesenControl.zeigePreisSonderwuensche(auswahl);
+        }else{
+            fliesenControl.zeigeFehlerSonderwunsch();
+        }
     }
 
     /* speichert die ausgesuchten Sonderwuensche in der Datenbank ab */
@@ -322,3 +331,4 @@ public class FliesenView extends BasisView {
 
 
 }
+
