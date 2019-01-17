@@ -1,0 +1,96 @@
+package Gui.Parkett;
+
+
+import Business.KundeModel;
+import HibernateCont.SonderwuenscheFliesen;
+import HibernateCont.SonderwuenscheHeizung;
+
+import java.util.Set;
+
+public class ParkettModel {
+	private int _preis = 0;
+	private boolean _auswahl = true;
+	private KundeModel kunde = KundeModel.getInstance();
+	Set<SonderwuenscheHeizung> heizung;
+	Set<SonderwuenscheFliesen> fliesen;
+
+	private String siebenEins, siebenFuenf;
+	
+	public void gesamtpreisBerechnen (double[] preise) {
+		for(int i = 0; i<preise.length; i++) {
+			this._preis += preise[i]; 
+		}
+		
+	}
+	
+	public int getPreis() {
+		return _preis;
+	}
+
+	public void checkAuswahl(double[] auswahl) {
+
+		fliesen = kunde.getKunde().getSonderwuenscheFliesen();
+		heizung = kunde.getKunde().getSonderwuenscheHeizung();
+/*
+		for(SonderwuenscheFliesen sf : fliesen) {
+			if(sf.getWunsch().contains("Keine Fliesen im Küchenbereich des EG")){
+				siebenEins = sf.getWunsch();
+			}
+			else
+				siebenEins = "";
+			if(sf.getWunsch().contains("Fliesen im Bad des DG")){
+				siebenFuenf = sf.getWunsch();
+			}
+			else
+				siebenFuenf = "";
+		}
+*/
+		boolean siebenEins = false;
+		boolean siebenFuenf = false;
+		for(SonderwuenscheFliesen sf : fliesen){
+			if(sf.getWunsch().contains("Keine Fliesen im Küchenbereich des EG")){
+				siebenEins = true;
+			}
+			if(sf.getWunsch().contains("Fliesen im Bad des DG")){
+				siebenFuenf = true;
+			}
+		}
+
+		for(SonderwuenscheHeizung sh : heizung) {
+			if (auswahl[0] != 0 && (sh.getWunsch().contains("Fußbodenheizung ohne DG") || sh.getWunsch().contains("Fußbodenheizung mit DG"))) { //8.1 geht nur, wenn weder 5.4 noch 5.5 ausgesucht worden sind, da man bei einer Fußbodenheizung keine massiven Landhausdielen verlegen kann.
+				this._auswahl = false;
+			}
+			if (auswahl[1] != 0 && (siebenEins == false && (sh.getWunsch().contains("Fußbodenheizung ohne DG") || sh.getWunsch().contains("Fußbodenheizung mit DG")))) { //8.2 geht nur, wenn 7.1 ausgesucht wurde und wenn weder 5.4 noch 5.5 ausgewählt worden sind, siehe 8.1.
+				this._auswahl = false;
+			}
+			if (auswahl[3] != 0 && (siebenEins == false) || sh.getWunsch().contains("Fußbodenheizung mit DG")) { //8.4 geht nur, wenn 7.1 ausgesucht wurde.
+				this._auswahl = false;
+			}
+			if (auswahl[5] != 0 && (sh.getWunsch().contains("Fußbodenheizung ohne DG") || sh.getWunsch().contains("Fußbodenheizung mit DG"))) { //8.5 geht nur, wenn weder 5.4 noch 5.5 ausgesucht worden sind, siehe 8.1.
+				this._auswahl = false;
+			}
+			if (auswahl[9] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1 && (sh.getWunsch().contains("Fußbodenheizung mit DG") || siebenFuenf == false))) { //8.7 geht nur, wenn das DG vorhanden ist und weder 7.5 noch 5.5 ausgesucht worden sind, zu 5.5 siehe 8.1.
+				this._auswahl = false;
+			}
+			if (auswahl[7] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1 || sh.getWunsch().contains("Fußbodenheizung mit DG")))  { //8.8 geht nur, wenn das DG vorhanden ist und 5.5 nicht ausgesucht worden ist, siehe 8.1.
+				this._auswahl = false;
+			}
+			if (auswahl[7] != 0 && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1 || siebenFuenf == true))  { //8.9 geht nur, wenn das DG vorhanden ist und 7.5 nicht ausgesucht worden ist.
+				this._auswahl = false;
+			}
+		}
+    }
+
+
+	public boolean getAuswahl() {
+		return _auswahl;
+	}
+	
+	public void resetPreis() {
+		_preis = 0;
+	}
+	
+	public void resetAuswahl(){
+		_auswahl = true ;
+	}
+}
