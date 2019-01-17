@@ -3,7 +3,7 @@ package Gui.Innentueren;
 public class InnentuerenModel {
 
     private int preis = 0;
-    private boolean auswahl;
+    private boolean auswahl = true;
     private int anzahl;
     private int anzkeller = 2;
     private int anzeg = 0;
@@ -89,5 +89,17 @@ public class InnentuerenModel {
 
     public int getAnzahl() {
         return anzahl;
+    }
+    public int getAnzkeller() {
+        return anzkeller;
+    }
+    public int getAnzeg() {
+        return anzeg;
+    }
+    public int getAnzog() {
+        return anzog;
+    }
+    public int getAnzdg() {
+        return anzdg;
     }
 }
