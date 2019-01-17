@@ -6,7 +6,7 @@ Kundenreview
 
 1) Keine Pflichtfeldprüfung auf :	Nachname ist Pflichtfeld beim anlegen / anzeigen -- ABGESCHLOSSEN
 					Telefonnummer ODER Emailadresse sind Pflichtfeld  -- ABGESCHLOSSEN
-					Wenn Telefonnummer vorhanden, dann nur Ziffern, Wenn Email vorhanden dann zwingend @ enthalten
+					Wenn Telefonnummer vorhanden, dann nur Ziffern, Wenn Email vorhanden dann zwingend @ enthalten  -- ABGESCHLOSSEN
 					
 2) Verbesserungsvorschlag:		Ein Kunde kauft nur 1 Haus, Kombination ist eine 1 zu 1 Beziehung
 
