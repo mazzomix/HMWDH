@@ -28,19 +28,19 @@ public class HeizungView extends BasisView {
     private JTextField txtPreisZusaetzlichHeizung = new JTextField("");                                  //String Preis wird später direkt aus der Datenbank gelesen
     private JLabel lblZusaetzlichHeizungEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxZusaetzlichHeizung = new JCheckBox();
-    private JTextField txtStueckzahlHeizung = new JTextField("2");
+    private JTextField txtStueckzahlHeizung = new JTextField();
 
     private JLabel lblGlatteOberflaeche = new JLabel("");
     private JTextField txtPreisGlatteOberflaeche = new JTextField("");
     private JLabel lblGlatteOberflaecheEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxGlatteOberflaeche = new JCheckBox();
-    private JTextField txtStueckzahlGlatteOberfläche = new JTextField("2");
+    private JTextField txtStueckzahlGlatteOberfläche = new JTextField();
 
     private JLabel lblHandtuchHeizkoerper = new JLabel("");
     private JTextField txtPreisHandtuchHeizkoerper = new JTextField("");
     private JLabel lblHandtuchHeizkoerperEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxHandtuchHeizkoerper = new JCheckBox();
-    private JTextField txtStueckzahlHandtuchHeizung = new JTextField("2");
+    private JTextField txtStueckzahlHandtuchHeizung = new JTextField();
 
     private JLabel lblFussbodenheizungOhneDG = new JLabel("");
     private JTextField txtPreisFussbodenheizungOhneDG = new JTextField("");
@@ -55,6 +55,7 @@ public class HeizungView extends BasisView {
 
     private JLabel lblGesamtpreis = new JLabel("Gesamtpreis: ");
     private JTextField txtGesamtpreis = new JTextField();
+    private JLabel info = new JLabel("Mengenangaben bitte mit Enter bestätigen!");
 
 
     //-------Ende Attribute der grafischen Oberflaeche-------
@@ -147,6 +148,11 @@ public class HeizungView extends BasisView {
         txtGesamtpreis.setEditable(false);
 
 
+        super.getPnlSonderwunsch().add(info);
+        info.setBounds(10, 190, 350, 25);
+        super.getPnlSonderwunsch().add(info);
+
+
         lblZusaetzlichHeizung.setText(HeizungControl.getWuensche().get(0).getWunsch());
         txtPreisZusaetzlichHeizung.setText(String.valueOf(HeizungControl.getWuensche().get(0).getPreis()));
         lblGlatteOberflaeche.setText(HeizungControl.getWuensche().get(1).getWunsch());
@@ -177,6 +183,7 @@ public class HeizungView extends BasisView {
 
             }
         });
+
         chckBxGlatteOberflaeche.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -207,6 +214,7 @@ public class HeizungView extends BasisView {
 
             }
         });
+
         chckBxPreisFussbodenheizungOhneDG.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -239,14 +247,62 @@ public class HeizungView extends BasisView {
 
 
         });
-        /*txtStueckzahlHeizung.addActionListener(new ActionListener() {
+
+        txtStueckzahlHeizung.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                stueck[0] = Integer.parseInt(txtStueckzahlHeizung.getText());
+                if(txtStueckzahlHeizung==null||txtStueckzahlHeizung.getText()=="0")
+                {
+                    auswahl[0] = HeizungControl.getWuensche().get(0).getPreis();
+                    stueck[0] = 0;
+                }
+                else {
+                    auswahl[0] = HeizungControl.getWuensche().get(0).getPreis();
+                    HeizungControl.addAusgewaehltenWuensch(HeizungControl.getWuensche().get(0));
+                    stueck[0] = Integer.parseInt(txtStueckzahlHeizung.getText());
+                }
+
+
             }
         });
-        */
+        txtStueckzahlGlatteOberfläche.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                if(txtStueckzahlGlatteOberfläche==null||txtStueckzahlGlatteOberfläche.getText()=="0")
+                {
+                    auswahl[1] = HeizungControl.getWuensche().get(0).getPreis();
+                    stueck[1] = 0;
+                }
+                else {
+                    auswahl[1] = HeizungControl.getWuensche().get(1).getPreis();
+                    HeizungControl.addAusgewaehltenWuensch(HeizungControl.getWuensche().get(1));
+                    stueck[1] = Integer.parseInt(txtStueckzahlGlatteOberfläche.getText());
+                }
+
+
+            }
+        });
+        txtStueckzahlHandtuchHeizung.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                if(txtStueckzahlHandtuchHeizung==null||txtStueckzahlHandtuchHeizung.getText()=="0")
+                {
+                    auswahl[2] = HeizungControl.getWuensche().get(0).getPreis();
+                    stueck[2] = 0;
+                }
+                else {
+                    auswahl[2] = HeizungControl.getWuensche().get(2).getPreis();
+                    HeizungControl.addAusgewaehltenWuensch(HeizungControl.getWuensche().get(2));
+                    stueck[2] = Integer.parseInt(txtStueckzahlHandtuchHeizung.getText());
+                }
+
+
+            }
+        });
+
 
         this.addWindowListener(new WindowAdapter() {
             @Override
