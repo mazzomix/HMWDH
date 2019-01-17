@@ -2,9 +2,9 @@ package Gui.Heizung;
 
 public class HeizungModel {
     private int _preis = 0;
-    public void gesamtpreisBerechnen (double[] preise) {
+    public void gesamtpreisBerechnen (double[] preise, int[] stueck) {
         for(int i = 0; i<preise.length; i++) {
-            this._preis += preise[i];
+            this._preis += preise[i]*stueck[i];
         }
 
     }

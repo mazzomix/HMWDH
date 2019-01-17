@@ -33,8 +33,8 @@ public class HeizungControl {
 
     public void leseHeizungSonderwuensche(){
     }
-    public void zeigePreisSonderwuensche(double[] auswahl) {
-        this.HeizungModel.gesamtpreisBerechnen(auswahl);
+    public void zeigePreisSonderwuensche(double[] auswahl,int [] stueck) {
+        this.HeizungModel.gesamtpreisBerechnen(auswahl,stueck);
         this.HeizungView.getTxtGesamtpreis().setText(""+HeizungModel.getPreis());
         this.HeizungModel.resetPreis();
     }
