@@ -4,8 +4,11 @@ import Gui.Basis.BasisView;
 import HibernateCont.SonderwuenscheAussenanlagen;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import java.util.Set;
 
 public class AussenanlageView extends  BasisView {
@@ -15,41 +18,40 @@ public class AussenanlageView extends  BasisView {
 
     private List<SonderwuenscheAussenanlagen> sonderwuenscheAussenanlagen = db.holeSonderwuenscheAussenanlagen();
 
+    private JLabel lblEGAbstellraumTerrasse = new JLabel();
+    private JTextField txtPreisEGAbstellraumTerrasse = new JTextField();
+    private JLabel lblEGAbstellraumTerrasseEuro = new JLabel(BasisView.currency);
+    private JCheckBox chckBxEGAbstellraumTerrasse = new JCheckBox();
 
-    private JLabel lblEGAbstellraumTerrasse = new JLabel("Abstellraum auf der Terrasse des EG");
-    private JTextField txtPreisEGAbstellraumTerrasse = new JTextField("3590");
-    private JLabel lblEGAbstellraumTerrasseEuro = new JLabel("Euro");
-    public JCheckBox chckBxEGAbstellraumTerrasse = new JCheckBox();
+    private JLabel lblEGVorbereitungEleAntriebe = new JLabel();
+    private JTextField txtPreisEGVorbereitungEleAntriebe = new JTextField();
+    private JLabel lblEGVorbereitungEleAntriebeEuro = new JLabel(BasisView.currency);
+    private JCheckBox chckBxVorbereitungEleAntriebe = new JCheckBox();
 
-    private JLabel lblEGVorbereitungEleAntriebe = new JLabel("Vorbereitung für die elektrische Antriebe Markise EG");
-    private JTextField txtPreisEGVorbereitungEleAntriebe = new JTextField("170");
-    private JLabel lblEGVorbereitungEleAntriebeEuro = new JLabel("Euro");
-    public JCheckBox chckBxVorbereitungEleAntriebe = new JCheckBox();
+    private JLabel lblDGVorbereitungEleAntriebe = new JLabel();
+    private JTextField txtPreisDGVorbereitungEleAntriebe = new JTextField();
+    private JLabel lblDGVorbereitungEleAntriebeEuro = new JLabel(BasisView.currency);
+    private JCheckBox chckBxDGVorbereitungEleAntriebe = new JCheckBox();
 
-    private JLabel lblDGVorbereitungEleAntriebe = new JLabel("Vorbereitung für elektrische Antriebe Markise DG");
-    private JTextField txtPreisDGVorbereitungEleAntriebe = new JTextField("170");
-    private JLabel lblDGVorbereitungEleAntriebeEuro = new JLabel("Euro");
-    public JCheckBox chckBxDGVorbereitungEleAntriebe = new JCheckBox();
+    private JLabel lblEGElektrischeMarkise = new JLabel();
+    private JTextField txtPreisEGElektrischeMarkise = new JTextField();
+    private JLabel lblEGElektrischeMarkiseEuro = new JLabel(BasisView.currency);
+    private JCheckBox chckBxEGElektrischeMarkise = new JCheckBox();
 
-    private JLabel lblEGElektrischeMarkise = new JLabel("Elektrische Markise EG");
-    private JTextField txtPreisEGElektrischeMarkise = new JTextField("890");
-    private JLabel lblEGElektrischeMarkiseEuro = new JLabel("Euro");
-    public JCheckBox chckBxEGElektrischeMarkise = new JCheckBox();
+    private JLabel lblDGElektrischeMarkise = new JLabel();
+    private JTextField txtPreisDGElektrischeMarkise = new JTextField();
+    private JLabel lblDGElektrischeMarkiseEuro = new JLabel(BasisView.currency);
+    private JCheckBox chckBxDGElektrischeMarkise = new JCheckBox();
 
-    private JLabel lblDGElektrischeMarkise = new JLabel("Elektrische Markise DG");
-    private JTextField txtPreisDGElektrischeMarkise = new JTextField("890");
-    private JLabel lblDGElektrischeMarkiseEuro = new JLabel("Euro");
-    public JCheckBox chckBxDGElektrischeMarkise = new JCheckBox();
+    private JLabel lblEleAntriebGaragentor = new JLabel();
+    private JTextField txtPreisEleAntriebGaragentor = new JTextField();
+    private JLabel lblEleAntriebGaragentorEuro = new JLabel(BasisView.currency);
+    private JCheckBox chckBxEleAntriebGaragentor = new JCheckBox();
 
-    private JLabel lblEleAntriebGaragentor = new JLabel("Elektrischen Antrieb für das Garagentor");
-    private JTextField txtPreisEleAntriebGaragentor = new JTextField("990");
-    private JLabel lblEleAntriebGaragentorEuro = new JLabel("Euro");
-    public JCheckBox chckBxEleAntriebGaragentor = new JCheckBox();
-
-    private JLabel lblSektionaltor = new JLabel("Sektionaltor anstatt Schwingtor für die Garage");
-    private JTextField txtPreisSektionaltor = new JTextField("790");
-    private JLabel lblSektionaltorEuro = new JLabel("Euro");
-    public JCheckBox chckBxSektionaltor = new JCheckBox();
+    private JLabel lblSektionaltor = new JLabel();
+    private JTextField txtPreisSektionaltor = new JTextField();
+    private JLabel lblSektionaltorEuro = new JLabel(BasisView.currency);
+    private JCheckBox chckBxSektionaltor = new JCheckBox();
 
     private JLabel lblGesamtpreis = new JLabel("Gesamtpreis: ");
     private JTextField txtGesamtpreis = new JTextField();
@@ -60,8 +62,8 @@ public class AussenanlageView extends  BasisView {
         this.setTitle("Sonderwünsche zu Aussenanlage-Varianten");
         this.aussenanlageControl.setWuensche(db.holeSonderwuenscheAussenanlagen());
         this.initKomponenten();
-        this.inisListener();
         this.leseAussenanlageSonderwuensche();
+        this.inisListener();
     }
 
     @Override
@@ -109,7 +111,7 @@ public class AussenanlageView extends  BasisView {
         super.getPnlSonderwunsch().add(chckBxEGElektrischeMarkise);
         chckBxEGElektrischeMarkise.setBounds(470, 125, 25, 25);
 
-         super.getPnlSonderwunsch().add(lblDGElektrischeMarkise);
+        super.getPnlSonderwunsch().add(lblDGElektrischeMarkise);
         lblDGElektrischeMarkise.setBounds(10, 150, 350, 25);
         super.getPnlSonderwunsch().add(txtPreisDGElektrischeMarkise);
         txtPreisDGElektrischeMarkise.setBounds(350, 150, 80, 25);
@@ -139,12 +141,12 @@ public class AussenanlageView extends  BasisView {
         super.getPnlSonderwunsch().add(chckBxEleAntriebGaragentor);
         chckBxEleAntriebGaragentor.setBounds(470, 200, 25, 25);
 
-        super.getPnlSonderwunsch().add(lblGesamtpreis);
+         super.getPnlSonderwunsch().add(lblGesamtpreis);
     	lblGesamtpreis.setBounds(10, 250, 350, 25);
     	super.getPnlSonderwunsch().add(txtGesamtpreis);
     	txtGesamtpreis.setBounds(350, 250, 150, 25);
     	txtGesamtpreis.setEditable(false);
-        
+
         lblEGAbstellraumTerrasse.setText(aussenanlageControl.getWuensche().get(0).getWunsch());
         txtPreisEGAbstellraumTerrasse.setText(String.valueOf(aussenanlageControl.getWuensche().get(0).getPreis()));
         lblEGVorbereitungEleAntriebe.setText(aussenanlageControl.getWuensche().get(1).getWunsch());
@@ -163,7 +165,40 @@ public class AussenanlageView extends  BasisView {
 
     }
 
-  
+    private void initFieldsFromDatabase(){
+        Set<SonderwuenscheAussenanlagen> kundenWuensche = kunde.getKunde().getSonderwuenscheAussenanlagen();
+        aussenanlageControl.setAusgewaehlteWuensche(kundenWuensche);
+        double summePreis = 0;
+        for(SonderwuenscheAussenanlagen wunsch: kundenWuensche){
+            switch (wunsch.getId()){
+                case 1:
+                    chckBxEGAbstellraumTerrasse.setSelected(true);
+                    break;
+                case 2:
+                    chckBxVorbereitungEleAntriebe.setSelected(true);
+                    break;
+                case 3:
+                    chckBxDGVorbereitungEleAntriebe.setSelected(true);
+                    break;
+                case 4:
+                    chckBxEGElektrischeMarkise.setSelected(true);
+                    break;
+                case 5:
+                    chckBxDGElektrischeMarkise.setSelected(true);
+                    break;
+                case 6:
+                    chckBxEleAntriebGaragentor.setSelected(true);
+                    break;
+                case 7:
+                    chckBxSektionaltor.setSelected(true);
+                    break;
+            }
+            summePreis += wunsch.getPreis();
+        }
+        txtGesamtpreis.setText(String.valueOf(summePreis));
+
+    }
+
     protected void inisListener() {
         super.initListener();
 
@@ -273,7 +308,7 @@ public class AussenanlageView extends  BasisView {
 
             }
         });
-        
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
@@ -292,44 +327,14 @@ public class AussenanlageView extends  BasisView {
                 txtGesamtpreis.setText("");
             }
         });
-    }
 
-    private void initFieldsFromDatabase(){
-        Set<SonderwuenscheAussenanlagen> kundenWuensche = kunde.getKunde().getSonderwuenscheAussenanlagen();
-        aussenanlageControl.setAusgewaehlteWuensche(kundenWuensche);
-        double summePreis = 0;
-        for(SonderwuenscheAussenanlagen wunsch: kundenWuensche){
-            switch (wunsch.getId()){
-                case 1:
-                    chckBxEGAbstellraumTerrasse.setSelected(true);
-                    break;
-                case 2:
-                    chckBxVorbereitungEleAntriebe.setSelected(true);
-                    break;
-                case 3:
-                    chckBxDGVorbereitungEleAntriebe.setSelected(true);
-                    break;
-                case 4:
-                    chckBxEGElektrischeMarkise.setSelected(true);
-                    break;
-                case 5:
-                    chckBxDGElektrischeMarkise.setSelected(true);
-                    break;
-                case 6:
-                    chckBxEleAntriebGaragentor.setSelected(true);
-                    break;
-                case 7:
-                    chckBxSektionaltor.setSelected(true);
-                    break;
-            }
-            summePreis += wunsch.getPreis();
-        }
-        txtGesamtpreis.setText(String.valueOf(summePreis));
 
     }
 
 
-   private void leseAussenanlageSonderwuensche(){this.aussenanlageControl.leseAussenanlageSonderwuensche();}
+
+
+    private void leseAussenanlageSonderwuensche(){this.aussenanlageControl.leseAussenanlageSonderwuensche();}
 
     protected  void berechneUndZeigePreisSonderwuensche(){
         if(aussenanlageControl.pruefeKonstellationSonderwuensche(auswahl)) {
@@ -355,3 +360,4 @@ public class AussenanlageView extends  BasisView {
 
     }
 }
+
