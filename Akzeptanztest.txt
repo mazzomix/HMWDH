@@ -28,7 +28,7 @@ Updadte :
 
 1) (/F51) bisher nicht comitted. Keine Prüfung der Sonderwünsche vorhanden / muss erfolgen auf ausgewählte Sonderwünsche, sowie auf DG in Grundriss. Geschossmäßige Auflistung!
 
-2) Preisberechnung muss sich auch auf Heizkörperanzahl beziehen 
+2) Preisberechnung muss sich auch auf Heizkörperanzahl beziehen --ABGESCHLOSSEN
 
 POSITIV : Preis aus DB
 
