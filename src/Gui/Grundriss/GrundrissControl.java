@@ -44,7 +44,7 @@ public final class GrundrissControl {
 
   
     public boolean pruefeKonstellationSonderwuensche(double[] ausgewaehlteSw){
-		this.grundrissModel.checkAuswahl(ausgewaehlteSw, hausnummer);
+		this.grundrissModel.checkAuswahl(ausgewaehlteSw);
 		return this.grundrissModel.getAuswahl();
 	}
 	
