@@ -1,0 +1,106 @@
+package Gui.Heizung;
+
+import Business.KundeModel;
+import HibernateCont.SonderwuenscheGrundriss;
+
+import java.util.Set;
+
+public class HeizungModel {
+    private int _preis = 0;
+    private int gewaehlteMenge =0, erlaubteMenge=0;
+    private boolean _auswahl = false;
+    private KundeModel kunde = KundeModel.getInstance();
+    Set<SonderwuenscheGrundriss> grundriss;
+    public void gesamtpreisBerechnen (double[] preise, int[] stueck) {
+        for(int i = 0; i<preise.length; i++) {
+            this._preis += preise[i]*stueck[i];
+        }
+
+    }
+    public boolean getAuswahl() {
+        return _auswahl;
+    }
+
+    public void checkAuswahl(KundeModel kunde, int[] stueck) {
+        grundriss = kunde.getKunde().getSonderwuenscheGrundriss();
+        erlaubteMenge =0;
+        gewaehlteMenge =0;
+        boolean wunschGrundriss = false;
+        for(SonderwuenscheGrundriss g : grundriss){
+            if(g.getWunsch().contains("Großes Zimmer im OG statt zwei kleinen Zimmern")){
+                wunschGrundriss = true;
+                break;
+            }
+        }
+
+        boolean wunschBadDg = false;
+        for(SonderwuenscheGrundriss g : grundriss){
+            if(g.getWunsch().contains("Ausführung eines Bades im DG")){
+                wunschBadDg = true;
+                break;
+            }
+        }
+
+
+        //EG
+        erlaubteMenge=+2;
+
+        for(int i =0; i<stueck.length;i++)
+        {
+
+            gewaehlteMenge =gewaehlteMenge+ stueck[i];
+        }
+
+        if(kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1){
+            erlaubteMenge =+1;
+        }
+
+        if(kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1){
+            erlaubteMenge =+2;
+        }
+        if(wunschGrundriss==false){
+            erlaubteMenge =+4;
+        }
+        if(wunschGrundriss==true)
+        {
+            erlaubteMenge=+3;
+        }
+        if(kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1&&wunschBadDg==true){
+            erlaubteMenge =+3;
+        }
+        if(kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1&&wunschBadDg==false){
+            erlaubteMenge =+2;
+        }
+        if(kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1&&stueck[2]>2||stueck[2]<1){
+            _auswahl = false;
+            return ;
+        }
+        if(kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 0&&stueck[2]!=1){
+            _auswahl = false;
+            return ;
+        }
+        System.out.println("geaählte:"+gewaehlteMenge);
+        System.out.println("erlaubte:"+erlaubteMenge);
+        if(gewaehlteMenge<=5&&gewaehlteMenge>=1&&gewaehlteMenge<=erlaubteMenge)
+        {
+            _auswahl = true;
+        }
+        else {
+           _auswahl = false;
+        }
+
+
+    }
+
+
+
+    public int getPreis() {
+        return _preis;
+    }
+    public  void resetAuswahl(){
+        _auswahl = true;
+    }
+    public void resetPreis() {
+        _preis = 0;
+    }
+}
