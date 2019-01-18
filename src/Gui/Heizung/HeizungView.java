@@ -32,7 +32,7 @@ public class HeizungView extends BasisView {
     private JLabel lblZusaetzlichHeizung = new JLabel("");
     private JTextField txtPreisZusaetzlichHeizung = new JTextField("");                                  //String Preis wird später direkt aus der Datenbank gelesen
     private JLabel lblZusaetzlichHeizungEuro = new JLabel(BasisView.currency);
-    private JTextField txtStueckzahlHeizung = new JTextField("0");
+    private JTextField txtStueckzahlHeizung = new JTextField("1");
 
     private JLabel lblGlatteOberflaeche = new JLabel("");
     private JTextField txtPreisGlatteOberflaeche = new JTextField("");
@@ -53,6 +53,8 @@ public class HeizungView extends BasisView {
     private JTextField txtPreisFussbodenheizungMitDG = new JTextField("");
     private JLabel lblFussbodenheizungMitDGEuro = new JLabel(BasisView.currency);
     private JCheckBox chckBxFussbodenheizungMitDG = new JCheckBox();
+
+    private JLabel lblNotValid = new JLabel("");
 
 
     private JLabel lblGesamtpreis = new JLabel("Gesamtpreis: ");
@@ -134,6 +136,9 @@ public class HeizungView extends BasisView {
         lblFussbodenheizungMitDGEuro.setBounds(430, 150, 50, 25);
         super.getPnlSonderwunsch().add(chckBxFussbodenheizungMitDG);
         chckBxFussbodenheizungMitDG.setBounds(460, 150, 25, 25);
+
+        super.getPnlSonderwunsch().add(lblNotValid);
+        lblNotValid.setBounds(10, 225, 460, 25);
 
 
         super.getPnlSonderwunsch().add(lblGesamtpreis);
@@ -224,7 +229,11 @@ public class HeizungView extends BasisView {
         if (chckBxPreisFussbodenheizungOhneDG.isSelected()){
             HeizungControl.addAusgewaehltenWuensch(HeizungControl.getWuensche().get(3));
         }
-        HeizungControl.zeigePreisSonderwuensche();
+        if(HeizungControl.pruefeKonstellationSonderwuensche()){
+            HeizungControl.zeigePreisSonderwuensche();
+        } else{
+            lblNotValid.setText("<html>Diese Auswahl ist in der Kombination nicht möglich</html>");
+        }
     }
 
     /* speichert die ausgesuchten Sonderwuensche in der Datenbank ab */
@@ -236,14 +245,20 @@ public class HeizungView extends BasisView {
         HeizungControl.berechneAnzahl(Integer.parseInt(txtStueckzahlGlatteOberfläche.getText()), 1);
         HeizungControl.berechneAnzahl(Integer.parseInt(txtStueckzahlHandtuchHeizung.getText()), 2);
         if(chckBxFussbodenheizungMitDG.isSelected()){
+            lblNotValid.setText("");
             HeizungControl.addAusgewaehltenWuensch(HeizungControl.getWuensche().get(4));
         }
         if (chckBxPreisFussbodenheizungOhneDG.isSelected()){
             HeizungControl.addAusgewaehltenWuensch(HeizungControl.getWuensche().get(3));
         }
 
-        kunde.getKunde().setSonderwuenscheHeizung(HeizungControl.getAusgewaehlteWuensche());
-        db.speichereKunden(kunde.getKunde());
+        if(HeizungControl.pruefeKonstellationSonderwuensche()) {
+            lblNotValid.setText("");
+            kunde.getKunde().setSonderwuenscheHeizung(HeizungControl.getAusgewaehlteWuensche());
+            db.speichereKunden(kunde.getKunde());
+        } else {
+            lblNotValid.setText("<html>Diese Auswahl ist in der Kombination nicht möglich</html>");
+        }
     }
     protected JTextField getTxtGesamtpreis() {
         return this.txtGesamtpreis;

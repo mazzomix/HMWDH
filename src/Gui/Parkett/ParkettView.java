@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -142,25 +144,25 @@ public class ParkettView extends BasisView{
     	super.getPnlSonderwunsch().add(chckBxEGKuechenbereichParkett);
     	chckBxEGKuechenbereichParkett.setBounds(470, 125, 25, 25);
     	
-    	super.getPnlSonderwunsch().add(lblParkettOG);
-    	lblParkettOG.setBounds(10, 150, 350, 25);
-    	super.getPnlSonderwunsch().add(txtPreisParkettOG);
-    	txtPreisParkettOG.setBounds(350, 150, 80, 25);
-    	txtPreisParkettOG.setEditable(false);
-    	super.getPnlSonderwunsch().add(lblParkettOGEuro);
-       	lblParkettOGEuro.setBounds(440, 150, 50, 25);
-    	super.getPnlSonderwunsch().add(chckBxParkettOG);
-    	chckBxParkettOG.setBounds(470, 150, 25, 25);
-    	
     	super.getPnlSonderwunsch().add(lblDielenOG);
-    	lblDielenOG.setBounds(10, 175, 350, 25);
-    	super.getPnlSonderwunsch().add(txtPreisDielenOG);
-    	txtPreisDielenOG.setBounds(350, 175, 80, 25);
-    	txtPreisDielenOG.setEditable(false);
-    	super.getPnlSonderwunsch().add(lblDielenOGEuro);
-       	lblDielenOGEuro.setBounds(440, 175, 50, 25);
+		lblDielenOG.setBounds(10, 150, 350, 25);
+    	super.getPnlSonderwunsch().add(txtPreisParkettOG);
+    	txtPreisDielenOG.setBounds(350, 150, 80, 25);
+		txtPreisDielenOG.setEditable(false);
+    	super.getPnlSonderwunsch().add(lblParkettOGEuro);
+       	lblDielenOGEuro.setBounds(440, 150, 50, 25);
     	super.getPnlSonderwunsch().add(chckBxDielenOG);
-    	chckBxDielenOG.setBounds(470, 175, 25, 25);
+		chckBxDielenOG.setBounds(470, 150, 25, 25);
+    	
+    	super.getPnlSonderwunsch().add(lblParkettOG);
+    	lblParkettOG.setBounds(10, 175, 350, 25);
+    	super.getPnlSonderwunsch().add(txtPreisDielenOG);
+    	txtPreisParkettOG.setBounds(350, 175, 80, 25);
+		txtPreisParkettOG.setEditable(false);
+    	super.getPnlSonderwunsch().add(lblDielenOGEuro);
+       	lblParkettOGEuro.setBounds(440, 175, 50, 25);
+    	super.getPnlSonderwunsch().add(chckBxParkettOG);
+		chckBxParkettOG.setBounds(470, 175, 25, 25);
 
     	super.getPnlSonderwunsch().add(lblDGKomplettDielen);
 		lblDGKomplettDielen.setBounds(10, 200, 350, 25);
@@ -233,142 +235,6 @@ public class ParkettView extends BasisView{
     
     protected void iniListener() {
     	super.initListener();
-    	chckBxEGEssbereichDielen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-	  	        if(abBttn.getModel().isSelected()) {
-					auswahl[0] = parkettControl.getWuensche().get(0).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(0));
-	  	        }else {
-	  	        	auswahl[0] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(0).getId());
-	  	        }
-				
-			}
-		});
-    	chckBxEGKuechenbereichDielen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[1] = parkettControl.getWuensche().get(1).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(1));
-	  	        }else {
-	  	        	auswahl[1] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(1).getId());
-	  	        }
-				
-			}
-		});
-    	chckBxEGEssbereichParkett.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[2] = parkettControl.getWuensche().get(2).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(2));
-	  	        }else {
-	  	        	auswahl[2] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(2).getId());
-	  	        }
-				
-			}
-		});
-    	chckBxEGKuechenbereichParkett.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[3] = parkettControl.getWuensche().get(3).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(3));
-	  	        }else {
-	  	        	auswahl[3] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(3).getId());
-	  	        }
-				
-			}
-		});
-    	chckBxParkettOG.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[4] = parkettControl.getWuensche().get(4).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(4));
-	  	        }else {
-	  	        	auswahl[4] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(4).getId());
-	  	        }
-				
-			}
-		});
-    	chckBxDielenOG.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-	  	        if(abBttn.getModel().isSelected()) {
-	  	        	auswahl[5] = parkettControl.getWuensche().get(5).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(5));
-	  	        }else {
-	  	        	auswahl[5] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(5).getId());
-	  	        }
-				
-			}
-		});
-		chckBxDGOhneBadbereichParkett.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-				if(abBttn.getModel().isSelected()) {
-					auswahl[6] = parkettControl.getWuensche().get(6).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(6));
-				}else {
-					auswahl[6] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(6).getId());
-				}
-			}
-		});
-		chckBxDGOhneBadbereichDielen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-				if(abBttn.getModel().isSelected()) {
-					auswahl[7] = parkettControl.getWuensche().get(7).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(7));
-				}else {
-					auswahl[7] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(7).getId());
-				}
-			}
-		});
-		chckBxDGKomplettParkett.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-				if(abBttn.getModel().isSelected()) {
-					auswahl[8] = parkettControl.getWuensche().get(8).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(8));
-				}else {
-					auswahl[8] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(8).getId());
-				}
-			}
-		});
-		chckBxDGKomplettDielen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent actionEvent) {
-				AbstractButton abBttn = (AbstractButton)actionEvent.getSource();
-				if(abBttn.getModel().isSelected()) {
-					auswahl[9] = parkettControl.getWuensche().get(9).getPreis();
-					parkettControl.addAusgewaehltenWuensch(parkettControl.getWuensche().get(9));
-				}else {
-					auswahl[9] = 0;
-					parkettControl.removeAusgewaehltenWunsch(parkettControl.getWuensche().get(9).getId());
-				}
-			}
-		});
 
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -444,8 +310,15 @@ public class ParkettView extends BasisView{
     protected void berechneUndZeigePreisSonderwuensche(){
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann der Preis berechnet.
-        if(parkettControl.pruefeKonstellationSonderwuensche(auswahl)) {
-            parkettControl.zeigePreisSonderwuensche(auswahl);
+		this.parkettControl.setAusgewaehlteWuensche(new HashSet<>());
+		boolean selects[] = isSelected();
+		for(int i = 0; i<selects.length; i++){
+			if(selects[i]){
+				this.parkettControl.addAusgewaehltenWuensch(this.parkettControl.getWuensche().get(i));
+			}
+		}
+        if(parkettControl.pruefeKonstellationSonderwuensche()) {
+            parkettControl.zeigePreisSonderwuensche();
   			
   	}else {
   	    parkettControl.zeigeFehlerSonderwunsch();
@@ -456,9 +329,20 @@ public class ParkettView extends BasisView{
     protected void speichereSonderwuensche(){
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
+		this.parkettControl.setAusgewaehlteWuensche(new HashSet<>());
+		boolean selects[] = isSelected();
+		for(int i = 0; i<selects.length; i++){
+			if(selects[i]){
+				this.parkettControl.addAusgewaehltenWuensch(this.parkettControl.getWuensche().get(i));
+			}
+		}
+		if(parkettControl.pruefeKonstellationSonderwuensche()) {
+			kunde.getKunde().setSonderwuenscheParkett(parkettControl.getAusgewaehlteWuensche());
+			db.speichereKunden(kunde.getKunde());
+		} else {
+			parkettControl.zeigeFehlerSonderwunsch();
+		}
 
-		kunde.getKunde().setSonderwuenscheParkett(parkettControl.getAusgewaehlteWuensche());
-		db.speichereKunden(kunde.getKunde());
     }
     
 
@@ -466,5 +350,41 @@ public class ParkettView extends BasisView{
   		return this.txtGesamtpreis;
   		
   	}
+
+  	protected boolean[] isSelected(){
+    	boolean[] selects = {false,false,false,false,false,false,false,false,false,false};
+    	if(chckBxEGEssbereichDielen.isSelected()){
+    		selects[0] = true;
+		}
+		if(chckBxEGKuechenbereichDielen.isSelected()){
+			selects[1] = true;
+		}
+		if(chckBxEGEssbereichParkett.isSelected()){
+			selects[2] = true;
+		}
+		if(chckBxEGKuechenbereichParkett.isSelected()){
+			selects[3] = true;
+		}
+		if(chckBxDielenOG.isSelected()){
+			selects[4] = true;
+		}
+		if(chckBxParkettOG.isSelected()){
+			selects[5] = true;
+		}
+		if(chckBxDGKomplettDielen.isSelected()){
+			selects[6] = true;
+		}
+		if(chckBxDGOhneBadbereichDielen.isSelected()){
+			selects[7] = true;
+		}
+		if(chckBxDGKomplettParkett.isSelected()){
+			selects[8] = true;
+		}
+		if(chckBxDGOhneBadbereichParkett.isSelected()){
+			selects[9] = true;
+		}
+
+		return selects;
+	}
 
 }

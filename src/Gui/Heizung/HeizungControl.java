@@ -1,5 +1,6 @@
 package Gui.Heizung;
 
+import Business.KundeModel;
 import Gui.Heizung.HeizungModel;
 import Gui.Heizung.HeizungView;
 import HibernateCont.SonderwuenscheHeizung;
@@ -39,8 +40,29 @@ public class HeizungControl {
         this.HeizungModel.resetPreis();
     }
 
-    public boolean pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw){
+    public boolean pruefeKonstellationSonderwuensche(){
+        if(this.getAnzahlSonderwunsch(1) < 1 || this.getAnzahlSonderwunsch(0) > 5){
+            return false;
+        }
+        if(this.getAnzahlSonderwunsch(2) < 1 ||
+                this.getAnzahlSonderwunsch(2) > (this.HeizungModel.berechneVorhandeneHeizkoerper()+this.getAnzahlSonderwunsch(0))){
+            return false;
+        }
+        if(!this.HeizungModel.checkHandtuchHeizung(this.getAnzahlSonderwunsch(3))){
+            return false;
+        }
+        if(this.getAnzahlSonderwunsch(4) == 1){
+            if(KundeModel.getInstance().getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1){
+                return false;
+            }
+        }
+        if(this.getAnzahlSonderwunsch(5) == 1){
+            if(KundeModel.getInstance().getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 0){
+                return false;
+            }
+        }
         return true;
+        //return this.HeizungModel.getAuswahl();
     }
 
     public List<SonderwuenscheHeizung> getWuensche() {
@@ -87,7 +109,6 @@ public class HeizungControl {
 
     public int getAnzahlSonderwunsch(int wunschId){
         int count = 0;
-        Map test = new HashMap();
         for (SonderwuenscheHeizung ausgewahlterWunsch: this.getAusgewaehlteWuensche()
              ) {
             if (ausgewahlterWunsch == null)continue;

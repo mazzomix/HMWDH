@@ -37,13 +37,30 @@ public final class ParkettControl {
     }
 
   
-    public boolean pruefeKonstellationSonderwuensche(double[] ausgewaehlteSw){
-		this.parkettModel.checkAuswahl(ausgewaehlteSw);
-		return this.parkettModel.getAuswahl();
+    public boolean pruefeKonstellationSonderwuensche(){
+        this.parkettModel.initializeBooleans();
+        for (SonderwuenscheParkett wunsch: this.ausgewaehlteWuensche
+             ) {
+            switch (wunsch.getId()){
+                case 1:
+                case 5: if(this.parkettModel.check8185()) return false;
+                        break;
+                case 2: if(!this.parkettModel.check82()) return false;
+                        break;
+                case 4:if(!this.parkettModel.check84()) return false;
+                        break;
+                case 7: if(!this.parkettModel.check87()) return false;
+                        break;
+                case 8:if(!this.parkettModel.check88()) return false;
+                        break;
+                case 9:if(!this.parkettModel.check89()) return false;
+            }
+        }
+		return true;
 	}
 	
-    public void zeigePreisSonderwuensche(double[] auswahl) {
-		this.parkettModel.gesamtpreisBerechnen(auswahl);
+    public void zeigePreisSonderwuensche() {
+		this.parkettModel.gesamtpreisBerechnen(this.ausgewaehlteWuensche);
 		this.parkettView.getTxtGesamtpreis().setText(""+ parkettModel.getPreis());
 		this.parkettModel.resetPreis();
 	}
