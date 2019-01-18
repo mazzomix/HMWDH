@@ -11,10 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class HeizungView extends BasisView {
 
@@ -219,7 +216,7 @@ public class HeizungView extends BasisView {
     protected void berechneUndZeigePreisSonderwuensche() {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann der Preis berechnet.
-        HeizungControl.setAusgewaehlteWuensche(null);
+        HeizungControl.setAusgewaehlteWuensche(new ArrayList<>());
         HeizungControl.berechneAnzahl(Integer.parseInt(txtStueckzahlHeizung.getText()), 0);
         HeizungControl.berechneAnzahl(Integer.parseInt(txtStueckzahlGlatteOberfläche.getText()), 1);
         HeizungControl.berechneAnzahl(Integer.parseInt(txtStueckzahlHandtuchHeizung.getText()), 2);
@@ -240,7 +237,7 @@ public class HeizungView extends BasisView {
     protected void speichereSonderwuensche() {
         // Es wird erst die Methode pruefeKonstellationSonderwuensche(int[] ausgewaehlteSw)
         // aus dem Control aufgerufen, dann die Sonderwuensche gespeichert.
-        HeizungControl.setAusgewaehlteWuensche(null);
+        HeizungControl.setAusgewaehlteWuensche(new ArrayList<>());
         HeizungControl.berechneAnzahl(Integer.parseInt(txtStueckzahlHeizung.getText()), 0);
         HeizungControl.berechneAnzahl(Integer.parseInt(txtStueckzahlGlatteOberfläche.getText()), 1);
         HeizungControl.berechneAnzahl(Integer.parseInt(txtStueckzahlHandtuchHeizung.getText()), 2);

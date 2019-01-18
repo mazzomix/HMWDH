@@ -11,7 +11,7 @@ public class InnentuerenControl {
     private InnentuerenView innentuerenView;
     private InnentuerenModel innentuerenModel;
     private List<SonderwuenscheInnentueren> wuensche = new ArrayList();
-    private Set<SonderwuenscheInnentueren> ausgewaehlteWuensche = new HashSet<>();
+    private List<SonderwuenscheInnentueren> ausgewaehlteWuensche = new ArrayList<>();
     KundeModel kunde;
 
     /**
@@ -31,36 +31,27 @@ public class InnentuerenControl {
     public void leseInnentuerenSonderwuensche() {
     }
 
-    public boolean pruefeKonstellationSonderwuensche(double[] auswahl) {
-        this.innentuerenModel.checkAuswahl(auswahl, kunde);
+    public boolean pruefeKonstellationSonderwuensche() {
+        this.innentuerenModel.initializeData();
+        for (SonderwuenscheInnentueren wunsch: this.ausgewaehlteWuensche
+             ) {
+            switch (wunsch.getId()){
+                case 1:
+                    if(!this.innentuerenModel.check41(this.getAnzahlSonderwunsch(1))) return false;
+                    break;
+                case 2:
+                    if(!this.innentuerenModel.check42(this.getAnzahlSonderwunsch(2))) return false;
+                    break;
+                case 3:
+                    if(!this.innentuerenModel.check43()) return false;
+                    break;
+            }
+        }
         return this.innentuerenModel.getAuswahl();
     }
 
-
-    public int initMaengeKeller(int anzahl)
-    {
-        anzahl = innentuerenModel.getAnzkeller();
-        return anzahl;
-    }
-    public int initMaengeEG(int anzahl)
-    {
-        anzahl = innentuerenModel.getAnzeg();
-        return anzahl;
-    }
-    public int initMaengeOG(int anzahl)
-    {
-        anzahl = innentuerenModel.getAnzog();
-        return anzahl;
-    }
-    public int initMaengeDG(int anzahl)
-    {
-        anzahl = innentuerenModel.getAnzdg();
-        return anzahl;
-    }
-
-
     public void zeigePreisSonderwuensche(double[] auswahl, int[] anzahl) {
-        this.innentuerenModel.gesamtpreisBerechnen(auswahl, anzahl);
+        this.innentuerenModel.gesamtpreisBerechnen(this.ausgewaehlteWuensche);
         this.innentuerenView.getTxtGesamtpreis().setText("" + innentuerenModel.getPreis());
         this.innentuerenModel.resetPreis();
        
@@ -79,7 +70,7 @@ public class InnentuerenControl {
         this.wuensche = wuensche;
     }
     
-    public Set<SonderwuenscheInnentueren> getAusgewaehlteWuensche() {
+    public List<SonderwuenscheInnentueren> getAusgewaehlteWuensche() {
         return ausgewaehlteWuensche;
     }
     
@@ -87,7 +78,7 @@ public class InnentuerenControl {
         this.ausgewaehlteWuensche.add(ausgewaehlterWuensch);
     }
     
-    public void setAusgewaehlteWuensche(Set<SonderwuenscheInnentueren> ausgewaehlteWuensche) {
+    public void setAusgewaehlteWuensche(List<SonderwuenscheInnentueren> ausgewaehlteWuensche) {
         this.ausgewaehlteWuensche = ausgewaehlteWuensche;
     }
     
@@ -98,6 +89,30 @@ public class InnentuerenControl {
                 i.remove();
             }
         }
+    }
+
+    public void berechneAnzahl(int count, int wunschId){
+        List<SonderwuenscheInnentueren> liste = null;
+        if(this.getAusgewaehlteWuensche() == null){
+            liste = new ArrayList<>();
+        } else{
+            liste = this.getAusgewaehlteWuensche();
+        }
+        for (int i = 0; i<count; i++){
+            liste.add(this.getWuensche().get(wunschId));
+        }
+        this.setAusgewaehlteWuensche(liste);
+    }
+
+    public int getAnzahlSonderwunsch(int wunschId){
+        int count = 0;
+        for (SonderwuenscheInnentueren ausgewahlterWunsch: this.getAusgewaehlteWuensche()
+        ) {
+            if (ausgewahlterWunsch == null)continue;
+            if(ausgewahlterWunsch.getId() == wunschId) count++;
+
+        }
+        return count;
     }
     
 }

@@ -18,7 +18,7 @@ public class Kunde {
     private Set<SonderwuenscheFliesen> sonderwuenscheFliesen = new HashSet<>();
     private Set<SonderwuenscheGrundriss> sonderwuenscheGrundriss = new HashSet<>();
     private List<SonderwuenscheHeizung> sonderwuenscheHeizung = new ArrayList<>();
-    private Set<SonderwuenscheInnentueren> sonderwuenscheInnentueren = new HashSet<>();
+    private List<SonderwuenscheInnentueren> sonderwuenscheInnentueren = new ArrayList<>();
     private Set<SonderwuenscheParkett> sonderwuenscheParkett = new HashSet<>();
     private Set<SonderwuenscheSanitaerinstallation> sonderwuenscheSanitaerinstallation = new HashSet<>();
 
@@ -134,11 +134,11 @@ public class Kunde {
         this.sonderwuenscheHeizung = sonderwuenscheHeizung;
     }
 
-    public Set<SonderwuenscheInnentueren> getSonderwuenscheInnentueren() {
+    public List<SonderwuenscheInnentueren> getSonderwuenscheInnentueren() {
         return sonderwuenscheInnentueren;
     }
 
-    public void setSonderwuenscheInnentueren(Set<SonderwuenscheInnentueren> sonderwuenscheInnentueren) {
+    public void setSonderwuenscheInnentueren(List<SonderwuenscheInnentueren> sonderwuenscheInnentueren) {
         this.sonderwuenscheInnentueren = sonderwuenscheInnentueren;
     }
 

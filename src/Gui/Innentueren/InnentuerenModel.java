@@ -1,8 +1,11 @@
 package Gui.Innentueren;
 
 import Business.KundeModel;
+import HibernateCont.Kunde;
 import HibernateCont.SonderwuenscheGrundriss;
+import HibernateCont.SonderwuenscheInnentueren;
 
+import java.util.List;
 import java.util.Set;
 
 public class InnentuerenModel {
@@ -10,14 +13,12 @@ public class InnentuerenModel {
     private int preis = 0;
     private boolean auswahl = true;
     private int anzahl;
-    public int anzkeller = 2;
-    public int anzeg = 0;
-    public int anzog = 4;
-    public int anzdg = 0;
-
-
-    private KundeModel kunde = KundeModel.getInstance();
-    Set<SonderwuenscheGrundriss> grundriss;
+    private Kunde kunde = KundeModel.getInstance().getKunde();
+    private boolean hasDg = kunde.getHausnummer().getHaustyp().getDachgeschoss() == 0 ? false : true;
+    private boolean hasGrossesZimmerOG = false;
+    private boolean hasAbgetrenntenTreppenraum = false;
+    private boolean hasAusfuehrungBad = false;
+    public int anzTueren = 0;
 
     public boolean getAuswahl() {
         return auswahl;
@@ -27,61 +28,69 @@ public class InnentuerenModel {
         auswahl = true;
     }
 
-    public void checkAuswahl(double[] auswahl, KundeModel kunde) {
-
-        // Bedingungen
-        /*
-        A11 -   Der Kundenberater möchte innerhalb von A10 eine Prüfung haben, welche sicherstellt, dass die Kombination der Sonderwünsche möglich ist.
-                Hierbei ist explizit zu beachten, dass aus /F40/ für 4.1 eine Anzahl x Türen zwischen 1 und max. Anzahl gewählt werden muss.
-                Für 4.2 muss eine Anzahl Türen y zwischen 1 und max. liegen. Zu beachten ist hierbei das Anzahl x + y kleiner gleich max. sein muss.
-                Die Anzahl der Türen ist gesondert definiert.
-                Funktion 4.3 kann nur ausgewählt werden, wenn ein DG vorhanden ist. Der Gesamtpreis wird nach jeder Auswahl berechnet werden falls die Prüfung positiv verläuft.
-                Außerdem wird der Gesamtpreis danach angezeigt. Verläuft eine Prüfung negativ, wird eine entsprechende Fehlermeldung ausgegeben.
-         */
-
-        grundriss = kunde.getKunde().getSonderwuenscheGrundriss();
-
-        for (SonderwuenscheGrundriss sg : grundriss) {
-
-            if (sg.getWunsch().contains("Tür in der Wand zwischen Küche und Essbereich")) {
-
-                anzeg = 1;
-                break;
-            }
-            if (sg.getWunsch().contains("Großes Zimmer im OG statt zwei kleinen Zimmern")) {
-
-                anzog = 3;
-                break;
-            }
-            if ((sg.getWunsch().contains("Abgetrennter Treppenraum im DG")) && (sg.getWunsch().contains("Ausführung eines Bades im DG")) && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)) {
-
-                anzdg = 2;
-                break;
-            }
-            if ((sg.getWunsch().contains("Abgetrennter Treppenraum im DG")) || (sg.getWunsch().contains("Ausführung eines Bades im DG")) && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)) {
-
-                anzdg = 1;
-                break;
-            }
-            if ((kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() != 1) || ((!sg.getWunsch().contains("Abgetrennter Treppenraum im DG")) && (!sg.getWunsch().contains("Ausführung eines Bades im DG")) && (kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1))) {
-
-                anzdg = 0;
-                break;
-            }
-
+    public void initializeData(){
+        Set<SonderwuenscheGrundriss> sonderwuenscheGrundrisses = kunde.getSonderwuenscheGrundriss();
+        // Keller
+        if(hasDg){
+            this.anzTueren += 1;
+        } else{
+            this.anzTueren += 2;
         }
-        if(kunde.getKunde().getHausnummer().getHaustyp().getDachgeschoss() == 1)
-        {
-            anzkeller = 1 ;
+
+        //EG
+        for (SonderwuenscheGrundriss wunsch : sonderwuenscheGrundrisses
+             ) {
+            if(wunsch.getId() == 2){
+                this.anzTueren += 1;
+            }
+            if(wunsch.getId() == 3){
+                hasGrossesZimmerOG = true;
+            }
+            if(wunsch.getId() == 4){
+                hasAbgetrenntenTreppenraum = true;
+            }
+            if(wunsch.getId() == 6){
+                hasAusfuehrungBad = true;
+            }
+        }
+
+        //OG
+        if(hasGrossesZimmerOG){
+            this.anzTueren += 3;
+        } else{
+            this.anzTueren += 4;
+        }
+
+        //DG
+        if(hasAbgetrenntenTreppenraum && hasAusfuehrungBad){
+            this.anzTueren +=2;
+        }
+        if(hasDg && (hasAbgetrenntenTreppenraum ||hasAusfuehrungBad)){
+            this.anzTueren += 1;
         }
     }
 
+    public boolean check41(int anzDoors){
+        if(anzDoors < 1 || anzDoors > anzTueren){
+            return false;
+        }
+        return true;
+    }
 
-    public void gesamtpreisBerechnen(double[] preise, int[] anzahle) {
-    	
-        for (int i = 0; i < preise.length; i++) {
-            this.preis += preise[i] * (this.anzahl += anzahle[i]);
-            this.anzahl = 0;
+    public boolean check42(int anzDoors){
+        return this.check41(anzDoors);
+    }
+
+    public boolean check43(){
+        if(hasDg){
+            return true;
+        }
+        return false;
+    }
+
+    public void gesamtpreisBerechnen(List<SonderwuenscheInnentueren> wuensche) {
+    	for(SonderwuenscheInnentueren wunsch: wuensche){
+    	    this.preis += wunsch.getPreis();
         }
     }
     
@@ -96,17 +105,5 @@ public class InnentuerenModel {
 
     public int getAnzahl() {
         return anzahl;
-    }
-    public int getAnzkeller() {
-        return anzkeller;
-    }
-    protected int getAnzeg() {
-        return anzeg;
-    }
-    public int getAnzog() {
-        return anzog;
-    }
-    public int getAnzdg() {
-        return anzdg;
     }
 }
